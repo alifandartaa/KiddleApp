@@ -31,4 +31,7 @@
     <string name="image_icon_kiddle">Image Icon Kiddle</string>
     <string name="image_illustration_login_admin">Image Illustration Login Admin</string>
     <string name="masuk">MASUK</string>
+    <string name="title_dialog_bantuan_login">Cara mendapatkan ID dan Password</string>
+    <string name="message_dialog_bantuan_login">ID Guru dan Kata Sandi didapatkan dengan menghubungi staf Tata Usaha atau datang ke sekolah</string>
+    <string name="positive_button_dialog">OK</string>
 </resources>
