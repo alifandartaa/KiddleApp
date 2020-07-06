@@ -87,11 +87,15 @@
                     android:textSize="10sp"
                     android:layout_toRightOf="@id/tv_tanggal_item"
                     android:layout_marginLeft="16dp"
-                    android:layout_below="@id/tv_judul_item"/>
+                    android:layout_below="@id/tv_judul_item" />
 
             </RelativeLayout>
 
         </com.google.android.material.card.MaterialCardView>
+
+        <androidx.appcompat.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

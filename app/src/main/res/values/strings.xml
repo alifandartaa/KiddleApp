@@ -22,4 +22,13 @@
     <string name="orang_tua">Orang Tua</string>
     <string name="semester">Semester</string>
     <string name="rapor">Rapor</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="selamat_datang_login">Selamat Datang</string>
+    <string name="nomor_induk_pegawai">Nomor Induk Pegawai</string>
+    <string name="password">Password</string>
+    <string name="perlu_bantuan">Perlu bantuan?</string>
+    <string name="image_icon_kiddle">Image Icon Kiddle</string>
+    <string name="image_illustration_login_admin">Image Illustration Login Admin</string>
+    <string name="masuk">MASUK</string>
 </resources>
