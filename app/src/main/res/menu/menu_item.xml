@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_beranda"
+        android:icon="@drawable/ic_beranda_white"
+        android:title="@string/beranda"
+        />
+    <item
+        android:id="@+id/menu_murid"
+        android:icon="@drawable/ic__murid_white"
+        android:title="@string/murid"
+        />
+    <item
+        android:id="@+id/menu_sekolah"
+        android:icon="@drawable/ic_grade"
+        android:title="@string/sekolah"
+        />
+    <item
+        android:id="@+id/menu_pembayaran"
+        android:icon="@drawable/ic_pembayaran_white"
+        android:title="@string/pembayaran"
+        />
+    <item
+        android:id="@+id/menu_pengaturan"
+        android:icon="@drawable/ic_pengaturan_white"
+        android:title="@string/pengaturan"
+        />
+</menu>

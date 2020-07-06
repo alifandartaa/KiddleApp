@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/selamat_datang"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/apa_keperluanmu"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_profil"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_launcher_background"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/colorPrimary"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="351dp"
+            android:layout_height="67dp"
+            app:cardBackgroundColor="@color/colorBlue"
+            app:cardCornerRadius="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/civ_item"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_pengumuman"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="8dp"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_judul_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pengumuman terbaru"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14sp"
+                    android:layout_toRightOf="@id/civ_item"
+                    android:layout_alignTop="@id/civ_item"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="8dp"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_tanggal_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Value tanggal"
+                    android:textSize="10sp"
+                    android:layout_below="@id/tv_judul_item"
+                    android:layout_toRightOf="@id/civ_item"
+                    android:layout_marginLeft="8dp"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_tipe_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pengumuman"
+                    android:textSize="10sp"
+                    android:layout_toRightOf="@id/tv_tanggal_item"
+                    android:layout_marginLeft="16dp"
+                    android:layout_below="@id/tv_judul_item"/>
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/colorPrimary"
+        app:itemIconTint="@color/bottom_nav_foreground"
+        app:itemTextColor="@color/colorWhite"
+        app:menu="@menu/menu_item"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

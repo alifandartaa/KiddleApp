@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">KiddleApp</string>
+    <string name="beranda">Beranda</string>
+    <string name="murid">Murid</string>
+    <string name="sekolah">Sekolah</string>
+    <string name="pembayaran">Pembayaran</string>
+    <string name="pengaturan">Pengaturan</string>
+    <string name="selamat_datang">Selamat datang,</string>
+    <string name="apa_keperluanmu">Apa keperluanmu?</string>
+    <string name="pengumuman">Pengumuman</string>
+    <string name="penjelasan_keperluan">Semua perkembangan siswa harus direkap setiap hari</string>
+    <string name="presensi_siswa">Presensi Siswa</string>
+    <string name="jurnal_harian">Jurnal Harian</string>
+    <string name="tugas_tambahan">Tugas Tambahan</string>
+    <string name="data_rapor">Data Rapor</string>
+    <string name="penjelasan_pengumuman">Jangan sampai ketinggalan informasi sekolah terbaru</string>
+    <string name="ubah">Ubah</string>
+    <string name="hapus">Hapus</string>
+    <string name="kelas">Kelas</string>
+    <string name="tempat_tanggal_lahir">Tempat Tanggal Lahir</string>
+    <string name="alamat">Alamat</string>
+    <string name="orang_tua">Orang Tua</string>
+    <string name="semester">Semester</string>
+    <string name="rapor">Rapor</string>
+</resources>
