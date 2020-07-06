@@ -9,10 +9,10 @@
     <string name="apa_keperluanmu">Apa keperluanmu?</string>
     <string name="pengumuman">Pengumuman</string>
     <string name="penjelasan_keperluan">Semua perkembangan siswa harus direkap setiap hari</string>
-    <string name="presensi_siswa">Presensi Siswa</string>
-    <string name="jurnal_harian">Jurnal Harian</string>
-    <string name="tugas_tambahan">Tugas Tambahan</string>
-    <string name="data_rapor">Data Rapor</string>
+    <string name="presensi_siswa">Presensi\nSiswa</string>
+    <string name="jurnal_harian">Jurnal\nHarian</string>
+    <string name="tugas_tambahan">Tugas\nTambahan</string>
+    <string name="data_rapor">Data\nRapor</string>
     <string name="penjelasan_pengumuman">Jangan sampai ketinggalan informasi sekolah terbaru</string>
     <string name="ubah">Ubah</string>
     <string name="hapus">Hapus</string>
