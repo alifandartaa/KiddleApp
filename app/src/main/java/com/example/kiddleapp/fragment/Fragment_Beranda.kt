@@ -1,5 +1,6 @@
 package com.example.kiddleapp.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.kiddleapp.Notifikasi
 import com.example.kiddleapp.R
 import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageClickListener
@@ -32,6 +34,13 @@ class Fragment_Beranda : Fragment() {
 
     }
 
+    var notifListener:View.OnClickListener = object : View.OnClickListener {
+        override fun onClick(v: View?) {
+            startActivity(Intent(activity, Notifikasi::class.java))
+        }
+
+    }
+
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return  inflater.inflate(R.layout.fragment_beranda, container, false)
     }
@@ -42,6 +51,7 @@ class Fragment_Beranda : Fragment() {
         carouselView.pageCount = sampleImages.size
         carouselView.setImageListener(imageListener)
         carouselView.setImageClickListener(clickListener)
+        img_notification.setOnClickListener(notifListener)
 
     }
 }
