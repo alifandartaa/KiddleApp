@@ -14,6 +14,7 @@ import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageClickListener
 import com.synnapps.carouselview.ImageListener
 import kotlinx.android.synthetic.main.fragment_beranda.*
+import kotlinx.android.synthetic.main.fragment_beranda.view.*
 
 class Fragment_Beranda : Fragment() {
 
@@ -37,22 +38,20 @@ class Fragment_Beranda : Fragment() {
     }
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return  inflater.inflate(R.layout.fragment_beranda, container, false)
-    }
+        val view = inflater.inflate(R.layout.fragment_beranda, container, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        val carouselView = carouselView
-
-        //carousel
+        //instansiasi carousel
+        val carouselView = view.carouselView
         carouselView.pageCount = sampleImages.size
         carouselView.setImageListener(imageListener)
         carouselView.setImageClickListener(clickListener)
 
-        //intent ke notifikasi
-        img_notification.setOnClickListener{
+        //intent untuk menuju halaman notifikasi
+        view.img_notification.setOnClickListener {
             startActivity(Intent(activity, Notifikasi::class.java))
         }
 
+        return view
     }
+
 }

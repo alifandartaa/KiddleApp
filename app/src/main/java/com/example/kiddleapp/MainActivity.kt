@@ -2,12 +2,11 @@ package com.example.kiddleapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import com.example.kiddleapp.fragment.Fragment_Beranda
+import com.example.kiddleapp.fragment.Fragment_Pengaturan
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,6 +15,11 @@ class MainActivity : AppCompatActivity() {
         when(item.itemId) {
             R.id.menu_beranda -> {
                 val fragment = Fragment_Beranda()
+                addFragment(fragment)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.menu_pengaturan -> {
+                val fragment = Fragment_Pengaturan()
                 addFragment(fragment)
                 return@OnNavigationItemSelectedListener true
             }
