@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 
 class MainActivity : AppCompatActivity() {
 
+    //untuk assign fragment
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when(item.itemId) {
             R.id.menu_beranda -> {
@@ -19,20 +20,22 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
         }
-
         false
     }
 
+    //untuk mengisi frame layout dengan fragment
     private fun addFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //menambahkan listener
         bottom_navigation.setOnNavigationItemSelectedListener(navListener)
+
+        //fragment home otomatis terbuka pertama kali
         val fragment = Fragment_Beranda()
         addFragment(fragment)
 

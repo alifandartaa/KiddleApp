@@ -14,6 +14,7 @@ class Adapter_Notifikasi(private var data:List<Model_Notifikasi>, private val li
 
     lateinit var contextAdapter:Context
 
+    //assign value dari model ke xml
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val img_icon:ImageView = view.findViewById(R.id.img_icon_notifikasi)
         private val tv_judul:TextView = view.findViewById(R.id.tv_judul_notifikasi)
