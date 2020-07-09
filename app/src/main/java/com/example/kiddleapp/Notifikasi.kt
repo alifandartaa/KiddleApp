@@ -19,13 +19,13 @@ class Notifikasi : AppCompatActivity() {
         setContentView(R.layout.activity_notifikasi)
 
         //recyclerView dengan linear layout
-        rv_notifikasi.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rv_notifikasi.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         //mengkosongkan isi arraylist
         notifikasi.clear()
 
         //bisa diganti dengan data dari firebase
-        val notif = Model_Notifikasi("Pembelajaran Jarak Jauh", R.drawable.notif, "7 Juli 2020, 10.00 WIB", "Penguman")
+        val notif = Model_Notifikasi("Pembelajaran Jarak Dekat", R.drawable.notif, "8 Juli 2020, 10.00 WIB", "Penguman")
         notifikasi.add(notif)
 
         //agar notifikasi dapat di-click sekaligus mengisi adapter dengan data di arraylist tadi
