@@ -20,6 +20,8 @@ class Adapter_Murid(private var data:List<Model_Murid>, private val listener: (M
         private val img_avatar:ImageView = view.findViewById(R.id.img_avatar_murid)
         private val tv_nama:TextView = view.findViewById(R.id.tv_nama_murid)
 
+        // kalau mau ditambah kelas apa atau deksripsi lain jangan lupa ubah layout dan model
+
         fun bindItem(data:Model_Murid, listener: (Model_Murid) -> Unit, context: Context, position: Int) {
             img_avatar.setImageResource(data.avatar)
             tv_nama.text = data.nama

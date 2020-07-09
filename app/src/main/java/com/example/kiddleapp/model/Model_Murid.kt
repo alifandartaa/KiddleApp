@@ -7,5 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Model_Murid (
     val avatar:Int,
-    val nama:String
+    val nama:String,
+    val kelas:String
 ): Parcelable
