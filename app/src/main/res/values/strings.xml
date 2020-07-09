@@ -9,10 +9,10 @@
     <string name="apa_keperluanmu">Apa keperluanmu?</string>
     <string name="pengumuman">Pengumuman</string>
     <string name="penjelasan_keperluan">Semua perkembangan siswa harus direkap setiap hari</string>
-    <string name="presensi_siswa">Presensi Siswa</string>
-    <string name="jurnal_harian">Jurnal Harian</string>
-    <string name="tugas_tambahan">Tugas Tambahan</string>
-    <string name="data_rapor">Data Rapor</string>
+    <string name="presensi_siswa">Presensi\nSiswa</string>
+    <string name="jurnal_harian">Jurnal\nHarian</string>
+    <string name="tugas_tambahan">Tugas\nTambahan</string>
+    <string name="data_rapor">Data\nRapor</string>
     <string name="penjelasan_pengumuman">Jangan sampai ketinggalan informasi sekolah terbaru</string>
     <string name="ubah">Ubah</string>
     <string name="hapus">Hapus</string>
@@ -22,4 +22,6 @@
     <string name="orang_tua">Orang Tua</string>
     <string name="semester">Semester</string>
     <string name="rapor">Rapor</string>
+    <string name="lihat_semua">Lihat Semua</string>
+    <string name="lorem_ipsum">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae tellus feugiat, efficitur lacus nec, maximus felis. Maecenas ultrices tempor enim, et malesuada nisl lacinia eget. Integer arcu sapien, interdum nec neque sit amet, volutpat porta massa. Ut convallis purus lacus, ac tempor orci placerat vitae. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nullam eu ipsum consequat, imperdiet nibh sit amet, imperdiet risus. Vestibulum a nunc sapien. Sed velit ipsum, fermentum non mi ac, scelerisque pharetra ligula."</string>
 </resources>
