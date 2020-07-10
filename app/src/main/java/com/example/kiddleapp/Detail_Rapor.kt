@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.TextView
 import android.widget.Toast
 import com.example.kiddleapp.model.Model_Murid
 import kotlinx.android.synthetic.main.activity_detail__rapor.*
 import kotlinx.android.synthetic.main.activity_rapor.*
+import net.cachapa.expandablelayout.ExpandableLayout
 
 class Detail_Rapor : AppCompatActivity(), View.OnClickListener {
 
@@ -24,6 +26,7 @@ class Detail_Rapor : AppCompatActivity(), View.OnClickListener {
 
         //mengambil data dari halaman sebelumnya
         val data = intent.getParcelableExtra<Model_Murid>("data")
+
         tv_nama_rapor.text = data.nama
         img_avatar_rapor.setImageResource(data.avatar)
         tv_kelas_rapor.text = data.kelas
@@ -61,6 +64,12 @@ class Detail_Rapor : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    //ketika dropdown aktif di-click
+    fun nonaktif(layout:ExpandableLayout, trigger:TextView) {
+        layout.collapse()
+        trigger.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_dropdown, 0)
+    }
+
     //accordion sehingga hanya satu expandable layout yang aktif
     override fun onClick(v: View?) {
         if (v != null) {
@@ -79,8 +88,7 @@ class Detail_Rapor : AppCompatActivity(), View.OnClickListener {
                 expand_button_4.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_dropdown, 0)
             } else if(v.id == R.id.expand_button_0 && kognitif){
                 kognitif = false
-                expandable_layout_0.collapse()
-                expand_button_0.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_dropdown, 0)
+                nonaktif(expandable_layout_0, expand_button_0)
             } else if(v.id == R.id.expand_button_1 && !berbahasa) {
                 berbahasa = true
                 expandable_layout_0.collapse()
@@ -96,8 +104,7 @@ class Detail_Rapor : AppCompatActivity(), View.OnClickListener {
                 expand_button_4.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_dropdown, 0)
             } else if(v.id == R.id.expand_button_1 && berbahasa) {
                 berbahasa = false
-                expandable_layout_1.collapse()
-                expand_button_1.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_dropdown, 0)
+                nonaktif(expandable_layout_1, expand_button_1)
             } else if(v.id == R.id.expand_button_2 && !keterampilan) {
                 keterampilan = true
                 expandable_layout_0.collapse()
@@ -113,8 +120,7 @@ class Detail_Rapor : AppCompatActivity(), View.OnClickListener {
                 expand_button_4.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_dropdown, 0)
             } else if(v.id == R.id.expand_button_2 && keterampilan) {
                 keterampilan = false
-                expandable_layout_2.collapse()
-                expand_button_2.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_dropdown, 0)
+                nonaktif(expandable_layout_2, expand_button_2)
             } else if(v.id == R.id.expand_button_3 && !agama) {
                 agama = true
                 expandable_layout_0.collapse()
@@ -130,8 +136,7 @@ class Detail_Rapor : AppCompatActivity(), View.OnClickListener {
                 expand_button_4.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_dropdown, 0)
             } else if(v.id == R.id.expand_button_3 && agama) {
                 agama = false
-                expandable_layout_3.collapse()
-                expand_button_3.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_dropdown, 0)
+                nonaktif(expandable_layout_3, expand_button_3)
             } else if(v.id == R.id.expand_button_4 && !motorik) {
                 motorik = true
                 expandable_layout_0.collapse()
@@ -147,8 +152,7 @@ class Detail_Rapor : AppCompatActivity(), View.OnClickListener {
                 expand_button_4.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_dropdown_active, 0)
             } else if(v.id == R.id.expand_button_4 && motorik) {
                 motorik = false
-                expandable_layout_4.collapse()
-                expand_button_4.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_dropdown, 0)
+                nonaktif(expandable_layout_4, expand_button_4)
             }
         }
     }
