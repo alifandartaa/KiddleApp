@@ -24,4 +24,7 @@
     <string name="rapor">Rapor</string>
     <string name="lihat_semua">Lihat Semua</string>
     <string name="lorem_ipsum">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae tellus feugiat, efficitur lacus nec, maximus felis. Maecenas ultrices tempor enim, et malesuada nisl lacinia eget. Integer arcu sapien, interdum nec neque sit amet, volutpat porta massa. Ut convallis purus lacus, ac tempor orci placerat vitae. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nullam eu ipsum consequat, imperdiet nibh sit amet, imperdiet risus. Vestibulum a nunc sapien. Sed velit ipsum, fermentum non mi ac, scelerisque pharetra ligula."</string>
+    <string name="deskripsi_profil_sekolah">Profil sekolah beserta visi misi, fasilitas dan prestasi yang pernah diraih</string>
+    <string name="deskripsi_list_guru">Siapa saja guru yang menjadi partner anda di sekolah</string>
+    <string name="deskripsi_kegiatan">Pada hari tertentu sekolah mengadakan kegiatan menarik</string>
 </resources>
