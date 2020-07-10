@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kiddleapp.adapter.Adapter_Murid
 import com.example.kiddleapp.model.Model_Murid
@@ -41,7 +39,7 @@ class Rapor : AppCompatActivity() {
 
         //agar murid dapat di-click sekaligus mengisi adapter dengan data di arraylist tadi
         rv_rapor.adapter = Adapter_Murid(murid){
-            val intent: Intent = Intent(this@Rapor, Detail_Rapor::class.java).putExtra("data", it)
+            val intent: Intent = Intent(this@Rapor, Edit_Rapor::class.java).putExtra("data", it)
             startActivity(intent)
         }
 

@@ -8,11 +8,10 @@ import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.kiddleapp.model.Model_Murid
-import kotlinx.android.synthetic.main.activity_detail__rapor.*
-import kotlinx.android.synthetic.main.activity_rapor.*
+import kotlinx.android.synthetic.main.activity_edit__rapor.*
 import net.cachapa.expandablelayout.ExpandableLayout
 
-class Detail_Rapor : AppCompatActivity(), View.OnClickListener {
+class Edit_Rapor : AppCompatActivity(), View.OnClickListener {
 
     var kognitif:Boolean = false
     var berbahasa:Boolean = false
@@ -22,7 +21,7 @@ class Detail_Rapor : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail__rapor)
+        setContentView(R.layout.activity_edit__rapor)
 
         //mengambil data dari halaman sebelumnya
         val data = intent.getParcelableExtra<Model_Murid>("data")

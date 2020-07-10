@@ -1,5 +1,7 @@
 package com.example.kiddleapp
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.PopupMenu
@@ -15,13 +17,20 @@ class Profil_sekolah : AppCompatActivity() {
             val popup:PopupMenu = PopupMenu(this, it)
             popup.setOnMenuItemClickListener {
                 if(it.itemId == R.id.menu_edit) {
-                    Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
+                    val intent: Intent = Intent(this@Profil_sekolah, Edit_Sekolah::class.java)
+                    startActivity(intent)
                     return@setOnMenuItemClickListener true
                 }
                 return@setOnMenuItemClickListener false
             }
             popup.inflate(R.menu.menu_edit)
             popup.show()
+        }
+
+        btn_telepon_sekolah.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.setData(Uri.parse("tel:" + tv_kontak_sekolah.text))
+            startActivity(intent)
         }
     }
 }

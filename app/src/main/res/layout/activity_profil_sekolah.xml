@@ -41,7 +41,7 @@
             app:srcCompat="@drawable/ic_menu" />
 
         <ImageView
-            android:id="@+id/imageView11"
+            android:id="@+id/btn_telepon_sekolah"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -143,7 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
-                android:text="(0230)654778"
+                android:text="0230654778"
                 android:textColor="@color/colorBlack"
                 android:textSize="16sp" />
         </LinearLayout>
