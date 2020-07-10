@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Notifikasi"></activity>
-        <activity
-            android:name=".Beranda"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity android:name=".Edit_Sekolah"></activity>
+        <activity android:name=".Profil_sekolah" />
+        <activity android:name=".Edit_Rapor" />
+        <activity android:name=".Rapor" />
+        <activity android:name=".Notifikasi" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.kiddleapp.Notifikasi
 import com.example.kiddleapp.R
+import com.example.kiddleapp.Rapor
 import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageClickListener
 import com.synnapps.carouselview.ImageListener
@@ -49,6 +50,11 @@ class Fragment_Beranda : Fragment() {
         //intent untuk menuju halaman notifikasi
         view.img_notification.setOnClickListener {
             startActivity(Intent(activity, Notifikasi::class.java))
+        }
+
+        //intent untuk menuju halaman rapor
+        view.keperluan_rapor.setOnClickListener {
+            startActivity(Intent(activity,Rapor::class.java))
         }
 
         return view
