@@ -19,6 +19,17 @@ class Profil_sekolah : AppCompatActivity() {
             popup.setOnMenuItemClickListener {
                 if(it.itemId == R.id.menu_edit) {
                     val intent: Intent = Intent(this@Profil_sekolah, Edit_Sekolah::class.java)
+
+                    //agar saat edit sudah terisi. bisa diganti dengan cara lain yang lebih efektif kayaknya. kurang gambar sekolah
+                    intent.putExtra("nama_sekolah", tv_nama_sekolah.text)
+                    intent.putExtra("alamat_sekolah", tv_alamat_sekolah.text)
+                    intent.putExtra("kontak_sekolah", tv_kontak_sekolah.text)
+                    intent.putExtra("deskripsi_sekolah", tv_deskripsi_sekolah.text)
+                    intent.putExtra("visi_sekolah", tv_visi_sekolah.text)
+                    intent.putExtra("misi_sekolah", tv_misi_sekolah.text)
+                    intent.putExtra("fasilitas_sekolah", tv_fasilitas_sekolah.text)
+                    intent.putExtra("prestasi_sekolah", tv_prestasi_sekolah.text)
+
                     startActivity(intent)
                     return@setOnMenuItemClickListener true
                 }

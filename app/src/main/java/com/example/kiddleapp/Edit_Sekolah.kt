@@ -17,6 +17,16 @@ class Edit_Sekolah : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit__sekolah)
 
+        //barangkali bingung mau edit apa jadi di assign dulu value nya. kurang gambar sekolah nya
+        edit_nama_sekolah.setText(intent.getStringExtra("nama_sekolah"))
+        edit_alamat_sekolah.setText(intent.getStringExtra("alamat_sekolah"))
+        edit_kontak_sekolah.setText(intent.getStringExtra("kontak_sekolah"))
+        edit_deskripsi_sekolah.setText(intent.getStringExtra("deskripsi_sekolah"))
+        edit_visi_sekolah.setText(intent.getStringExtra("visi_sekolah"))
+        edit_misi_sekolah.setText(intent.getStringExtra("misi_sekolah"))
+        edit_prestasi_sekolah.setText(intent.getStringExtra("prestasi_sekolah"))
+        edit_fasilitas_sekolah.setText(intent.getStringExtra("prestasi_sekolah"))
+
         // intent untuk kembali ke halaman sebelumnya
         img_back_edit_sekolah.setOnClickListener {
             onBackPressed()
@@ -35,7 +45,7 @@ class Edit_Sekolah : AppCompatActivity() {
         }
     }
 
-    //buat dapetin extension gambar
+    //buat dapetin extension gambar nanti di firebase dipake
     private fun getFileExtension(imgLocation: Uri): String? {
         val contentResolver = contentResolver
         val mimeTypeMap = MimeTypeMap.getSingleton()

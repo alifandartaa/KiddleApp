@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,12 +75,12 @@
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_nama_sekolah"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_nama_sekolah"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="start"
@@ -114,12 +114,12 @@
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_alamat_sekolah"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_alamat_sekolah"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="start"
@@ -153,12 +153,12 @@
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_kontak_sekolah"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_kontak_sekolah"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="start"
@@ -193,12 +193,12 @@
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_deskripsi_sekolah"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_deskripsi_sekolah"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -233,12 +233,12 @@
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_visi_sekolah"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_visi_sekolah"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -273,12 +273,12 @@
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_misi_sekolah"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_misi_sekolah"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -313,12 +313,12 @@
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_fasilitas_sekolah"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_fasilitas_sekolah"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -353,12 +353,12 @@
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_prestasi_sekolah"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_prestasi_sekolah"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -378,6 +378,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:elevation="8dp"
             android:text="Simpan"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
