@@ -13,6 +13,7 @@ class Profil_sekolah : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profil_sekolah)
 
+        //buat nampilin menu
         menu_profil_sekolah.setOnClickListener {
             val popup:PopupMenu = PopupMenu(this, it)
             popup.setOnMenuItemClickListener {
@@ -27,6 +28,7 @@ class Profil_sekolah : AppCompatActivity() {
             popup.show()
         }
 
+        //intent buat manggil telepon
         btn_telepon_sekolah.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL)
             intent.setData(Uri.parse("tel:" + tv_kontak_sekolah.text))
