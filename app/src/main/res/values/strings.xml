@@ -34,4 +34,14 @@
     <string name="title_dialog_bantuan_login">Cara mendapatkan ID dan Password</string>
     <string name="message_dialog_bantuan_login">ID Guru dan Kata Sandi didapatkan dengan menghubungi staf Tata Usaha atau datang ke sekolah</string>
     <string name="positive_button_dialog">OK</string>
+    <string name="image_onboarding">Image OnBoarding</string>
+    <string name="title_onboarding_fragment">Title OnBoarding Fragment</string>
+    <string name="presensi">Presensi</string>
+    <string name="description_onboarding">Description Onboarding</string>
+    <string-array name="title_fragment_onboarding">
+        <item>Presensi Murid</item>
+        <item>Jurnal Kegiatan</item>
+        <item>Pembayaran SPP</item>
+        <item>Rapor Murid</item>
+    </string-array>
 </resources>
