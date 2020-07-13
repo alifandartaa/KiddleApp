@@ -19,7 +19,7 @@ class Rapor : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rapor)
 
-        //untuk dropdown
+        //untuk dropdown. bisa ganti kelas yang ada di firebase nya untuk dropdown
         val items = listOf("Bintang Kecil", "Bintang Besar", "Bulan Kecil", "Bulan Besar")
         val adapter = ArrayAdapter(this, R.layout.dropdown_text, items)
         (dropdown_rapor_kelas.editText as? AutoCompleteTextView)?.setAdapter(adapter)

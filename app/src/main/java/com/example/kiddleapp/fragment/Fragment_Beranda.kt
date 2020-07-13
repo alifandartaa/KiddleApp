@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.kiddleapp.Notifikasi
+import com.example.kiddleapp.Profil
 import com.example.kiddleapp.R
 import com.example.kiddleapp.Rapor
 import com.synnapps.carouselview.CarouselView
@@ -55,6 +56,10 @@ class Fragment_Beranda : Fragment() {
         //intent untuk menuju halaman rapor
         view.keperluan_rapor.setOnClickListener {
             startActivity(Intent(activity,Rapor::class.java))
+        }
+
+        view.img_avatar.setOnClickListener {
+            startActivity(Intent(activity, Profil::class.java).putExtra("tipeAkses", "PROFIL"))
         }
 
         return view

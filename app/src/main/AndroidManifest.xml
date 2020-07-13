@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Edit_Sekolah"></activity>
+        <activity android:name=".Guru"></activity>
+        <activity android:name=".Edit_Profil" />
+        <activity android:name=".Profil" />
+        <activity android:name=".Edit_Sekolah" />
         <activity android:name=".Profil_sekolah" />
         <activity android:name=".Edit_Rapor" />
         <activity android:name=".Rapor" />
