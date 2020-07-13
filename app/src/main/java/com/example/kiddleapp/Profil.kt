@@ -32,6 +32,7 @@ class Profil : AppCompatActivity() {
             tv_kontak_profil.text = data.kontak
             tv_jabatan_profil.text = data.jabatan
             tv_password_profil.text = data.password
+            img_profil.setImageResource(data.avatar)
         }
 
         //buat nampilin menu

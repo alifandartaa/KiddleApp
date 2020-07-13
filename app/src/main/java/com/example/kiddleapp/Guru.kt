@@ -43,7 +43,8 @@ class Guru : AppCompatActivity() {
         }
 
         btn_plus_guru.setOnClickListener {
-            Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@Guru, Edit_Profil::class.java).putExtra("jenis", "TAMBAH_PROFIL")
+            startActivity(intent)
         }
     }
 }

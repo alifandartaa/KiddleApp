@@ -31,11 +31,19 @@ class Edit_Profil : AppCompatActivity() {
             edit_password_profil.setText(intent.getStringExtra("password_profil"))
             dropdown_value_wali_kelas.setText(intent.getStringExtra("jabatan_profil"))
 
+            //gambar masih manual
+            img_edit_profil.setImageResource(R.drawable.avatar)
+
             //matikan input dan tampilkan warning
             tv_warning_nomor.visibility = View.VISIBLE
             tv_warning_wali_kelas.visibility = View.VISIBLE
             edit_nomor_profil.isEnabled = false
             dropdown_wali_kelas.isEnabled = false
+        } else {
+            //assign dropdown wali kelas
+            val items = listOf("Bintang Kecil", "Bintang Besar", "Bulan Kecil", "Bulan Besar")
+            val adapter = ArrayAdapter(this, R.layout.dropdown_text, items)
+            (dropdown_wali_kelas.editText as? AutoCompleteTextView)?.setAdapter(adapter)
         }
 
         //intent untuk kembali ke halaman sebelumnya
