@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.PopupMenu
 import android.widget.Toast
+import com.example.kiddleapp.model.Model_Guru
+import com.example.kiddleapp.model.Model_Murid
 import kotlinx.android.synthetic.main.activity_profil.*
 
 class Profil : AppCompatActivity() {
@@ -18,6 +20,18 @@ class Profil : AppCompatActivity() {
 
         img_back_profil.setOnClickListener {
             onBackPressed()
+        }
+
+        if(tipeAkses == "PROFIL") {
+            //assign textView dan imageVies dari database sesuai profil sendiri
+        } else {
+            //mengambil data dari halaman sebelumnya
+            val data = intent.getParcelableExtra<Model_Guru>("data")
+            tv_nama_profil.text = data.nama
+            tv_nomor_profil.text = data.nomor
+            tv_kontak_profil.text = data.kontak
+            tv_jabatan_profil.text = data.jabatan
+            tv_password_profil.text = data.password
         }
 
         //buat nampilin menu
@@ -34,7 +48,6 @@ class Profil : AppCompatActivity() {
                     intent.putExtra("kontak_profil", tv_kontak_profil.text)
                     intent.putExtra("jabatan_profil", tv_jabatan_profil.text)
                     intent.putExtra("password_profil", tv_password_profil.text)
-
                     startActivity(intent)
 
                     return@setOnMenuItemClickListener true
