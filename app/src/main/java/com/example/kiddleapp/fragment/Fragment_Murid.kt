@@ -10,6 +10,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kiddleapp.Detail_Murid
 import com.example.kiddleapp.Edit_Rapor
 import com.example.kiddleapp.R
 import com.example.kiddleapp.adapter.Adapter_Murid
@@ -38,15 +39,20 @@ class Fragment_Murid: Fragment() {
         murid.clear()
 
         //bisa diganti dengan data dari firebase
-        val temp = Model_Murid(R.drawable.avatar, "Lee Ji Eun", "Bintang Besar")
+        val temp = Model_Murid(
+            R.drawable.avatar,"198022" ,"Lee Ji Eun", "Bintang Besar",
+            "Bandung, 3 Mei 1999", "Jl. Watugong No.17F", "Budi", "Siti",
+        "0812345678", "089765432", "mangga123")
         murid.add(temp)
-
-        val temp2 = Model_Murid(R.drawable.avatar, "IU", "Bintang Kecil")
-        murid.add(temp2)
 
         //agar murid dapat di-click sekaligus mengisi adapter dengan data di arraylist tadi
         view.rv_murid.adapter = Adapter_Murid(murid){
-            Toast.makeText(activity, "Clicked " + it.nama, Toast.LENGTH_SHORT).show()
+            val intent = Intent(activity, Detail_Murid::class.java).putExtra("data", it)
+            startActivity(intent)
+        }
+
+        view.btn_plus_murid.setOnClickListener {
+            Toast.makeText(activity, "Clicked", Toast.LENGTH_SHORT).show()
         }
 
         return view

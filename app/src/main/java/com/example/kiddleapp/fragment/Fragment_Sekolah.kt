@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.kiddleapp.Guru
-import com.example.kiddleapp.Notifikasi
-import com.example.kiddleapp.Profil_sekolah
+import com.example.kiddleapp.Profil_Sekolah
 import com.example.kiddleapp.R
 import kotlinx.android.synthetic.main.fragment_sekolah.view.*
 
@@ -19,7 +18,7 @@ class Fragment_Sekolah:Fragment() {
 
         //intent untuk melihat profil sekolah
         view.relative_profil_sekolah.setOnClickListener {
-            startActivity(Intent(activity, Profil_sekolah::class.java))
+            startActivity(Intent(activity, Profil_Sekolah::class.java))
         }
 
         //intent untuk melihat guru

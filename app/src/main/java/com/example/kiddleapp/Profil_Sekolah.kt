@@ -5,10 +5,9 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.PopupMenu
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_profil_sekolah.*
 
-class Profil_sekolah : AppCompatActivity() {
+class Profil_Sekolah : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profil_sekolah)
@@ -18,7 +17,7 @@ class Profil_sekolah : AppCompatActivity() {
             val popup:PopupMenu = PopupMenu(this, it)
             popup.setOnMenuItemClickListener {
                 if(it.itemId == R.id.menu_edit) {
-                    val intent: Intent = Intent(this@Profil_sekolah, Edit_Sekolah::class.java)
+                    val intent: Intent = Intent(this@Profil_Sekolah, Edit_Sekolah::class.java)
 
                     //agar saat edit sudah terisi. bisa diganti dengan cara lain yang lebih efektif kayaknya. kurang gambar sekolah
                     intent.putExtra("nama_sekolah", tv_nama_sekolah.text)
