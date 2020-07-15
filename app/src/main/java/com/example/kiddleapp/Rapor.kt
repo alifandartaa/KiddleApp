@@ -31,11 +31,12 @@ class Rapor : AppCompatActivity() {
         murid.clear()
 
         //bisa diganti dengan data dari firebase
-        val temp = Model_Murid(R.drawable.avatar, "Lee Ji Eun", "Bintang Besar")
+        val temp = Model_Murid(
+            R.drawable.avatar,"198022" ,"Lee Ji Eun", "Bintang Besar",
+            "Bandung, 3 Mei 1999", "Jl. Watugong No.17F", "Budi", "Siti",
+            "0812345678", "089765432", "mangga123")
         murid.add(temp)
 
-        val temp2 = Model_Murid(R.drawable.avatar, "IU", "Bintang Kecil")
-        murid.add(temp2)
 
         //agar murid dapat di-click sekaligus mengisi adapter dengan data di arraylist tadi
         rv_rapor.adapter = Adapter_Murid(murid){

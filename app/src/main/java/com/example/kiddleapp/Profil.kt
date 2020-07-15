@@ -42,7 +42,7 @@ class Profil : AppCompatActivity() {
                 if(it.itemId == R.id.menu_edit) {
                     val intent:Intent = Intent(this@Profil, Edit_Profil::class.java)
 
-                    //assign value ke editView. kurang gambar
+                    //assign value ke editView nanti. kurang gambar
                     intent.putExtra("jenis", "EDIT_PROFIL")
                     intent.putExtra("nama_profil", tv_nama_profil.text)
                     intent.putExtra("nomor_profil", tv_nomor_profil.text)
