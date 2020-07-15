@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Detail_Murid"></activity>
+        <activity android:name=".Edit_Murid"></activity>
+        <activity android:name=".Detail_Murid" />
         <activity android:name=".Guru" />
         <activity android:name=".Edit_Profil" />
         <activity android:name=".Profil" />

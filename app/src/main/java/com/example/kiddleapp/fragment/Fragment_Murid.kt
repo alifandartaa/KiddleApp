@@ -10,9 +10,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.kiddleapp.Detail_Murid
-import com.example.kiddleapp.Edit_Rapor
-import com.example.kiddleapp.R
+import com.example.kiddleapp.*
 import com.example.kiddleapp.adapter.Adapter_Murid
 import com.example.kiddleapp.model.Model_Murid
 import kotlinx.android.synthetic.main.activity_rapor.*
@@ -52,7 +50,8 @@ class Fragment_Murid: Fragment() {
         }
 
         view.btn_plus_murid.setOnClickListener {
-            Toast.makeText(activity, "Clicked", Toast.LENGTH_SHORT).show()
+            val intent = Intent(activity, Edit_Murid::class.java).putExtra("jenis", "TAMBAH_PROFIL")
+            startActivity(intent)
         }
 
         return view

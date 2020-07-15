@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.example.kiddleapp.model.Model_Murid
 import kotlinx.android.synthetic.main.activity_detail__murid.*
 import kotlinx.android.synthetic.main.activity_profil.*
+import kotlinx.android.synthetic.main.list_murid.*
 
 class Detail_Murid : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +53,22 @@ class Detail_Murid : AppCompatActivity() {
             val popup: PopupMenu = PopupMenu(this, it)
             popup.setOnMenuItemClickListener {
                 if(it.itemId == R.id.menu_edit) {
-                    Toast.makeText(this, "Edit", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@Detail_Murid, Edit_Murid::class.java)
+
+                    //assign value ke editView nanti. kurang gambar
+                    intent.putExtra("jenis", "EDIT_PROFIL")
+                    intent.putExtra("nama_murid", tv_murid_nama.text.toString())
+                    intent.putExtra("nomor_murid", tv_murid_nomor.text.toString())
+                    intent.putExtra("kelas_murid", tv_murid_kelas.text.toString())
+                    intent.putExtra("ttl_murid", tv_murid_ttl.text.toString())
+                    intent.putExtra("alamat_murid", tv_murid_alamat.text.toString())
+                    intent.putExtra("ayah_murid", tv_murid_ayah.text.toString())
+                    intent.putExtra("kontak_ayah", tv_kontak_ayah.text.toString())
+                    intent.putExtra("ibu_murid", tv_murid_ibu.text.toString())
+                    intent.putExtra("kontak_ibu", tv_kontak_ibu.text.toString())
+                    intent.putExtra("password_murid", tv_murid_password.text.toString())
+                    startActivity(intent)
+
                     return@setOnMenuItemClickListener true
                 } else if(it.itemId == R.id.menu_hapus) {
                     Toast.makeText(this, "Hapus", Toast.LENGTH_SHORT).show()
@@ -71,7 +87,8 @@ class Detail_Murid : AppCompatActivity() {
 
         //intent ke halaman rapor
         btn_lihat_rapor.setOnClickListener {
-            Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
+            val intent: Intent = Intent(this@Detail_Murid, Edit_Rapor::class.java).putExtra("data", data)
+            startActivity(intent)
         }
     }
 }
