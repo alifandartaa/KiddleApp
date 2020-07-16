@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.kiddleapp.Kegiatan
 import com.example.kiddleapp.Notifikasi
 import com.example.kiddleapp.Profil_sekolah
 import com.example.kiddleapp.R
@@ -25,7 +26,7 @@ class Fragment_Sekolah:Fragment() {
         }
 
         view.relative_kegiatan.setOnClickListener {
-            Toast.makeText(activity, "Clicked", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(activity, Kegiatan::class.java))
         }
 
         return view

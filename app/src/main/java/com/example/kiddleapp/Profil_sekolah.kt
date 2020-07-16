@@ -5,7 +5,6 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.PopupMenu
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_profil_sekolah.*
 
 class Profil_sekolah : AppCompatActivity() {
@@ -16,7 +15,7 @@ class Profil_sekolah : AppCompatActivity() {
         menu_profil_sekolah.setOnClickListener {
             val popup:PopupMenu = PopupMenu(this, it)
             popup.setOnMenuItemClickListener {
-                if(it.itemId == R.id.menu_edit) {
+                if(it.itemId == R.id.menu_beranda) {
                     val intent: Intent = Intent(this@Profil_sekolah, Edit_Sekolah::class.java)
                     startActivity(intent)
                     return@setOnMenuItemClickListener true
