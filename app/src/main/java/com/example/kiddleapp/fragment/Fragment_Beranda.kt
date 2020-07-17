@@ -9,6 +9,10 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.kiddleapp.*
+import com.example.kiddleapp.Notifikasi
+import com.example.kiddleapp.Profil
+import com.example.kiddleapp.R
+import com.example.kiddleapp.Rapor
 import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageClickListener
 import com.synnapps.carouselview.ImageListener
@@ -74,6 +78,11 @@ class Fragment_Beranda : Fragment() {
         view.tv_lihat_pengumuman.setOnClickListener {
             startActivity(Intent(activity, Pengumuman::class.java))
         }
+        
+        view.img_avatar.setOnClickListener {
+            startActivity(Intent(activity, Profil::class.java).putExtra("tipeAkses", "PROFIL"))
+        }
+
         return view
     }
 
