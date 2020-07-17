@@ -35,17 +35,17 @@ class Tugas : AppCompatActivity() {
         tugas.clear()
 
         //bisa diganti dengan data dari firebase
-        val temp = Model_Tugas( "Bintang A", "Keterampilan", "Kerjakan Soal pada akhir video", "20 Juli 2020", "20.20 WIB", "20/20",0,R.raw.video_tugas)
+        val temp = Model_Tugas( "Bintang A", "Keterampilan", "Kerjakan Soal pada akhir video", "20 Juli 2020", "20.20 WIB", "20/20",0,R.raw.video_tugas,"https://youtu.be/g9aXIpJFKyU")
         tugas.add(temp)
 
-        val temp2 = Model_Tugas( "Bintang A", "Keterampilan", "Kerjakan Soal pada akhir video", "20 Juli 2020", "20.20 WIB", "20/20",R.drawable.banner_tugas,0)
+        val temp2 = Model_Tugas( "Bintang A", "Keterampilan", "Kerjakan Soal pada akhir video", "20 Juli 2020", "20.20 WIB", "20/20",R.drawable.banner_tugas,0,"https://youtu.be/g9aXIpJFKyU")
         tugas.add(temp2)
-        val temp3 = Model_Tugas("Bintang A", "Keterampilan", "Kerjakan Soal pada akhir video", "20 Juli 2020", "20.20 WIB", "20/20",0,R.raw.video_tugas)
+        val temp3 = Model_Tugas("Bintang A", "Keterampilan", "Kerjakan Soal pada akhir video", "20 Juli 2020", "20.20 WIB", "20/20",0,R.raw.video_tugas,"")
         tugas.add(temp3)
 
-        val temp4 = Model_Tugas( "Bintang A", "Keterampilan", "Kerjakan Soal pada akhir video", "20 Juli 2020", "20.20 WIB", "20/20",R.drawable.banner_tugas,0)
+        val temp4 = Model_Tugas( "Bintang A", "Keterampilan", "Kerjakan Soal pada akhir video", "20 Juli 2020", "20.20 WIB", "20/20",R.drawable.banner_tugas,0,"https://youtu.be/g9aXIpJFKyU")
         tugas.add(temp4)
-        val temp5 = Model_Tugas( "Bintang A", "Keterampilan", "Kerjakan Soal pada akhir video", "20 Juli 2020", "20.20 WIB", "20/20",0,R.raw.video_tugas)
+        val temp5 = Model_Tugas( "Bintang A", "Keterampilan", "Kerjakan Soal pada akhir video", "20 Juli 2020", "20.20 WIB", "20/20",0,R.raw.video_tugas,"")
         tugas.add(temp5)
 
 

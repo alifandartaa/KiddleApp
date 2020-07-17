@@ -20,28 +20,30 @@
                 android:id="@+id/input_link_edit_tugas"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="270dp"
-                android:layout_height="31dp"
-                android:layout_marginTop="4dp"
-                android:visibility="invisible"
+                android:layout_height="40dp"
+                android:layout_marginStart="4dp"
+                android:visibility="gone"
                 app:layout_constraintStart_toEndOf="@+id/img_link_edit_tugas"
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_link_edit_tugas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:lines="4"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:textSize="12sp" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"
+                    android:visibility="visible" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
                 android:id="@+id/img_link_edit_tugas"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
                 app:layout_constraintStart_toEndOf="@+id/img_gambar_edit_tugas"
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
                 app:srcCompat="@drawable/ic_link" />
@@ -54,7 +56,7 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="@string/sisipkan"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/input_tanggal_edit_tugas" />
@@ -107,9 +109,8 @@
             <ImageView
                 android:id="@+id/img_gambar_edit_tugas"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
                 app:layout_constraintStart_toEndOf="@+id/img_kamera_edit_tugas"
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
                 app:srcCompat="@drawable/ic_image" />
@@ -122,7 +123,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="@string/tanggal"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView55" />
@@ -133,6 +134,7 @@
                 android:layout_width="143dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="16dp"
+                android:enabled="false"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView56">
 
@@ -141,6 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:cursorVisible="true"
+                    android:enabled="true"
                     android:gravity="start"
                     android:lines="4"
                     android:paddingTop="10dp"
@@ -167,6 +170,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="143dp"
                 android:layout_height="40dp"
+                android:enabled="false"
                 app:layout_constraintEnd_toStartOf="@+id/btn_jam_edit_tugas"
                 app:layout_constraintTop_toBottomOf="@+id/textView57">
 
@@ -175,6 +179,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:cursorVisible="true"
+                    android:enabled="true"
                     android:gravity="start"
                     android:lines="4"
                     android:paddingTop="10dp"
@@ -191,7 +196,7 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="@string/aspek"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dropdown_kelas_edit_tugas" />
@@ -217,9 +222,8 @@
             <ImageView
                 android:id="@+id/img_kamera_edit_tugas"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
                 app:srcCompat="@drawable/ic_camera_black" />
@@ -232,7 +236,7 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="@string/deskrpsi"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dropdown_edit_tugas_aspek" />
@@ -277,7 +281,7 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="@string/kelas"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view9" />
@@ -290,7 +294,7 @@
                 android:layout_marginEnd="152dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="@string/jam"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView55" />

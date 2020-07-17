@@ -27,7 +27,7 @@ class Adapter_Kegiatan(private var data:List<Model_Kegiatan>, private val listen
         private val tv_judul:TextView = view.findViewById(R.id.tv_judul_list_kegiatan)
         val img_kegiatan :ImageView = view.findViewById(R.id.img_banner_list_kegiatan)
          val vv_kegiatan :VideoView = view.findViewById(R.id.vv_banner_list_kegiatan)
-         val btn :Button = view.findViewById(R.id.btn_list_kegiatan)
+      //   val btn :Button = view.findViewById(R.id.btn_list_kegiatan)
         // kalau mau ditambah kelas apa atau deksripsi lain jangan lupa ubah layout dan model
 
         fun bindItem(data:Model_Kegiatan, listener: (Model_Kegiatan) -> Unit, context: Context, position: Int) {
@@ -88,11 +88,11 @@ class Adapter_Kegiatan(private var data:List<Model_Kegiatan>, private val listen
                 .transform(RoundedCorners(32))
                 .into(holder.img_kegiatan)
         }
-        //biar tobolnya bisa diklik seklian parsng data
-            holder.btn.setOnClickListener { v ->
-            val i = Intent(v.context, Detail_Kegiatan::class.java).putExtra("data",data[position])
-            v.context.startActivity(i)
-        }
+//        //biar tobolnya bisa diklik seklian parsng data
+//            holder.btn.setOnClickListener { v ->
+//            val i = Intent(v.context, Detail_Kegiatan::class.java).putExtra("data",data[position])
+//            v.context.startActivity(i)
+//        }
 
 
     }

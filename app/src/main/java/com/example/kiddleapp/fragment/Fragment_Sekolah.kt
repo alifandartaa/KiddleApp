@@ -25,7 +25,7 @@ class Fragment_Sekolah:Fragment() {
         }
 
         view.relative_kegiatan.setOnClickListener {
-            startActivity(Intent(activity, Kegiatan::class.java))
+            startActivity(Intent(activity, Kegiatan::class.java).putExtra("jenis", "KEGIATAN"))
         }
 
         return view

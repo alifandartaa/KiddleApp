@@ -10,7 +10,8 @@ data class Model_Kegiatan (
     val isi: String,
     val tanggal:String,
     val gambar:Int,
-    val video:Int
+    val video:Int,
+    val link : String
 
 
 ): Parcelable

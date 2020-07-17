@@ -1,30 +1,21 @@
 package com.example.kiddleapp
 
-import android.app.ActionBar
+import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
-import android.text.TextUtils
+import android.text.InputType
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.MediaController
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.kiddleapp.adapter.Adapter_Hasil_Tugas
-import com.example.kiddleapp.adapter.Adapter_Kegiatan
 import com.example.kiddleapp.adapter.Adapter_Komentar
-import com.example.kiddleapp.adapter.Adapter_Tugas
-import com.example.kiddleapp.model.Model_Hasil_Tugas
 import com.example.kiddleapp.model.Model_Komentar
 import com.example.kiddleapp.model.Model_Pengumuman
-import com.example.kiddleapp.model.Model_Tugas
-import kotlinx.android.synthetic.main.activity_detail_kegiatan.*
 import kotlinx.android.synthetic.main.activity_detail_pengumuman.*
-import kotlinx.android.synthetic.main.activity_detail_tugas.*
-import kotlinx.android.synthetic.main.activity_profil_sekolah.*
-import kotlinx.android.synthetic.main.activity_tugas.*
+import kotlinx.android.synthetic.main.activity_notifikasi.*
 
 class Detail_Pengumuman : AppCompatActivity() {
 
@@ -103,5 +94,21 @@ class Detail_Pengumuman : AppCompatActivity() {
             popup.inflate(R.menu.menu_hapus_edit)
             popup.show()
         }
+
+        //komentar
+        btn_komentar.setOnClickListener {v ->
+            //mengkosongkan isi arraylist
+            val temp = Model_Komentar(R.drawable.avatar, "Lidya", "", tv_komentar.text.toString())
+            komentar.add(komentar.size, temp);
+            rv_komentar.adapter = Adapter_Komentar(komentar){
+            }
+            tv_komentar.setText("");
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            imm?.hideSoftInputFromWindow(v.windowToken, 0)
+
+        }
+
+
     }
+
 }

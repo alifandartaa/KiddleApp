@@ -20,28 +20,30 @@
                 android:id="@+id/input_link_edit_kegiatan"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="270dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="4dp"
-                android:visibility="invisible"
+                android:layout_height="40dp"
+                android:layout_marginStart="4dp"
+                android:visibility="gone"
                 app:layout_constraintStart_toEndOf="@+id/img_link_edit_kegiatan"
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_link_edit_kegiatan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:lines="4"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:textSize="8sp" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"
+                    android:visibility="visible" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
                 android:id="@+id/img_link_edit_kegiatan"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
                 app:layout_constraintStart_toEndOf="@+id/img_gambar_edit_kegiatan"
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
                 app:srcCompat="@drawable/ic_link" />
@@ -54,7 +56,7 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="@string/sisipkan"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/input_edit_kegiatan_deskripsi" />
@@ -85,9 +87,8 @@
             <ImageView
                 android:id="@+id/img_gambar_edit_kegiatan"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
                 app:layout_constraintStart_toEndOf="@+id/img_kamera_edit_kegiatan"
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
                 app:srcCompat="@drawable/ic_image" />
@@ -113,9 +114,8 @@
             <ImageView
                 android:id="@+id/img_kamera_edit_kegiatan"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
                 app:srcCompat="@drawable/ic_camera_black" />
@@ -128,7 +128,7 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="@string/judul"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view9" />
@@ -164,7 +164,7 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="@string/deskrpsi"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/input_edit_kegiatan_judul" />

@@ -1,24 +1,17 @@
 package com.example.kiddleapp
 
-import android.app.ActionBar
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
-import android.text.TextUtils
 import android.view.View
 import android.widget.MediaController
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kiddleapp.adapter.Adapter_Hasil_Tugas
-import com.example.kiddleapp.adapter.Adapter_Tugas
 import com.example.kiddleapp.model.Model_Hasil_Tugas
 import com.example.kiddleapp.model.Model_Tugas
 import kotlinx.android.synthetic.main.activity_detail_tugas.*
-import kotlinx.android.synthetic.main.activity_profil_sekolah.*
-import kotlinx.android.synthetic.main.activity_tugas.*
 
 class Detail_Tugas : AppCompatActivity() {
 
@@ -36,6 +29,8 @@ class Detail_Tugas : AppCompatActivity() {
         tv_judul_detail_tugas.text = data.judul
         tv_tanggal_detail_tugas.text=data.tanggal
         tv_jam_detail_tugas.text=data.jam
+        tv_link_detail_tugas.text=data.link
+
         if(data.gambar!=0)
         {
             img_detail_tugas.setVisibility(View.VISIBLE);
@@ -52,6 +47,12 @@ class Detail_Tugas : AppCompatActivity() {
             vv_detail_tugas.setMediaController(media_Controller)
             media_Controller.setAnchorView(vv_detail_tugas)
             vv_detail_tugas.seekTo( 10 );
+
+        }
+
+        if(data.link!=""){
+            img_link_detail_tugas.setVisibility(View.VISIBLE)
+            tv_link_detail_tugas.setVisibility(View.VISIBLE)
 
         }
 
@@ -98,5 +99,14 @@ class Detail_Tugas : AppCompatActivity() {
             popup.inflate(R.menu.menu_hapus_edit)
             popup.show()
         }
+        tv_link_detail_tugas.setOnClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(data.link)
+                )
+            )
+        }
+
     }
 }

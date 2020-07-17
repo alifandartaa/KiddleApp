@@ -39,10 +39,10 @@ class Fragment_Beranda : Fragment() {
         override fun onClick(position: Int) {
 
             if(position == 1){
-                startActivity(Intent(activity, Materi::class.java))
+                startActivity(Intent(activity, Kegiatan::class.java).putExtra("jenis", "MATERI"))
             }
             else if(position==0){
-                startActivity(Intent(activity, Parenting::class.java))
+                startActivity(Intent(activity, Kegiatan::class.java).putExtra("jenis", "PARENTING"))
             }
 
         }

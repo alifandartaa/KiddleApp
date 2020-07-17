@@ -47,6 +47,11 @@ class Edit_Kegiatan : AppCompatActivity() {
             tv_deskripsi_edit_kegiatan.setText(data.isi)
             tv_judul_edit_kegiatan.setText(data.judul)
 
+            if(data.link!=""){
+                input_link_edit_kegiatan.setVisibility(View.VISIBLE)
+                tv_link_edit_kegiatan.setText(data.link)
+            }
+
             if (data.gambar != 0) {
                 img_edit_kegiatan.setVisibility(View.VISIBLE);
                 vv_edit_kegiatan.setVisibility(View.GONE);
@@ -96,6 +101,11 @@ class Edit_Kegiatan : AppCompatActivity() {
             startActivityForResult(intent, 1)
         }
 
+        //link
+        img_link_edit_kegiatan.setOnClickListener {
+            input_link_edit_kegiatan.setVisibility(View.VISIBLE)
+        }
+
         //kamera
         img_kamera_edit_kegiatan.setOnClickListener {
             //if system os is Marshmallow or Above, we need to request runtime permission
@@ -121,6 +131,8 @@ class Edit_Kegiatan : AppCompatActivity() {
                 openCamera()
             }
         }
+
+
     }
 
     //kamera
@@ -196,21 +208,7 @@ class Edit_Kegiatan : AppCompatActivity() {
 
 
         //link
-        img_link_edit_kegiatan.setOnClickListener {
-            input_link_edit_kegiatan.setVisibility(View.VISIBLE)
-//nanti pakai youtube api
-//            val videoUrl:String = getUrlVideoRTSP(url);
-//            vv_tambah_tugas.setVisibility(View.VISIBLE);
-//            val mediaController =
-//                MediaController(this)
-//            mediaController.setAnchorView(vv_tambah_tugas)
-//            val uri = Uri.parse("rtsp://r7---sn-4g57kue6.googlevideo.com/Ck0LENy73wIaRAmk3cJBg-iaXhMYDSANFC3u0pRWMOCoAUIJbXYtZ29vZ2xlSARSBXdhdGNoYIaluaTkzciOVooBCzVxRjNraG5XcXdnDA==/D693A8E7577C3A29E60C292B42C9C87D7C25A565.762A63DC4CA0A028DA83256C6A79E5F160CBEDA3/yt6/1/video.3gp")
-//            vv_tambah_tugas.setMediaController(mediaController)
-//            vv_tambah_tugas.setVideoURI(uri)
-//            vv_tambah_tugas.requestFocus()
-//            vv_tambah_tugas.start()
 
-        }
 
     }
 }

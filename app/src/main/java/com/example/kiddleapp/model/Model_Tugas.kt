@@ -13,7 +13,8 @@ data class Model_Tugas (
     val jam: String,
     val jumlah:String,
     val gambar:Int,
-    val video:Int
+    val video:Int,
+    val link:String
 
 
 ): Parcelable

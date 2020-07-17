@@ -50,6 +50,12 @@ class Edit_Tugas : AppCompatActivity() {
             tv_tanggal_edit_tugas.setText(data.tanggal)
             tv_jam_edit_tugas.setText(data.jam)
 
+            if(data.link!=""){
+                input_link_edit_tugas.setVisibility(View.VISIBLE)
+                tv_link_edit_tugas.setText(data.link)
+            }
+
+
             if (data.gambar != 0) {
                 img_edit_tugas.setVisibility(View.VISIBLE);
                 vv_edit_tugas.setVisibility(View.GONE);
@@ -126,6 +132,12 @@ class Edit_Tugas : AppCompatActivity() {
                 cal.get(Calendar.MINUTE),
                 true
             ).show()
+        }
+
+        //link
+        img_link_edit_tugas.setOnClickListener {
+            input_link_edit_tugas.setVisibility(View.VISIBLE)
+
         }
 
         //untuk kelas
@@ -227,11 +239,11 @@ class Edit_Tugas : AppCompatActivity() {
     }
 
 
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+        grantResults: IntArray) {
         //called when user presses ALLOW or DENY from Permission Request Popup
         when (requestCode) {
             PERMISSION_CODE -> {
@@ -249,21 +261,7 @@ class Edit_Tugas : AppCompatActivity() {
 
 
         //link
-        img_link_edit_tugas.setOnClickListener {
-            input_link_edit_tugas.setVisibility(View.VISIBLE)
-//nanti pakai youtube api
-//            val videoUrl:String = getUrlVideoRTSP(url);
-//            vv_tambah_tugas.setVisibility(View.VISIBLE);
-//            val mediaController =
-//                MediaController(this)
-//            mediaController.setAnchorView(vv_tambah_tugas)
-//            val uri = Uri.parse("rtsp://r7---sn-4g57kue6.googlevideo.com/Ck0LENy73wIaRAmk3cJBg-iaXhMYDSANFC3u0pRWMOCoAUIJbXYtZ29vZ2xlSARSBXdhdGNoYIaluaTkzciOVooBCzVxRjNraG5XcXdnDA==/D693A8E7577C3A29E60C292B42C9C87D7C25A565.762A63DC4CA0A028DA83256C6A79E5F160CBEDA3/yt6/1/video.3gp")
-//            vv_tambah_tugas.setMediaController(mediaController)
-//            vv_tambah_tugas.setVideoURI(uri)
-//            vv_tambah_tugas.requestFocus()
-//            vv_tambah_tugas.start()
 
-        }
 
     }
 }
