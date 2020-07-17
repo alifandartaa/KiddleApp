@@ -10,9 +10,130 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="110dp"
         app:cardBackgroundColor="@color/colorBlue"
         app:cardCornerRadius="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_profil_konfirmspp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_launcher_background"
+                app:civ_border_color="@color/colorPrimary"
+                app:civ_border_width="2dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteY="16dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_contoh_konfirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/civ_profil_konfirmspp"
+                android:text="@string/contoh_nama_murid"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.13"
+                app:layout_constraintStart_toEndOf="@id/civ_profil_konfirmspp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_bulan_konfirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/civ_profil_konfirmspp"
+                android:layout_marginTop="4dp"
+                android:text="@string/bulan"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/civ_profil_konfirmspp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_jumlah_konfirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_bulan_konfirm"
+                android:layout_marginTop="2dp"
+                android:text="@string/jumlah"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_bulan_konfirm" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_value_bulankonfirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_contoh_konfirm"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_toEndOf="@id/tv_bulan_konfirm"
+                android:text="@string/value_bulan_konfirm"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tv_bulan_konfirm"
+                app:layout_constraintStart_toEndOf="@id/tv_bulan_konfirm"
+                app:layout_constraintTop_toTopOf="@id/tv_bulan_konfirm"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_value_jumlahkonfirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/value_jumlah_konfirm"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/tv_jumlah_konfirm"
+                app:layout_constraintStart_toStartOf="@id/tv_value_bulankonfirm"
+                app:layout_constraintTop_toTopOf="@id/tv_jumlah_konfirm" />
+
+            <View
+                android:id="@+id/divider_konfirm"
+                android:layout_width="1dp"
+                android:layout_height="47dp"
+                android:layout_marginStart="30dp"
+                android:background="#000"
+                app:layout_constraintBottom_toBottomOf="@id/tv_value_jumlahkonfirm"
+                app:layout_constraintStart_toEndOf="@id/tv_value_jumlahkonfirm"
+                app:layout_constraintTop_toBottomOf="@id/tv_contoh_konfirm" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_status_konfirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/divider_konfirm"
+                app:layout_constraintTop_toTopOf="@id/tv_value_bulankonfirm" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_value_statuskonfirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/value_status_konfirm"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/divider_konfirm"
+                app:layout_constraintTop_toBottomOf="@id/tv_status_konfirm" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </com.google.android.material.card.MaterialCardView>
 

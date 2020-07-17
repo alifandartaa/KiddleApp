@@ -47,9 +47,9 @@
     <string name="pilih_tanggal_tenggat_waktu">Pilih tanggal tenggat waktu</string>
     <string name="tanggal_spp">Tanggal SPP</string>
     <string name="jumlah_spp">jumlah spp</string>
-    <string name="value_jumlah_pembayaran">value jumlah</string>
+    <string name="value_jumlah_pembayaran">Rp 330.000</string>
     <string name="batas_pembayaran">Batas Pembayaran</string>
-    <string name="value_tanggal_detail_bayar">Value Tanggal Detail Bayar</string>
+    <string name="value_tanggal_detail_bayar">10 Maret 2020</string>
     <string name="ubah_pembayaran">Ubah pembayaran</string>
     <string name="jumlah_yang_lunas">Jumlah yang lunas</string>
     <string name="contoh_nama_murid">Contoh nama murid</string>
@@ -58,6 +58,12 @@
     <string name="bukti_pembayaran">Bukti Pembayaran</string>
     <string name="terima">Terima</string>
     <string name="tolak">tolak</string>
+    <string name="bulan">Bulan</string>
+    <string name="jumlah">Jumlah</string>
+    <string name="value_bulan_konfirm">April 2020</string>
+    <string name="value_jumlah_konfirm">Rp 330.000</string>
+    <string name="status">Status</string>
+    <string name="value_status_konfirm">Belum dikonfirmasi</string>
     <string-array name="title_fragment_onboarding">
         <item>Presensi Murid</item>
         <item>Jurnal Kegiatan</item>
