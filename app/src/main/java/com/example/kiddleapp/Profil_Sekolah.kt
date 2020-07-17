@@ -34,7 +34,7 @@ class Profil_Sekolah : AppCompatActivity() {
                 }
                 return@setOnMenuItemClickListener false
             }
-            popup.inflate(R.menu.menu_edit_only)
+            popup.inflate(R.menu.menu_edit)
             popup.show()
         }
 
