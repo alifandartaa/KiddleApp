@@ -196,22 +196,6 @@ class Edit_Pengumuman : AppCompatActivity() {
         }
 
 
-        //link
-        img_link_edit_pengumuman.setOnClickListener {
-            input_link_edit_pengumuman.setVisibility(View.VISIBLE)
-//nanti pakai youtube api
-//            val videoUrl:String = getUrlVideoRTSP(url);
-//            vv_tambah_tugas.setVisibility(View.VISIBLE);
-//            val mediaController =
-//                MediaController(this)
-//            mediaController.setAnchorView(vv_tambah_tugas)
-//            val uri = Uri.parse("rtsp://r7---sn-4g57kue6.googlevideo.com/Ck0LENy73wIaRAmk3cJBg-iaXhMYDSANFC3u0pRWMOCoAUIJbXYtZ29vZ2xlSARSBXdhdGNoYIaluaTkzciOVooBCzVxRjNraG5XcXdnDA==/D693A8E7577C3A29E60C292B42C9C87D7C25A565.762A63DC4CA0A028DA83256C6A79E5F160CBEDA3/yt6/1/video.3gp")
-//            vv_tambah_tugas.setMediaController(mediaController)
-//            vv_tambah_tugas.setVideoURI(uri)
-//            vv_tambah_tugas.requestFocus()
-//            vv_tambah_tugas.start()
-
-        }
 
     }
 }

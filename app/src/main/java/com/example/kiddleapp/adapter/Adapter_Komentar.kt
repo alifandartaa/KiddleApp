@@ -6,13 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kiddleapp.R
-import com.example.kiddleapp.model.Model_Hasil_Tugas
 import com.example.kiddleapp.model.Model_Komentar
-import com.example.kiddleapp.model.Model_Murid
-import com.example.kiddleapp.model.Model_Tugas
-import kotlinx.android.synthetic.main.list_murid.view.*
+
 
 class Adapter_Komentar(private var data:List<Model_Komentar>, private val listener: (Model_Komentar) -> Unit):RecyclerView.Adapter<Adapter_Komentar.ViewHolder>()  {
 
@@ -55,4 +53,8 @@ class Adapter_Komentar(private var data:List<Model_Komentar>, private val listen
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(data[position], listener, contextAdapter, position)
     }
+
+
+
 }
+

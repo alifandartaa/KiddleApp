@@ -72,7 +72,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Nama Sekolah"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -111,7 +111,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Alamat"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -150,7 +150,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Kontak"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -190,7 +190,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Deskripsi"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -230,7 +230,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Visi"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -270,7 +270,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Misi"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -310,7 +310,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Fasilitas"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -350,7 +350,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Prestasi"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout

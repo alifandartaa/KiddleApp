@@ -66,7 +66,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_bold"
             android:text="Nama"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorPrimary"
             android:textSize="14sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -105,7 +105,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_bold"
             android:text="Nomor Induk"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorPrimary"
             android:textSize="14sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -155,7 +155,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_bold"
             android:text="Kontak"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorPrimary"
             android:textSize="14sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -195,7 +195,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_bold"
             android:text="Wali Kelas"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorPrimary"
             android:textSize="14sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -246,7 +246,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_bold"
             android:text="Password"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorPrimary"
             android:textSize="14sp" />
 
         <com.google.android.material.textfield.TextInputLayout

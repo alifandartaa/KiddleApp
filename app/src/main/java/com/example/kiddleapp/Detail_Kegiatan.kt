@@ -14,6 +14,7 @@ import com.example.kiddleapp.model.Model_Kegiatan
 
 import kotlinx.android.synthetic.main.activity_detail_jurnal.*
 import kotlinx.android.synthetic.main.activity_detail_kegiatan.*
+import kotlinx.android.synthetic.main.activity_detail_tugas.*
 
 
 class Detail_Kegiatan : AppCompatActivity() {
@@ -28,6 +29,7 @@ class Detail_Kegiatan : AppCompatActivity() {
         tv_judul_detail_kegiatan.text = data.judul
         tv_tanggal_detail_kegiatan.text=data.tanggal
         tv_isi_detail_kegiatan.text=data.isi
+        tv_link_detail_kegiatan.text=data.link
 
         if(data.gambar!=0)
         {
@@ -44,6 +46,12 @@ class Detail_Kegiatan : AppCompatActivity() {
             vv_detail_kegiatan.setMediaController(media_Controller)
             media_Controller.setAnchorView(vv_detail_kegiatan)
             vv_detail_kegiatan.seekTo( 10 );
+
+        }
+
+        if(data.link!=""){
+            img_link_detail_kegiatan.setVisibility(View.VISIBLE)
+            tv_link_detail_kegiatan.setVisibility(View.VISIBLE)
 
         }
 
@@ -72,6 +80,15 @@ class Detail_Kegiatan : AppCompatActivity() {
             }
             popup.inflate(R.menu.menu_hapus_edit)
             popup.show()
+        }
+
+        tv_link_detail_kegiatan.setOnClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(data.link)
+                )
+            )
         }
     }
 }

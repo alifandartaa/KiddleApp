@@ -17,7 +17,7 @@
             android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_kegiatan"
+                android:id="@+id/rv_jenis_fungsi"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
@@ -28,7 +28,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView11"
+                app:layout_constraintTop_toBottomOf="@+id/gambar_jenis_fungsi"
                 app:layout_constraintVertical_bias="0.0" />
 
             <RelativeLayout
@@ -49,7 +49,7 @@
                     app:srcCompat="@drawable/ic_back" />
 
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/tv_jenis_fungsi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -70,7 +70,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/relativeLayout3" />
 
             <ImageView
-                android:id="@+id/imageView11"
+                android:id="@+id/gambar_jenis_fungsi"
                 android:layout_width="308dp"
                 android:layout_height="243dp"
                 android:layout_marginStart="60dp"
@@ -83,7 +83,7 @@
     </ScrollView>
 
     <ImageView
-        android:id="@+id/btn_tambah_kegiatan"
+        android:id="@+id/btn_tambah_jenis_fungsi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"

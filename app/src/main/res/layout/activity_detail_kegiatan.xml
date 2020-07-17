@@ -10,7 +10,7 @@
 
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="250dp"
         android:backgroundTint="@color/colorBlack"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -28,51 +28,61 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
                 android:visibility="gone" />
+
         </RelativeLayout>
 
         <ImageView
             android:id="@+id/img_detail_kegiatan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="fitXY"
             android:visibility="gone"
             app:srcCompat="@drawable/banner_kegiatan" />
 
     </FrameLayout>
 
+    <View
+        android:id="@+id/view14"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:background="@drawable/black_layer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/img_back_detail_kegiatan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="25dp"
+        android:layout_height="20dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:backgroundTintMode="screen"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back_shadow" />
+        app:srcCompat="@drawable/ic_back" />
 
     <ImageView
         android:id="@+id/menu_detail_kegiatan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="25dp"
+        android:layout_height="20dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_menu_shadow" />
+        app:srcCompat="@drawable/ic_menu" />
 
     <TextView
         android:id="@+id/tv_tanggal_detail_kegiatan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="236dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto_light"
         android:text="Bintang A"
         android:textColor="@color/colorBlack"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/frameLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/view14" />
 
 
     <TextView
@@ -100,7 +110,32 @@
         android:textColor="@color/colorBlack"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_judul_detail_kegiatan" />
+
+    <ImageView
+        android:id="@+id/img_link_detail_kegiatan"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_isi_detail_kegiatan"
+        app:srcCompat="@drawable/ic_link_blue" />
+
+    <TextView
+        android:id="@+id/tv_link_detail_kegiatan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto_light"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/img_link_detail_kegiatan"
+        app:layout_constraintTop_toBottomOf="@+id/tv_isi_detail_kegiatan" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
