@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.widget.PopupMenu
 import android.widget.Toast
 import com.example.kiddleapp.model.Model_Guru
-import com.example.kiddleapp.model.Model_Murid
 import kotlinx.android.synthetic.main.activity_profil.*
 
 class Profil : AppCompatActivity() {
@@ -60,7 +59,7 @@ class Profil : AppCompatActivity() {
             }
             //untuk memilih apakah bisa hapus atau tidak
             if(tipeAkses == "PROFIL"){
-                popup.inflate(R.menu.menu_edit)
+                popup.inflate(R.menu.menu_edit_only)
             } else {
                 popup.inflate(R.menu.menu_edit_hapus)
             }
