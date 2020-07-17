@@ -16,14 +16,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Spp.DetailSppActivity" />
         </activity>
-        <activity
-            android:name=".Spp.UbahSppActivity"
-            android:parentActivityName=".Spp.DetailSppActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Spp.DetailSppActivity" />
-        </activity>
-        <activity android:name=".Spp.TambahSppActivity" />
+        <activity android:name=".Spp.UbahSppActivity"></activity>
         <activity android:name=".Spp.DetailSppActivity"></activity>
         <activity android:name=".Spp.TestActivity">
             <intent-filter>

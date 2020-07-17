@@ -43,7 +43,7 @@ class SppFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         fab_tambah_spp.setOnClickListener {
-            val intent = Intent(activity, TambahSppActivity::class.java)
+            val intent = Intent(activity, UbahSppActivity::class.java)
             startActivity(intent)
         }
         iv_test.setOnClickListener {
