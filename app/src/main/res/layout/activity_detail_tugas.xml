@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <VideoView
+                android:id="@+id/vv_detail_tugas"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/img_detail_tugas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/img_back_detail_tugas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#03000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back_shadow" />
+
+    <ImageView
+        android:id="@+id/menu_detail_tugas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_menu_shadow" />
+
+    <TextView
+        android:id="@+id/tv_kelas_detail_tugas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="236dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Bintang A"
+        android:textColor="@color/colorBlack"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/frameLayout" />
+
+    <TextView
+        android:id="@+id/tv_kelas_detail_tugas2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Batas Pengumpulan"
+        android:textColor="@color/colorBlack"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_judul_detail_tugas" />
+
+    <TextView
+        android:id="@+id/tv_tanggal_detail_tugas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="20 Juli 2020"
+        android:textColor="@color/colorBlack"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_tanggal_detail_tugas3"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_kelas_detail_tugas2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_judul_detail_tugas" />
+
+    <TextView
+        android:id="@+id/tv_tanggal_detail_tugas3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto_light"
+        android:text=" - "
+        android:textColor="@color/colorBlack"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_jam_detail_tugas"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_kelas_detail_tugas2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_judul_detail_tugas" />
+
+    <TextView
+        android:id="@+id/tv_jam_detail_tugas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/roboto_light"
+        android:text=" 23.00 wib"
+        android:textColor="@color/colorBlack"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_judul_detail_tugas" />
+
+    <TextView
+        android:id="@+id/tv_judul_detail_tugas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Keterampilan"
+        android:textColor="@color/colorPrimary"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_kelas_detail_tugas" />
+
+    <TextView
+        android:id="@+id/tv_isi_detail_tugas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/isitugas"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_kelas_detail_tugas2" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_isi_detail_tugas"
+        app:srcCompat="@drawable/ic_garis" />
+
+    <TextView
+        android:id="@+id/textView54"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Hasil Tugas"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_hasil_tugas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView54" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

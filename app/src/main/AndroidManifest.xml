@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kiddleapp">
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -18,6 +22,24 @@
         <activity android:name=".Profil_Sekolah" />
         <activity android:name=".Edit_Rapor" />
         <activity android:name=".Rapor" />
+        <activity android:name=".Detail_Tugas" />
+        <activity android:name=".Tugas" />
+        <activity android:name=".Edit_Tugas" />
+        <activity android:name=".Jurnal" />
+        <activity android:name=".Detail_Jurnal" />
+        <activity android:name=".Kegiatan" />
+        <activity android:name=".Detail_Kegiatan" />
+        <activity android:name=".Edit_Kegiatan" />
+        <activity android:name=".Edit_Jurnal" />
+        <activity android:name=".Materi" />
+        <activity android:name=".Detail_Materi" />
+        <activity android:name=".Edit_Materi" />
+        <activity android:name=".Parenting" />
+        <activity android:name=".Detail_Parenting" />
+        <activity android:name=".Edit_Parenting" />
+        <activity android:name=".Pengumuman" />
+        <activity android:name=".Detail_Pengumuman" />
+        <activity android:name=".Edit_Pengumuman" />
         <activity android:name=".Notifikasi" />
         <activity android:name=".MainActivity">
             <intent-filter>

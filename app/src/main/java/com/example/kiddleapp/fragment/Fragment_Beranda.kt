@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.kiddleapp.*
 import com.example.kiddleapp.Notifikasi
 import com.example.kiddleapp.Profil
 import com.example.kiddleapp.R
@@ -35,7 +36,14 @@ class Fragment_Beranda : Fragment() {
     //jika gambar di carousel di-click bisa diganti menjadi intent
     var clickListener: ImageClickListener = object :ImageClickListener {
         override fun onClick(position: Int) {
-            Toast.makeText(activity, "Clicked $position", Toast.LENGTH_SHORT).show()
+
+            if(position == 1){
+                startActivity(Intent(activity, Materi::class.java))
+            }
+            else if(position==0){
+                startActivity(Intent(activity, Parenting::class.java))
+            }
+
         }
     }
 
@@ -58,6 +66,19 @@ class Fragment_Beranda : Fragment() {
             startActivity(Intent(activity,Rapor::class.java))
         }
 
+        //intent untuk menuju halaman tugas
+        view.keperluan_tugas.setOnClickListener {
+            startActivity(Intent(activity,Tugas::class.java))
+        }
+
+        view.keperluan_jurnal.setOnClickListener {
+            startActivity(Intent(activity, Jurnal::class.java))
+        }
+
+        view.tv_lihat_pengumuman.setOnClickListener {
+            startActivity(Intent(activity, Pengumuman::class.java))
+        }
+        
         view.img_avatar.setOnClickListener {
             startActivity(Intent(activity, Profil::class.java).putExtra("tipeAkses", "PROFIL"))
         }

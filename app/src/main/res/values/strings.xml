@@ -27,4 +27,20 @@
     <string name="deskripsi_profil_sekolah">Profil sekolah beserta visi misi, fasilitas dan prestasi yang pernah diraih</string>
     <string name="deskripsi_list_guru">Siapa saja guru yang menjadi partner anda di sekolah</string>
     <string name="deskripsi_kegiatan">Pada hari tertentu sekolah mengadakan kegiatan menarik</string>
+
+    <string name="tugas">Tugas</string>
+    <string name="kegiatan">Kegiatan</string>
+    <string name="parenting">Parenting</string>
+    <string name="jurnal">Jurnal</string>
+    <string name="materi">Materi</string>
+    <string name="isitugas">Kerjakan Soal pada akhir video</string>
+    <string name="aspek">Aspek</string>
+    <string name="deskrpsi">Deskripsi</string>
+    <string name="tenggat_waktu">Tenggat Waktu</string>
+    <string name="tanggal">Tanggal</string>
+    <string name="jam">Jam</string>
+    <string name="sisipkan">Sisipkan</string>
+    <string name="judul">Judul</string>
+
+    <string name="lorem_ipsum2">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae tellus feugiat, efficitur lacus nec, maximus felis.</string>
 </resources>

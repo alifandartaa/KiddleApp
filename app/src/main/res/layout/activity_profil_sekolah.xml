@@ -19,7 +19,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/profil_sekolah" />
+            app:srcCompat="@drawable/banner_materi" />
 
         <View
             android:id="@+id/view6"
