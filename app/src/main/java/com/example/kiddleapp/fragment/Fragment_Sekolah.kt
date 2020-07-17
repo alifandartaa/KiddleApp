@@ -7,11 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.kiddleapp.Kegiatan
-import com.example.kiddleapp.Notifikasi
-import com.example.kiddleapp.Profil_sekolah
-import com.example.kiddleapp.Guru
-import com.example.kiddleapp.R
+import com.example.kiddleapp.*
 import kotlinx.android.synthetic.main.fragment_sekolah.view.*
 
 class Fragment_Sekolah:Fragment() {
