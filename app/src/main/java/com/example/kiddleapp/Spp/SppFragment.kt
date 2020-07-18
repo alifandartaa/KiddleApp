@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kiddleapp.R
+import com.example.kiddleapp.Spp.adapter.SppAdapter
+import com.example.kiddleapp.Spp.model.ItemSpp
 import kotlinx.android.synthetic.main.fragment_spp.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -42,6 +45,28 @@ class SppFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        val list = ArrayList<ItemSpp>()
+
+        val test = ItemSpp("Maret 2020", 330000)
+        val test2 = ItemSpp("Februari 2020", 330000)
+        list.add(test)
+        list.add(test2)
+
+        rv_spp.layoutManager = LinearLayoutManager(activity)
+        val adapter = SppAdapter()
+        adapter.notifyDataSetChanged()
+        adapter.addItemToList(list)
+        rv_spp.adapter = adapter
+
+        adapter.setOnItemClickCallback(object : SppAdapter.OnItemClickCallback {
+            override fun onItemClick(data: ItemSpp) {
+                val intent = Intent(activity, DetailSppActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
+
         fab_tambah_spp.setOnClickListener {
             val intent = Intent(activity, UbahSppActivity::class.java)
             startActivity(intent)
