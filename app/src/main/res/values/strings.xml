@@ -22,6 +22,27 @@
     <string name="orang_tua">Orang Tua</string>
     <string name="semester">Semester</string>
     <string name="rapor">Rapor</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="selamat_datang_login">Selamat Datang</string>
+    <string name="nomor_induk_pegawai">Nomor Induk Pegawai</string>
+    <string name="password">Password</string>
+    <string name="perlu_bantuan">Perlu bantuan?</string>
+    <string name="image_icon_kiddle">Image Icon Kiddle</string>
+    <string name="image_illustration_login_admin">Image Illustration Login Admin</string>
+    <string name="masuk">MASUK</string>
+    <string name="title_dialog_bantuan_login">Cara mendapatkan ID dan Password</string>
+    <string name="message_dialog_bantuan_login">ID Guru dan Kata Sandi didapatkan dengan menghubungi staf Tata Usaha atau datang ke sekolah</string>
+    <string name="positive_button_dialog">OK</string>
+    <string name="image_onboarding">Image OnBoarding</string>
+    <string name="title_onboarding_fragment">Title OnBoarding Fragment</string>
+    <string name="presensi">Presensi</string>
+    <string name="description_onboarding">Description Onboarding</string>
+    <string-array name="title_fragment_onboarding">
+        <item>Presensi Murid</item>
+        <item>Jurnal Kegiatan</item>
+        <item>Pembayaran SPP</item>
+        <item>Rapor Murid</item>
+    </string-array>
     <string name="lihat_semua">Lihat Semua</string>
     <string name="lorem_ipsum">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae tellus feugiat, efficitur lacus nec, maximus felis. Maecenas ultrices tempor enim, et malesuada nisl lacinia eget. Integer arcu sapien, interdum nec neque sit amet, volutpat porta massa. Ut convallis purus lacus, ac tempor orci placerat vitae. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nullam eu ipsum consequat, imperdiet nibh sit amet, imperdiet risus. Vestibulum a nunc sapien. Sed velit ipsum, fermentum non mi ac, scelerisque pharetra ligula."</string>
     <string name="deskripsi_profil_sekolah">Profil sekolah beserta visi misi, fasilitas dan prestasi yang pernah diraih</string>
@@ -41,6 +62,5 @@
     <string name="jam">Jam</string>
     <string name="sisipkan">Sisipkan</string>
     <string name="judul">Judul</string>
-
     <string name="lorem_ipsum2">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae tellus feugiat, efficitur lacus nec, maximus felis.</string>
 </resources>
