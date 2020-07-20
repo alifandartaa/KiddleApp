@@ -15,7 +15,6 @@ class DetailSppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_spp)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
 
         val list = ArrayList<ItemBayarSpp>()
 

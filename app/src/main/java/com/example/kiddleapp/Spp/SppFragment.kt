@@ -50,8 +50,14 @@ class SppFragment : Fragment() {
 
         val test = ItemSpp("Maret 2020", 330000)
         val test2 = ItemSpp("Februari 2020", 330000)
+        val test3 = ItemSpp("Februari 2020", 330000)
+        val test4 = ItemSpp("Februari 2020", 330000)
+        val test5 = ItemSpp("Februari 2020", 330000)
         list.add(test)
         list.add(test2)
+        list.add(test3)
+        list.add(test4)
+        list.add(test5)
 
         rv_spp.layoutManager = LinearLayoutManager(activity)
         val adapter = SppAdapter()
@@ -67,8 +73,7 @@ class SppFragment : Fragment() {
 
         })
         fab_tambah_spp.setOnClickListener {
-            val intent = Intent(activity, UbahSppActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(activity, UbahSppActivity::class.java))
         }
         iv_test.setOnClickListener {
             val intent = Intent(activity, DetailSppActivity::class.java)
