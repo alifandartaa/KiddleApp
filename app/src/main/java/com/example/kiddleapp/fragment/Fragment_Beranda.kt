@@ -6,18 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.kiddleapp.*
-import com.example.kiddleapp.Notifikasi
-import com.example.kiddleapp.Profil
-import com.example.kiddleapp.R
-import com.example.kiddleapp.Rapor
+import com.example.kiddleapp.Presensi.PresensiActivity
 import com.example.kiddleapp.model.Model_Pengumuman
-import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageClickListener
 import com.synnapps.carouselview.ImageListener
-import kotlinx.android.synthetic.main.fragment_beranda.*
 import kotlinx.android.synthetic.main.fragment_beranda.view.*
 
 class Fragment_Beranda : Fragment() {
@@ -57,6 +51,10 @@ class Fragment_Beranda : Fragment() {
         carouselView.setImageListener(imageListener)
         carouselView.setImageClickListener(clickListener)
 
+        view.keperluan_presensi.setOnClickListener {
+            startActivity(Intent(activity, PresensiActivity::class.java))
+        }
+
         //intent untuk menuju halaman notifikasi
         view.img_notification.setOnClickListener {
             startActivity(Intent(activity, Notifikasi::class.java))
@@ -64,7 +62,7 @@ class Fragment_Beranda : Fragment() {
 
         //intent untuk menuju halaman rapor
         view.keperluan_rapor.setOnClickListener {
-            startActivity(Intent(activity,Rapor::class.java))
+            startActivity(Intent(activity, Rapor::class.java))
         }
 
         //intent untuk menuju halaman tugas
