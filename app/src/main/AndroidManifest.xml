@@ -14,8 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".OnBoardingActivity">
+
         </activity>
         <activity android:name=".SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Edit_Murid"></activity>
         <activity android:name=".Detail_Murid" />
         <activity android:name=".Guru" />
@@ -34,26 +41,15 @@
         <activity android:name=".Detail_Kegiatan" />
         <activity android:name=".Edit_Kegiatan" />
         <activity android:name=".Edit_Jurnal" />
-        <activity android:name=".Materi" />
-        <activity android:name=".Detail_Materi" />
-        <activity android:name=".Edit_Materi" />
-        <activity android:name=".Parenting" />
-        <activity android:name=".Detail_Parenting" />
-        <activity android:name=".Edit_Parenting" />
         <activity android:name=".Pengumuman" />
         <activity android:name=".Detail_Pengumuman" />
         <activity android:name=".Edit_Pengumuman" />
         <activity android:name=".Notifikasi" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".MainActivity" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
