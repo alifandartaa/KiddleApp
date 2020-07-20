@@ -72,6 +72,7 @@
     <string name="sakit">Sakit</string>
     <string name="izin">Izin</string>
     <string name="alpha">Alpha</string>
+    <string name="nama_anak">Nama anak</string>
     <string-array name="title_fragment_onboarding">
         <item>Presensi Murid</item>
         <item>Jurnal Kegiatan</item>
