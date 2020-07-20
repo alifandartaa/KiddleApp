@@ -66,7 +66,6 @@ class SppFragment : Fragment() {
             }
 
         })
-
         fab_tambah_spp.setOnClickListener {
             val intent = Intent(activity, UbahSppActivity::class.java)
             startActivity(intent)
