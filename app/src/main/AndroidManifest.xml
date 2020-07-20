@@ -13,16 +13,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OnBoardingActivity">
-
-        </activity>
-        <activity android:name=".SplashActivity">
+        <activity android:name=".Presensi.DetailPresensiActivity"></activity>
+        <activity android:name=".Presensi.PresensiActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Spp.KonfirmSppActivity"
+            android:parentActivityName=".Spp.DetailSppActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Spp.DetailSppActivity" />
+        </activity>
+        <activity android:name=".Spp.UbahSppActivity" />
+        <activity android:name=".Spp.DetailSppActivity" />
+        <activity android:name=".Spp.TestActivity"></activity>
+        <activity android:name=".OnBoardingActivity" />
+        <activity android:name=".SplashActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".Edit_Murid"></activity>
         <activity android:name=".Detail_Murid" />
         <activity android:name=".Guru" />
@@ -45,7 +57,6 @@
         <activity android:name=".Detail_Pengumuman" />
         <activity android:name=".Edit_Pengumuman" />
         <activity android:name=".Notifikasi" />
-        <activity android:name=".MainActivity">
 
         </activity>
 

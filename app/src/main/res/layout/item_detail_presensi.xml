@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv_presensi_murid"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="16dp"
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardCornerRadius="4dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:orientation="vertical"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="4dp">
+
+        <TextView
+            android:id="@+id/tv_nama_murid_presensi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:text="@string/nama_anak"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+    <net.cachapa.expandablelayout.ExpandableLayout
+        android:id="@+id/expend_layout_presensi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:el_duration="500"
+        app:el_expanded="true"
+        app:el_parallax="0.5">
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/option_hadir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/hadir" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/option_sakit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/sakit" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/option_izin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/izin" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/option_alpha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/alpha" />
+        </RadioGroup>
+
+
+    </net.cachapa.expandablelayout.ExpandableLayout>
+
+</LinearLayout>
