@@ -18,14 +18,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/top_blue_box"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
             <ImageView
                 android:id="@+id/iv_presensi"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/background_spp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:paddingTop="20dp"
+                android:src="@drawable/ilustrasi_presensi" />
 
             <ImageView
+                android:id="@+id/ic_back_presensi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -56,14 +67,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fl_banner_presensi" />
 
-        <Spinner
-            android:id="@+id/sp_kelas_presensi"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dropdown_kelas_presensi"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginHorizontal="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_kelas_presensi" />
+            app:layout_constraintTop_toBottomOf="@id/tv_kelas_presensi">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:textSize="14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_tanggal_presensi"
@@ -76,13 +98,12 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sp_kelas_presensi" />
+            app:layout_constraintTop_toBottomOf="@id/dropdown_kelas_presensi" />
 
         <DatePicker
             android:id="@+id/dp_tanggal_presensi"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -102,6 +123,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_libur_presensi"
+                android:backgroundTint="@color/colorAccent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

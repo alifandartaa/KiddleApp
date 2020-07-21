@@ -1,5 +1,6 @@
 package com.example.kiddleapp.Presensi
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,8 +38,12 @@ class DetailPresensiActivity : AppCompatActivity() {
 
         adapter.setOnItemClickCallback(object : ListPresensiAdapter.onClickCallback {
             override fun onItemClick(data: PresensiMurid) {
-                expend_layout_presensi.expand()
+                expend_layout_presensi.isExpanded = true
             }
         })
+
+        ic_back_detailpres.setOnClickListener {
+            startActivity(Intent(this@DetailPresensiActivity, PresensiActivity::class.java))
+        }
     }
 }
