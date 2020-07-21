@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kiddleapp">
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -31,6 +35,34 @@
         <activity android:name=".SplashActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
-    </application>
+        <activity android:name=".Edit_Murid"></activity>
+        <activity android:name=".Detail_Murid" />
+        <activity android:name=".Guru" />
+        <activity android:name=".Edit_Profil" />
+        <activity android:name=".Profil" />
+        <activity android:name=".Edit_Sekolah" />
+        <activity android:name=".Profil_Sekolah" />
+        <activity android:name=".Edit_Rapor" />
+        <activity android:name=".Rapor" />
+        <activity android:name=".Detail_Tugas" />
+        <activity android:name=".Tugas" />
+        <activity android:name=".Edit_Tugas" />
+        <activity android:name=".Jurnal" />
+        <activity android:name=".Detail_Jurnal" />
+        <activity android:name=".Kegiatan" />
+        <activity android:name=".Detail_Kegiatan" />
+        <activity android:name=".Edit_Kegiatan" />
+        <activity android:name=".Edit_Jurnal" />
+        <activity android:name=".Pengumuman" />
+        <activity android:name=".Detail_Pengumuman" />
+        <activity android:name=".Edit_Pengumuman" />
+        <activity android:name=".Notifikasi" />
 
+        </activity>
+
+        <activity android:name=".LoginActivity"></activity>
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
 </manifest>

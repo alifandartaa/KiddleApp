@@ -1,5 +1,6 @@
 package com.example.kiddleapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -10,7 +11,12 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        tv_bantuan_login.setOnClickListener {
+        btn_login_admin.setOnClickListener {
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        tv_bantuan_login_admin.setOnClickListener {
             MaterialAlertDialogBuilder(this)
                 .setMessage(getString(R.string.message_dialog_bantuan_login))
                 .setTitle(getString(R.string.title_dialog_bantuan_login))
