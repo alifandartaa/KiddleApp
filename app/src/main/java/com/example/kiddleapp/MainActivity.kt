@@ -1,8 +1,9 @@
 package com.example.kiddleapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.kiddleapp.Spp.SppFragment
 import com.example.kiddleapp.fragment.Fragment_Beranda
 import com.example.kiddleapp.fragment.Fragment_Murid
 import com.example.kiddleapp.fragment.Fragment_Pengaturan
@@ -32,6 +33,11 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.menu_murid -> {
                 val fragment = Fragment_Murid()
+                addFragment(fragment)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.menu_pembayaran -> {
+                val fragment = SppFragment()
                 addFragment(fragment)
                 return@OnNavigationItemSelectedListener true
             }
