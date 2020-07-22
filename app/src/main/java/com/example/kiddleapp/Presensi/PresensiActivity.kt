@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kiddleapp.MainActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.example.kiddleapp.R
 import kotlinx.android.synthetic.main.activity_presensi.*
 
@@ -26,7 +27,6 @@ class PresensiActivity : AppCompatActivity() {
         val items = listOf("Bintang Kecil", "Bintang Besar", "Bulan Kecil", "Bulan Besar")
         val adapter = ArrayAdapter(this, R.layout.dropdown_text, items)
         (dropdown_kelas_presensi.editText as? AutoCompleteTextView)?.setAdapter(adapter)
-
 
         supportActionBar?.hide()
     }

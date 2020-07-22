@@ -1,10 +1,11 @@
-package com.example.kiddleapp
+package com.example.kiddleapp.Onboarding
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.kiddleapp.R
 import kotlinx.android.synthetic.main.fragment_on_boarding.*
 
 // TODO: Rename parameter arguments, choose names that match

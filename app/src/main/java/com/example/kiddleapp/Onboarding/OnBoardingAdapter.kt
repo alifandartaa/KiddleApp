@@ -1,4 +1,4 @@
-package com.example.kiddleapp
+package com.example.kiddleapp.Onboarding
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -11,7 +11,9 @@ class OnBoardingAdapter(activity: AppCompatActivity, val itemsCount: Int) :
     }
 
     override fun createFragment(position: Int): Fragment {
-        return OnBoardingFragment.newInstance(position)
+        return OnBoardingFragment.newInstance(
+            position
+        )
     }
 
 }
