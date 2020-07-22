@@ -6,6 +6,7 @@
     android:layout_gravity="center"
     android:layout_marginBottom="16dp"
     app:cardBackgroundColor="@color/colorBlue"
+    app:cardElevation="8dp"
     app:cardCornerRadius="8dp">
 
     <RelativeLayout
@@ -21,7 +22,7 @@
             android:src="@drawable/ic_launcher_background" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_nama_murid_lunas"
+            android:id="@+id/tv_nama_murid_detailspp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/civ_murid_spplunas"
@@ -37,8 +38,9 @@
             android:id="@+id/tv_tanggallunas_murid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_nama_murid_lunas"
+            android:layout_below="@id/tv_nama_murid_detailspp"
             android:layout_marginStart="8dp"
+            android:textColor="@color/colorBlack"
             android:layout_toEndOf="@id/civ_murid_spplunas"
             android:text="@string/value_tanggal"
             android:textSize="12sp" />
@@ -47,10 +49,11 @@
             android:id="@+id/tv_konfirmlunas_murid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_nama_murid_lunas"
+            android:layout_below="@id/tv_nama_murid_detailspp"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:textColor="@color/colorBlack"
             android:text="Konfirm lunas"
             android:textSize="12sp" />
 

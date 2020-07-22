@@ -4,9 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
     android:orientation="vertical"
     tools:context=".Spp.DetailSppActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/img_back_detail_spp"
+            android:layout_width="25dp"
+            android:layout_height="20dp"
+            android:layout_marginVertical="16dp"
+            android:layout_marginStart="16dp"
+            app:srcCompat="@drawable/ic_back" />
+
+        <ImageView
+            android:id="@+id/menu_ubah_spp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            app:srcCompat="@drawable/ic_menu" />
+
+
+    </RelativeLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -24,6 +49,7 @@
                 android:id="@+id/tv_bulan_cardview"
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
                 android:gravity="center"
                 android:text="@string/contoh_bulan"
                 android:textAllCaps="true"
@@ -50,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorBlack"
                 android:text="@string/jumlah_pembayaran"
                 app:layout_constraintStart_toEndOf="@id/divider_detailspp"
                 app:layout_constraintTop_toTopOf="parent"
@@ -62,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="@string/value_jumlah_pembayaran"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorBlack"
                 app:layout_constraintStart_toEndOf="@id/tv_jumlahpembayaran_detail"
                 app:layout_constraintTop_toTopOf="parent"
                 android:textSize="12sp" />
@@ -73,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorBlack"
                 app:layout_constraintStart_toEndOf="@id/divider_detailspp"
                 android:text="@string/batas_pembayaran"
                 app:layout_constraintTop_toBottomOf="@id/tv_jumlahpembayaran_detail"
@@ -85,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="@string/value_tanggal_detail_bayar"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorBlack"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/divider_detailspp"
                 app:layout_constraintTop_toBottomOf="@id/tv_bataspembayaran_detail"
@@ -104,11 +130,22 @@
         android:textColor="@color/colorAccent"
         android:textStyle="bold" />
 
-    <Spinner
-        android:id="@+id/sp_kelas_detailspp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dropdown_kelas_detailspp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp" />
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="16dp">
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:textSize="14sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_test_to_konfirm"

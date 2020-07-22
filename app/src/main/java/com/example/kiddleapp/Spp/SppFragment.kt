@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kiddleapp.R
@@ -59,19 +61,21 @@ class SppFragment : Fragment() {
         adapter.addItemToList(list)
         rv_spp.adapter = adapter
 
+        val items = listOf("1 (Satu)", "2 (Dua)")
+        val arrayDropdown = ArrayAdapter(requireActivity(), R.layout.dropdown_text, items)
+        (dropdown_semester_spp.editText as? AutoCompleteTextView)?.setAdapter(arrayDropdown)
+
         adapter.setOnItemClickCallback(object : SppAdapter.OnItemClickCallback {
             override fun onItemClick(data: ItemSpp) {
                 val intent = Intent(activity, DetailSppActivity::class.java)
+                intent.putExtra("bulan_spp", data.bulanSpp)
+                intent.putExtra("jumlah_pembayaran", data.jumlahPembayaran)
                 startActivity(intent)
             }
 
         })
         fab_tambah_spp.setOnClickListener {
             val intent = Intent(activity, UbahSppActivity::class.java)
-            startActivity(intent)
-        }
-        iv_test.setOnClickListener {
-            val intent = Intent(activity, DetailSppActivity::class.java)
             startActivity(intent)
         }
     }
