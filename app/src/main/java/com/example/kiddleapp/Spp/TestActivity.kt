@@ -9,7 +9,6 @@ class TestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
 
-        supportActionBar!!.hide()
         var fr = supportFragmentManager.beginTransaction()
         fr.add(R.id.fragment_container, SppFragment()).commit()
     }

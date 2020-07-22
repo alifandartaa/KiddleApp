@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.kiddleapp.R
 import com.example.kiddleapp.Spp.model.ItemSpp
 import kotlinx.android.synthetic.main.item_pembayaran_spp.view.*
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SppAdapter : RecyclerView.Adapter<SppAdapter.SppViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
@@ -16,7 +19,9 @@ class SppAdapter : RecyclerView.Adapter<SppAdapter.SppViewHolder>() {
         fun bind(itemSpp: ItemSpp) {
             with(itemView) {
                 tv_bulan_spp.text = itemSpp.bulanSpp.toString()
-                tv_jumlahbayar_spp.append(itemSpp.jumlahPembayaran.toString())
+                val localeID = Locale("in", "ID")
+                val formatRupiah: NumberFormat = NumberFormat.getCurrencyInstance(localeID)
+                tv_jumlahbayar_spp.text = formatRupiah.format(itemSpp.jumlahPembayaran)
             }
         }
 

@@ -16,7 +16,7 @@ class DetailSppAdapter : RecyclerView.Adapter<DetailSppAdapter.DetailSppViewHold
         fun bind(itemBayarSpp: ItemBayarSpp) {
             with(itemView) {
                 civ_murid_spplunas.setImageResource(itemBayarSpp.photo!!)
-                tv_nama_murid_lunas.text = itemBayarSpp.namaMurid
+                tv_nama_murid_detailspp.text = itemBayarSpp.namaMurid
                 tv_tanggallunas_murid.text = itemBayarSpp.tanggalBayar
                 tv_konfirmlunas_murid.text = itemBayarSpp.konfirmasi
             }

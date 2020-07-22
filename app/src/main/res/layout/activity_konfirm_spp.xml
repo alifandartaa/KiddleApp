@@ -5,18 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".Spp.KonfirmSppActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/img_back_konfirm_spp"
+            android:layout_width="25dp"
+            android:layout_height="20dp"
+            android:layout_marginVertical="16dp"
+            android:layout_marginStart="16dp"
+            app:srcCompat="@drawable/ic_back" />
+
+    </RelativeLayout>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="110dp"
+        android:layout_marginHorizontal="16dp"
         app:cardBackgroundColor="@color/colorBlue"
         app:cardCornerRadius="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:padding="16dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -24,14 +41,12 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_launcher_background"
-                app:civ_border_color="@color/colorPrimary"
-                app:civ_border_width="2dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteY="16dp" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_contoh_konfirm"
+                android:id="@+id/tv_nama_murid_konfirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -52,7 +67,7 @@
                 android:layout_below="@id/civ_profil_konfirmspp"
                 android:layout_marginTop="4dp"
                 android:text="@string/bulan"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorBlack"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/civ_profil_konfirmspp" />
@@ -64,7 +79,7 @@
                 android:layout_below="@id/tv_bulan_konfirm"
                 android:layout_marginTop="2dp"
                 android:text="@string/jumlah"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorBlack"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_bulan_konfirm" />
@@ -73,12 +88,12 @@
                 android:id="@+id/tv_value_bulankonfirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_contoh_konfirm"
+                android:layout_below="@id/tv_nama_murid_konfirm"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:layout_toEndOf="@id/tv_bulan_konfirm"
                 android:text="@string/value_bulan_konfirm"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorBlack"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_bulan_konfirm"
@@ -91,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/value_jumlah_konfirm"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorBlack"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/tv_jumlah_konfirm"
@@ -102,11 +117,11 @@
                 android:id="@+id/divider_konfirm"
                 android:layout_width="1dp"
                 android:layout_height="47dp"
-                android:layout_marginStart="30dp"
-                android:background="#000"
+                android:layout_marginStart="36dp"
+                android:background="@color/colorBlack"
                 app:layout_constraintBottom_toBottomOf="@id/tv_value_jumlahkonfirm"
                 app:layout_constraintStart_toEndOf="@id/tv_value_jumlahkonfirm"
-                app:layout_constraintTop_toBottomOf="@id/tv_contoh_konfirm" />
+                app:layout_constraintTop_toBottomOf="@id/tv_nama_murid_konfirm" />
 
 
             <com.google.android.material.textview.MaterialTextView
@@ -114,7 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/status"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorBlack"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/divider_konfirm"
@@ -125,7 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/value_status_konfirm"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorBlack"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -143,15 +158,25 @@
         android:layout_marginTop="16dp"
         android:text="@string/bukti_pembayaran"
         android:textColor="@color/colorAccent"
+        android:layout_marginHorizontal="16dp"
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <ImageView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginTop="8dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_launcher_background" />
+        android:layout_marginHorizontal="16dp"
+        app:cardCornerRadius="4dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_launcher_background" />
+
+    </androidx.cardview.widget.CardView>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -163,6 +188,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/btn_tolak_bkbayar"
             android:layout_marginBottom="16dp"
+            android:layout_marginHorizontal="16dp"
             android:text="@string/terima"
             app:cornerRadius="4dp" />
 
@@ -172,6 +198,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/tolak"
             android:textColor="@color/colorAccent"
             app:cornerRadius="4dp"
