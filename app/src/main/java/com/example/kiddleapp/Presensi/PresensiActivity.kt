@@ -6,7 +6,6 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kiddleapp.MainActivity
-import androidx.appcompat.app.AppCompatActivity
 import com.example.kiddleapp.R
 import kotlinx.android.synthetic.main.activity_presensi.*
 

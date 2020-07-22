@@ -45,8 +45,5 @@ class DetailPresensiActivity : AppCompatActivity() {
         ic_back_detailpres.setOnClickListener {
             startActivity(Intent(this@DetailPresensiActivity, PresensiActivity::class.java))
         }
-                expend_layout_presensi.expand()
-            }
-        })
     }
 }

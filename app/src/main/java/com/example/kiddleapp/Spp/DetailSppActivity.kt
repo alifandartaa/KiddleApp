@@ -20,37 +20,7 @@ class DetailSppActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_spp)
 
-
-
         val list = ArrayList<ItemBayarSpp>()
-
-        val test = ItemBayarSpp(
-            "Nur Fajri Hayyuni Maulidya",
-            "02 Maret 2020",
-            "Belum dikonfirmasi",
-            R.drawable.female_avatar
-        )
-        val test2 = ItemBayarSpp(
-            "Nur Fajri Hayyuni Maulidya",
-            "02 Maret 2020",
-            "Belum dikonfirmasi",
-            R.drawable.female_avatar
-        )
-        list.add(test)
-        list.add(test2)
-        rv_detail_spp.layoutManager = LinearLayoutManager(this)
-        val adapter = DetailSppAdapter()
-        adapter.notifyDataSetChanged()
-        adapter.addItemToList(list)
-        rv_detail_spp.adapter = adapter
-
-        adapter.setOnItemClickCallback(object : DetailSppAdapter.onClickCallback {
-            override fun onItemClick(data: ItemBayarSpp) {
-                val intent = Intent(this@DetailSppActivity, KonfirmSppActivity::class.java)
-                startActivity(intent)
-            }
-        })
-    }
 
         val test = ItemBayarSpp(
             "Nur Fajri Hayyuni Maulidya",
