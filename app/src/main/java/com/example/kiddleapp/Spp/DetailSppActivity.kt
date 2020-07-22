@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kiddleapp.R
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kiddleapp.Spp.adapter.DetailSppAdapter
 import com.example.kiddleapp.Spp.model.ItemBayarSpp
 import kotlinx.android.synthetic.main.activity_detail_spp.*
@@ -15,6 +15,11 @@ class DetailSppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_spp)
+
+        tv_test_to_konfirm.setOnClickListener {
+            val intent = Intent(this@DetailSppActivity, KonfirmSppActivity::class.java)
+            startActivity(intent)
+        }
 
         val list = ArrayList<ItemBayarSpp>()
 
