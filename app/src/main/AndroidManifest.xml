@@ -30,6 +30,8 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Edit_Murid"></activity>
+        <activity android:name=".Spp.KonfirmSppActivity" />
+        <activity android:name=".Edit_Murid" />
         <activity android:name=".Detail_Murid" />
         <activity android:name=".Guru" />
         <activity android:name=".Edit_Profil" />
@@ -51,6 +53,10 @@
         <activity android:name=".Detail_Pengumuman" />
         <activity android:name=".Edit_Pengumuman" />
         <activity android:name=".Notifikasi" />
+
+        </activity>
+
+        <activity android:name=".LoginActivity"></activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

@@ -41,6 +41,5 @@ class UbahSppActivity : AppCompatActivity() {
             )
             dpd.show()
         }
-
     }
 }
