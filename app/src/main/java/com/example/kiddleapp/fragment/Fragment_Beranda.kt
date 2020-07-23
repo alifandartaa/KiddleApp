@@ -6,17 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.kiddleapp.*
-import com.example.kiddleapp.Notifikasi
-import com.example.kiddleapp.Profil
-import com.example.kiddleapp.R
-import com.example.kiddleapp.Rapor
-import com.synnapps.carouselview.CarouselView
+import com.example.kiddleapp.Presensi.PresensiActivity
+import com.example.kiddleapp.model.Model_Pengumuman
 import com.synnapps.carouselview.ImageClickListener
 import com.synnapps.carouselview.ImageListener
-import kotlinx.android.synthetic.main.fragment_beranda.*
 import kotlinx.android.synthetic.main.fragment_beranda.view.*
 
 class Fragment_Beranda : Fragment() {
@@ -56,6 +51,10 @@ class Fragment_Beranda : Fragment() {
         carouselView.setImageListener(imageListener)
         carouselView.setImageClickListener(clickListener)
 
+        view.keperluan_presensi.setOnClickListener {
+            startActivity(Intent(activity, PresensiActivity::class.java))
+        }
+
         //intent untuk menuju halaman notifikasi
         view.img_notification.setOnClickListener {
             startActivity(Intent(activity, Notifikasi::class.java))
@@ -63,7 +62,7 @@ class Fragment_Beranda : Fragment() {
 
         //intent untuk menuju halaman rapor
         view.keperluan_rapor.setOnClickListener {
-            startActivity(Intent(activity,Rapor::class.java))
+            startActivity(Intent(activity, Rapor::class.java))
         }
 
         //intent untuk menuju halaman tugas
@@ -71,16 +70,27 @@ class Fragment_Beranda : Fragment() {
             startActivity(Intent(activity,Tugas::class.java))
         }
 
+        //intent untuk menuju halaman jurnal
         view.keperluan_jurnal.setOnClickListener {
             startActivity(Intent(activity, Jurnal::class.java))
         }
 
+        //intent untuk menuju halaman pengumuman
         view.tv_lihat_pengumuman.setOnClickListener {
             startActivity(Intent(activity, Pengumuman::class.java))
         }
-        
+
+        //intent untuk menuju halaman profil
         view.img_avatar.setOnClickListener {
             startActivity(Intent(activity, Profil::class.java).putExtra("tipeAkses", "PROFIL"))
+        }
+
+        //pengumuman bisa diubah dari data firebase
+        val temp = Model_Pengumuman("Pembelajaran Online", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae tellus feugiat, efficitur lacus nec, maximus felis. Maecenas ultrices tempor enim, et malesuada nisl lacinia eget", "20 Juli 2020",R.drawable.banner_pengumuman2,0)
+
+        view.img_pengumuman_beranda.setOnClickListener {
+            val intent: Intent = Intent(activity, Detail_Pengumuman::class.java).putExtra("data", temp)
+            startActivity(intent)
         }
 
         return view

@@ -82,7 +82,8 @@ class Detail_Murid : AppCompatActivity() {
 
         //intent ke halaman rekap presensi
         btn_rekap_presensi.setOnClickListener {
-            Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
+            val intent: Intent = Intent(this@Detail_Murid, Rekap_Presensi::class.java)
+            startActivity(intent)
         }
 
         //intent ke halaman rapor
