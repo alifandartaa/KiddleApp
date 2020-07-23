@@ -8,11 +8,16 @@ import android.app.TimePickerDialog
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.icu.text.SimpleDateFormat
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
+import android.util.Patterns
 import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.*
@@ -39,11 +44,11 @@ class Edit_Tugas : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_tugas)
-
+        //mengambil data dari halaman sebelumnya
+        val data = intent.getParcelableExtra<Model_Tugas>("data")
 
         if(intent.getStringExtra("jenis") == "EDIT_TUGAS") {
-            //mengambil data dari halaman sebelumnya
-            val data = intent.getParcelableExtra<Model_Tugas>("data")
+
             tv_kelas_edit_tugas.setText(data.kelas)
             tv_deskripsi_edit_tugas.setText(data.isi)
             tv_aspek_edit_tugas.setText(data.judul)
@@ -82,15 +87,33 @@ class Edit_Tugas : AppCompatActivity() {
             btn_tutup_edit_tugas.setVisibility(View.GONE)
         }
 
+
+
+
         //kembali
         img_back_edit_tugas.setOnClickListener {
             onBackPressed()
         }
 
 
+        fun String.isValidUrl(): Boolean = Patterns.WEB_URL.matcher(this).matches()
+        //link
         // simpan
         btn_simpan_edit_tugas.setOnClickListener {
-            Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
+           if(tv_link_edit_tugas.getText().toString().isValidUrl() || tv_link_edit_tugas.getText().toString().equals("")){
+               val intent: Intent = Intent(this@Edit_Tugas, Tugas::class.java)
+               startActivity(intent)
+               Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT).show()
+           }else{
+               tv_link_edit_tugas.setError("Pastikan tautan sudah benar");
+               //kalau pakai ini bacaanya gak kliatan
+//               input_link_edit_tugas.isErrorEnabled = true
+//               input_link_edit_tugas.setErrorTextColor(ColorStateList.valueOf(Color.RED))
+//               input_link_edit_tugas.error ="Pastikan tautan sudah benar"
+                //input_link_edit_tugas.setError("Pastikan tautan sudah benar");
+           }
+
+
         }
 
         //tanggal
@@ -260,7 +283,7 @@ class Edit_Tugas : AppCompatActivity() {
         }
 
 
-        //link
+
 
 
     }

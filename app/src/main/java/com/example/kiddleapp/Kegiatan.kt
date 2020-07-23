@@ -97,8 +97,18 @@ class Kegiatan : AppCompatActivity() {
 
     }
     btn_tambah_jenis_fungsi.setOnClickListener {
-        val intent: Intent = Intent(this@Kegiatan, Edit_Kegiatan::class.java).putExtra("jenis", "TAMBAH")
-        startActivity(intent)
+        if(intent.getStringExtra("jenis") == "KEGIATAN") {
+            val intent: Intent = Intent(this@Kegiatan, Edit_Kegiatan::class.java).putExtra("jenis", "TAMBAH_KEGIATAN")
+            startActivity(intent)
+        }else if(intent.getStringExtra("jenis") == "PARENTING") {
+            val intent: Intent = Intent(this@Kegiatan, Edit_Kegiatan::class.java).putExtra("jenis", "TAMBAH_PARENTING")
+            startActivity(intent)
+        }
+        else if(intent.getStringExtra("jenis") == "MATERI"){
+            val intent: Intent = Intent(this@Kegiatan, Edit_Kegiatan::class.java).putExtra("jenis", "TAMBAH_MATERI")
+            startActivity(intent)
+        }
+
     }
         //intent untuk kembali ke halaman sebelumnya
         img_back_kegiatan.setOnClickListener {
