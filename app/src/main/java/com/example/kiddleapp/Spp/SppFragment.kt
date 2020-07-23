@@ -10,8 +10,8 @@ import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kiddleapp.R
-import com.example.kiddleapp.Spp.adapter.SppAdapter
-import com.example.kiddleapp.Spp.model.ItemSpp
+import com.example.kiddleapp.Spp.Adapter.SppAdapter
+import com.example.kiddleapp.Spp.Model.ItemSpp
 import kotlinx.android.synthetic.main.fragment_spp.*
 
 // TODO: Rename parameter arguments, choose names that match

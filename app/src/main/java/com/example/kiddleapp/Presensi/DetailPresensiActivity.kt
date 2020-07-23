@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.kiddleapp.Presensi.adapter.ListPresensiAdapter
-import com.example.kiddleapp.Presensi.model.PresensiMurid
+import com.example.kiddleapp.Presensi.Adapter.PresensiAdapter
+import com.example.kiddleapp.Presensi.Model.PresensiMurid
 import com.example.kiddleapp.R
 import kotlinx.android.synthetic.main.activity_detail_presensi.*
 import kotlinx.android.synthetic.main.item_detail_presensi.*
@@ -31,12 +31,12 @@ class DetailPresensiActivity : AppCompatActivity() {
         list.add(test5)
         list.add(test6)
         rv_presensi_murid.layoutManager = LinearLayoutManager(this)
-        val adapter = ListPresensiAdapter()
+        val adapter = PresensiAdapter()
         adapter.notifyDataSetChanged()
         adapter.addItemToList(list)
         rv_presensi_murid.adapter = adapter
 
-        adapter.setOnItemClickCallback(object : ListPresensiAdapter.onClickCallback {
+        adapter.setOnItemClickCallback(object : PresensiAdapter.onClickCallback {
             override fun onItemClick(data: PresensiMurid) {
                 expend_layout_presensi.isExpanded = true
             }

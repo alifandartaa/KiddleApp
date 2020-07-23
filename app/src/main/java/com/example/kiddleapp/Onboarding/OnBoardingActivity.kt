@@ -13,7 +13,12 @@ class OnBoardingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_on_boarding)
 
         val titleFragment =
-            arrayOf<String>("Presensi Murid", "Jurnal Kegiatan", "Pembayaran SPP", "Rapor Murid")
+            arrayOf<String>(
+                "Presensi Murid",
+                "JurnalActivity KegiatanActivity",
+                "Pembayaran SPP",
+                "RaporActivity Murid"
+            )
 
         val onBoardingAdapter =
             OnBoardingAdapter(

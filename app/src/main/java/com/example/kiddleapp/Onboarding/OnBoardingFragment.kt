@@ -22,7 +22,12 @@ class OnBoardingFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var positionFragment: Int = 0
     private val titleFragment =
-        arrayOf("Presensi Murid", "Jurnal Kegiatan", "Pembayaran SPP", "Rapor Murid")
+        arrayOf(
+            "Presensi Murid",
+            "JurnalActivity KegiatanActivity",
+            "Pembayaran SPP",
+            "RaporActivity Murid"
+        )
     private val descriptionFragment = arrayOf(
         "Membantu wali murid mengetahui kehadiran anak setiap harinya",
         "Semua kegiatan pembelajaran dapat diakses dengan mudah",

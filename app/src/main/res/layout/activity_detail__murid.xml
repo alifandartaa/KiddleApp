@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Detail_Murid">
+    tools:context=".Murid.DetailMuridActivity">
 
     <ImageView
         android:id="@+id/img_avatar_detail_murid"
@@ -14,6 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_detail"
         app:srcCompat="@drawable/avatar" />
 
     <View
@@ -33,6 +34,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_back"
         app:srcCompat="@drawable/ic_back" />
 
     <ImageView
@@ -43,6 +45,7 @@
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/icon_more"
         app:srcCompat="@drawable/ic_menu" />
 
     <TextView
@@ -50,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_bold"
-        android:text="Lee Ji Eun"
+        android:text="@string/contoh_nama_murid"
         android:textColor="@color/colorWhite"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_murid_nomor"
@@ -63,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="19802003"
+        android:text="@string/contoh_nip"
         android:textColor="@color/colorWhite"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/img_avatar_detail_murid"
@@ -96,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
-            android:text="Bintang Kecil"
+            android:text="@string/contoh_kelas"
             android:textColor="@color/colorBlack"
             android:textSize="16sp" />
     </LinearLayout>
@@ -140,7 +143,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
-            android:text="Bandung, 2 Mei 1999"
+            android:text="@string/contoh_tanggal_lahir"
             android:textColor="@color/colorBlack"
             android:textSize="16sp" />
     </LinearLayout>
@@ -184,7 +187,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
-            android:text="Jl. Watugong No.17F"
+            android:text="@string/contoh_alamat"
             android:textColor="@color/colorBlack"
             android:textSize="16sp" />
     </LinearLayout>
@@ -234,7 +237,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:fontFamily="@font/roboto"
-                android:text="Ayah:"
+                android:text="@string/ayah"
                 android:textColor="@color/colorBlack"
                 android:textSize="14sp" />
 
@@ -243,9 +246,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_toRightOf="@id/textView61"
+                android:layout_toEndOf="@id/textView61"
                 android:fontFamily="@font/roboto"
-                android:text="Budi"
+                android:text="@string/contoh_ayah"
                 android:textColor="@color/colorBlack" />
 
             <TextView
@@ -254,7 +257,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView61"
                 android:fontFamily="@font/roboto"
-                android:text="081234567"
+                android:text="@string/contoh_kontak_ayah"
                 android:textColor="@color/colorBlack" />
 
             <ImageView
@@ -263,6 +266,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:contentDescription="@string/icon_telepon"
                 app:srcCompat="@drawable/ic_telepon" />
 
         </RelativeLayout>
@@ -279,7 +283,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:fontFamily="@font/roboto"
-                android:text="Ibu:"
+                android:text="@string/ibu"
                 android:textColor="@color/colorBlack"
                 android:textSize="14sp" />
 
@@ -288,9 +292,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_toRightOf="@id/textView6"
+                android:layout_toEndOf="@id/textView6"
                 android:fontFamily="@font/roboto"
-                android:text="Siti"
+                android:text="@string/contoh_ibu"
                 android:textColor="@color/colorBlack" />
 
             <TextView
@@ -299,7 +303,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView6"
                 android:fontFamily="@font/roboto"
-                android:text="081234567"
+                android:text="@string/contoh_kontak_ibu"
                 android:textColor="@color/colorBlack" />
 
             <ImageView
@@ -307,7 +311,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
+                android:contentDescription="@string/icon_telepon"
                 app:srcCompat="@drawable/ic_telepon" />
         </RelativeLayout>
     </LinearLayout>
@@ -342,7 +346,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_bold"
-            android:text="Password"
+            android:text="@string/password"
             android:textColor="@color/colorAccent"
             android:textSize="18sp" />
 
@@ -351,7 +355,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
-            android:text="mangga123"
+            android:text="@string/contoh_password"
             android:textColor="@color/colorBlack"
             android:textSize="16sp" />
 
@@ -364,7 +368,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:text="Lihat Rapor"
+        android:text="@string/lihat_rapor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -376,7 +380,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Rekapan Presensi"
+        android:text="@string/rekapan_presensi"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/btn_lihat_rapor"
         app:layout_constraintEnd_toEndOf="parent"
