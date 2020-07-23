@@ -9,8 +9,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="-74dp">
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="-44dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,6 +23,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
                 android:visibility="gone"
+                app:boxStrokeErrorColor="#FF0000"
                 app:layout_constraintStart_toEndOf="@+id/img_link_edit_tugas"
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
 
@@ -59,7 +60,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_tanggal_edit_tugas" />
+                app:layout_constraintTop_toBottomOf="@+id/textView63" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/dropdown_kelas_edit_tugas"
@@ -135,6 +136,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="16dp"
                 android:enabled="false"
+                app:helperTextEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView56">
 
@@ -148,7 +150,8 @@
                     android:lines="4"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    tools:text="dd/mm/yyyy" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -160,7 +163,7 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="@string/tenggat_waktu"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/input_edit_tugas_deskripsi" />
@@ -171,6 +174,8 @@
                 android:layout_width="143dp"
                 android:layout_height="40dp"
                 android:enabled="false"
+                app:helperText="@string/helper_waktu"
+                app:helperTextEnabled="true"
                 app:layout_constraintEnd_toStartOf="@+id/btn_jam_edit_tugas"
                 app:layout_constraintTop_toBottomOf="@+id/textView57">
 
@@ -184,7 +189,8 @@
                     android:lines="4"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    tools:text="00.00" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -369,6 +375,30 @@
                 app:layout_constraintStart_toEndOf="@+id/input_tanggal_edit_tugas"
                 app:layout_constraintTop_toBottomOf="@+id/textView56"
                 app:srcCompat="@drawable/ic_kalender" />
+
+            <TextView
+                android:id="@+id/textView63"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="59dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/helper_waktu"
+                android:textColor="@color/colorBlack"
+                android:textSize="9sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_jam_edit_tugas" />
+
+            <TextView
+                android:id="@+id/textView64"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/helper_tanggal"
+                android:textColor="@color/colorBlack"
+                android:textSize="9sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_tanggal_edit_tugas" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

@@ -43,7 +43,7 @@ class Tugas : AppCompatActivity() {
         val temp3 = Model_Tugas("Bintang A", "Keterampilan", "Kerjakan Soal pada akhir video", "20 Juli 2020", "20.20 WIB", "20/20",0,R.raw.video_tugas,"")
         tugas.add(temp3)
 
-        val temp4 = Model_Tugas( "Bintang A", "Keterampilan", "Kerjakan Soal pada akhir video", "20 Juli 2020", "20.20 WIB", "20/20",R.drawable.banner_tugas,0,"https://youtu.be/g9aXIpJFKyU")
+        val temp4 = Model_Tugas( "Bintang A", "Keterampilan", "Kerjakan Soal pada akhir video", "20 Juli 2020", "20.20 WIB", "20/20",R.drawable.banner_tugas,0,"https://id.quora.com/Apa-padanan-bahasa-Indonesia-untuk-link-istilah-Internet#:~:text=Jika%20link%20yang%20dimaksud%20adalah,berarti%20hubungan%20dengan%20yang%20lain.")
         tugas.add(temp4)
         val temp5 = Model_Tugas( "Bintang A", "Keterampilan", "Kerjakan Soal pada akhir video", "20 Juli 2020", "20.20 WIB", "20/20",0,R.raw.video_tugas,"")
         tugas.add(temp5)

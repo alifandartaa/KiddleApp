@@ -13,6 +13,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Patterns
 import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.*
@@ -83,10 +84,35 @@ class Edit_Kegiatan : AppCompatActivity() {
             onBackPressed()
         }
 
+        fun String.isValidUrl(): Boolean = Patterns.WEB_URL.matcher(this).matches()
 
         // simpan
         btn_simpan_edit_kegiatan.setOnClickListener {
-            Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
+            if(tv_link_edit_kegiatan.getText().toString().isValidUrl() || tv_link_edit_kegiatan.getText().toString().equals("")) {
+                if(intent.getStringExtra("jenis") == "TAMBAH_KEGIATAN") {
+                    val intent: Intent = Intent(this@Edit_Kegiatan, Kegiatan::class.java).putExtra("jenis", "KEGIATAN")
+                    startActivity(intent)
+                }else if(intent.getStringExtra("jenis") == "TAMBAH_PARENTING") {
+                    val intent: Intent = Intent(this@Edit_Kegiatan, Kegiatan::class.java).putExtra("jenis", "PARENTING")
+                    startActivity(intent)
+                }
+                else if(intent.getStringExtra("jenis") == "TAMBAH_MATERI"){
+                    val intent: Intent = Intent(this@Edit_Kegiatan, Kegiatan::class.java).putExtra("jenis", "MATERI")
+                    startActivity(intent)
+                }
+                Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT).show()
+            }else{
+                tv_link_edit_kegiatan.setError("Pastikan tautan sudah benar");
+                //kalau pakai ini bacaanya gak kliatan
+//               input_link_edit_tugas.isErrorEnabled = true
+//               input_link_edit_tugas.setErrorTextColor(ColorStateList.valueOf(Color.RED))
+//               input_link_edit_tugas.error ="Pastikan tautan sudah benar"
+                //input_link_edit_tugas.setError("Pastikan tautan sudah benar");
+
+
+            }
+
+
         }
 
 

@@ -74,7 +74,7 @@
                 android:layout_width="308dp"
                 android:layout_height="243dp"
                 android:layout_marginStart="60dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="48dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/relativeLayout3"
                 app:srcCompat="@drawable/ilustrasi_kegiatan" />

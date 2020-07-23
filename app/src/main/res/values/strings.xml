@@ -41,6 +41,7 @@
     <string name="jam">Jam</string>
     <string name="sisipkan">Sisipkan</string>
     <string name="judul">Judul</string>
-
+    <string name="helper_tanggal">Gunakan icon untuk input tanggal</string>
+    <string name="helper_waktu">Gunakan icon untuk input jam</string>
     <string name="lorem_ipsum2">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae tellus feugiat, efficitur lacus nec, maximus felis.</string>
 </resources>
