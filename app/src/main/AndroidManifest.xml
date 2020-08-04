@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kiddleapp">
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -13,7 +13,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Edit_Murid"></activity>
+        <activity android:name=".Rekap_Presensi"></activity>
+        <activity android:name=".Spp.UbahSppActivity" />
+        <activity android:name=".Spp.DetailSppActivity" />
+        <activity android:name=".Presensi.DetailPresensiActivity" />
+        <activity android:name=".Presensi.PresensiActivity" />
+        <activity android:name=".Spp.KonfirmSppActivity" />
+        <activity android:name=".SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Onboarding.OnBoardingActivity" />
+        <activity android:name=".Spp.TestActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Edit_Murid" />
         <activity android:name=".Detail_Murid" />
         <activity android:name=".Guru" />
         <activity android:name=".Edit_Profil" />
@@ -31,23 +48,10 @@
         <activity android:name=".Detail_Kegiatan" />
         <activity android:name=".Edit_Kegiatan" />
         <activity android:name=".Edit_Jurnal" />
-        <activity android:name=".Materi" />
-        <activity android:name=".Detail_Materi" />
-        <activity android:name=".Edit_Materi" />
-        <activity android:name=".Parenting" />
-        <activity android:name=".Detail_Parenting" />
-        <activity android:name=".Edit_Parenting" />
         <activity android:name=".Pengumuman" />
         <activity android:name=".Detail_Pengumuman" />
         <activity android:name=".Edit_Pengumuman" />
         <activity android:name=".Notifikasi" />
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <meta-data
             android:name="preloaded_fonts"
