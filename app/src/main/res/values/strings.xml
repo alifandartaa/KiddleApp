@@ -25,7 +25,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="selamat_datang_login">Selamat Datang</string>
     <string name="nomor_induk_pegawai">Nomor Induk Pegawai</string>
-    <string name="password">Password</string>
     <string name="perlu_bantuan">Perlu bantuan?</string>
     <string name="image_icon_kiddle">Image Icon Kiddle</string>
     <string name="image_illustration_login_admin">Image Illustration Login Admin</string>
@@ -49,7 +48,7 @@
     <string name="value_tanggal_detail_bayar">10 Maret 2020</string>
     <string name="ubah_pembayaran">Ubah pembayaran</string>
     <string name="jumlah_yang_lunas">Jumlah yang lunas</string>
-    <string name="contoh_nama_murid">Contoh nama murid</string>
+    <string name="contoh_nama_murid">Lee Ji Eun</string>
     <string name="value_tanggal">Value tanggal</string>
     <string name="contoh_bulan">Maret 2020</string>
     <string name="bukti_pembayaran">Bukti Pembayaran</string>
@@ -100,4 +99,27 @@
     <string name="helper_tanggal">Gunakan icon untuk input tanggal</string>
     <string name="helper_waktu">Gunakan icon untuk input jam</string>
     <string name="lorem_ipsum2">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae tellus feugiat, efficitur lacus nec, maximus felis.</string>
+    <string name="image_detail">Gambar Ilustrasi</string>
+    <string name="image_back">Image Back</string>
+    <string name="icon_more">Icon More</string>
+    <string name="contoh_nip">19802003</string>
+    <string name="contoh_kelas">Bintang Kecil</string>
+    <string name="contoh_tanggal_lahir">Bandung, 2 Mei 1999</string>
+    <string name="contoh_alamat">Jl. Watugong No.17F</string>
+    <string name="ayah">Ayah:</string>
+    <string name="contoh_ayah">Budi</string>
+    <string name="contoh_kontak_ayah">081234567</string>
+    <string name="ibu">Ibu:</string>
+    <string name="contoh_ibu">Siti</string>
+    <string name="contoh_kontak_ibu">081234567</string>
+    <string name="password">Password</string>
+    <string name="contoh_password">mangga123</string>
+    <string name="lihat_rapor">Lihat Rapor</string>
+    <string name="rekapan_presensi">Rekapan Presensi</string>
+    <string name="icon_telepon">Icon Telepon</string>
+    <string name="kognitif">Kognitif</string>
+    <string name="bintang_a">Bintang A</string>
+    <string name="contoh_tanggal_jurnal">20 Juni 2020</string>
+    <string name="keterampilan">Keterampilan</string>
+    <string name="image_link_detail">Image Link Detail</string>
 </resources>

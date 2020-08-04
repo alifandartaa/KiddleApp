@@ -8,8 +8,8 @@ import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kiddleapp.R
-import com.example.kiddleapp.Spp.adapter.DetailSppAdapter
-import com.example.kiddleapp.Spp.model.ItemBayarSpp
+import com.example.kiddleapp.Spp.Adapter.DetailSppAdapter
+import com.example.kiddleapp.Spp.Model.ItemBayarSpp
 import kotlinx.android.synthetic.main.activity_detail_spp.*
 import java.text.NumberFormat
 import java.util.*
