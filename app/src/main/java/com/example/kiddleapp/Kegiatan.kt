@@ -79,10 +79,10 @@ class Kegiatan : AppCompatActivity() {
             model.clear()
 
             //bisa diganti dengan data dari firebase
-            val temp = Model_Kegiatan( "Hari Ibu", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae tellus feugiat, efficitur lacus nec, maximus felis. Maecenas ultrices tempor enim, et malesuada nisl lacinia eget", "20 Juli 2020", 0,R.raw.video_tugas,"")
+            val temp = Model_Kegiatan( "Hari Ibu", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae tellus feugiat, efficitur lacus nec, maximus felis. Maecenas ultrices tempor enim, et malesuada nisl lacinia eget", "20 Juli 2020", 0,R.drawable.img_kegiatan,"")
             model.add(temp)
 
-            val temp2 = Model_Kegiatan("Hari Ibu", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae tellus feugiat, efficitur lacus nec, maximus felis. Maecenas ultrices tempor enim, et malesuada nisl lacinia eget", "20 Juli 2020",R.drawable.banner_materi2,0,"https://youtu.be/g9aXIpJFKyU")
+            val temp2 = Model_Kegiatan("Hari Ibu", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae tellus feugiat, efficitur lacus nec, maximus felis. Maecenas ultrices tempor enim, et malesuada nisl lacinia eget", "20 Juli 2020",R.raw.video_tugas,0,"https://youtu.be/g9aXIpJFKyU")
             model.add(temp2)
 
             val temp3= Model_Kegiatan("Hari Ibu", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae tellus feugiat, efficitur lacus nec, maximus felis. Maecenas ultrices tempor enim, et malesuada nisl lacinia eget", "20 Juli 2020",R.drawable.banner_materi2,0,"https://youtu.be/g9aXIpJFKyU")

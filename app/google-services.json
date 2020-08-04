@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "387132163427",
+    "firebase_url": "https://kiddle-app.firebaseio.com",
+    "project_id": "kiddle-app",
+    "storage_bucket": "kiddle-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387132163427:android:2976b566a03ce132db7f56",
+        "android_client_info": {
+          "package_name": "com.example.kiddleapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "387132163427-9ec2a1pakqiv5llfueg4ua971b43q5a3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrS9YDB3o7LXX5nHV2D3-hutKZA1rt7cQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "387132163427-9ec2a1pakqiv5llfueg4ua971b43q5a3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387132163427:android:7bc01950edb042f2db7f56",
+        "android_client_info": {
+          "package_name": "com.kiddle.kiddlewalimurid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "387132163427-9ec2a1pakqiv5llfueg4ua971b43q5a3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrS9YDB3o7LXX5nHV2D3-hutKZA1rt7cQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "387132163427-9ec2a1pakqiv5llfueg4ua971b43q5a3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
