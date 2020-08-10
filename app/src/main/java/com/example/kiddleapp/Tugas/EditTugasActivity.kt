@@ -22,8 +22,10 @@ import android.widget.MediaController
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.kiddleapp.R
 import com.example.kiddleapp.Tugas.Model.Tugas
+import kotlinx.android.synthetic.main.activity_detail_tugas.*
 import kotlinx.android.synthetic.main.activity_edit_tugas.*
 import java.util.*
 
@@ -58,15 +60,15 @@ class EditTugasActivity : AppCompatActivity() {
             }
 
 
-            if (data.gambar != 0) {
+            if (data.gambar != "") {
                 img_edit_tugas.visibility = View.VISIBLE
                 vv_edit_tugas.visibility = View.GONE
                 btn_tutup_edit_tugas.visibility = View.VISIBLE
-                img_edit_tugas.setImageResource(data.gambar)
-            } else if (data.video != 0) {
+                Glide.with(this).load(data.gambar).centerCrop().into(img_edit_tugas)
+            } else if (data.video != "") {
                 vv_edit_tugas.visibility = View.VISIBLE
                 img_edit_tugas.visibility = View.GONE
-                vv_edit_tugas.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + data.video))
+                vv_edit_tugas.setVideoURI(Uri.parse( data.video))
                 var media_Controller: MediaController = MediaController(this)
                 vv_edit_tugas.setMediaController(media_Controller)
                 media_Controller.setAnchorView(vv_edit_tugas)
@@ -86,15 +88,16 @@ class EditTugasActivity : AppCompatActivity() {
 
 
 
-
         //kembali
         img_back_edit_tugas.setOnClickListener {
             onBackPressed()
         }
 
 
+
         fun String.isValidUrl(): Boolean = Patterns.WEB_URL.matcher(this).matches()
         //link
+
         // simpan
         btn_simpan_edit_tugas.setOnClickListener {
             if (tv_link_edit_tugas.text.toString()
@@ -105,15 +108,15 @@ class EditTugasActivity : AppCompatActivity() {
                 Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT).show()
             } else {
                 tv_link_edit_tugas.error = "Pastikan tautan sudah benar"
-                //kalau pakai ini bacaanya gak kliatan
-//               input_link_edit_tugas.isErrorEnabled = true
-//               input_link_edit_tugas.setErrorTextColor(ColorStateList.valueOf(Color.RED))
-//               input_link_edit_tugas.error ="Pastikan tautan sudah benar"
-                //input_link_edit_tugas.setError("Pastikan tautan sudah benar");
             }
 
 
         }
+
+
+
+
+
 
         //tanggal
         tv_tanggal_edit_tugas.setText(SimpleDateFormat("dd.MM.yyyy").format(System.currentTimeMillis()))
@@ -161,6 +164,7 @@ class EditTugasActivity : AppCompatActivity() {
             input_link_edit_tugas.visibility = View.VISIBLE
 
         }
+
 
         //untuk kelas
         val items = listOf("Bintang Kecil", "Bintang Besar", "Bulan Kecil", "Bulan Besar")

@@ -14,6 +14,7 @@ class TugasAdapter(private var data: List<Tugas>, private val listener: (Tugas) 
     RecyclerView.Adapter<TugasAdapter.ViewHolder>() {
 
     lateinit var contextAdapter: Context
+    private var listTugas = ArrayList<Tugas>()
 
     //assign value dari model ke xml
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -23,7 +24,6 @@ class TugasAdapter(private var data: List<Tugas>, private val listener: (Tugas) 
         private val tv_jumlah: TextView = view.findViewById(R.id.tv_pengumpulan_list_tugas)
 
         // kalau mau ditambah kelas apa atau deksripsi lain jangan lupa ubah layout dan model
-
         fun bindItem(data: Tugas, listener: (Tugas) -> Unit, context: Context, position: Int) {
             if (data.judul == "Motorik") {
                 img_jenis.setImageResource(R.drawable.ic_motorik)
@@ -44,6 +44,8 @@ class TugasAdapter(private var data: List<Tugas>, private val listener: (Tugas) 
             itemView.setOnClickListener {
                 listener(data)
             }
+
+            listener.invoke(data)
         }
     }
 
@@ -62,5 +64,10 @@ class TugasAdapter(private var data: List<Tugas>, private val listener: (Tugas) 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(data[position], listener, contextAdapter, position)
+    }
+
+    fun addItemToList(list: ArrayList<Tugas>) {
+        listTugas.clear()
+        listTugas.addAll(list)
     }
 }

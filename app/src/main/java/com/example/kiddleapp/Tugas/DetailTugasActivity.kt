@@ -8,6 +8,7 @@ import android.widget.MediaController
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.kiddleapp.R
 import com.example.kiddleapp.Tugas.Adapter.HasilTugasAdapter
 import com.example.kiddleapp.Tugas.Model.HasilTugas
@@ -28,20 +29,21 @@ class DetailTugasActivity : AppCompatActivity() {
 
         tv_kelas_detail_tugas.text = data.kelas
         tv_judul_detail_tugas.text = data.judul
+        tv_isi_detail_tugas.text = data.isi
         tv_tanggal_detail_tugas.text=data.tanggal
         tv_jam_detail_tugas.text=data.jam
         tv_link_detail_tugas.text=data.link
 
-        if(data.gambar!=0) {
+        if(data.gambar!= "") {
             img_detail_tugas.visibility = View.VISIBLE
             vv_detail_tugas.visibility = View.GONE
-            img_detail_tugas.setImageResource(data.gambar)
+            Glide.with(this).load(data.gambar).centerCrop().into(img_detail_tugas)
+            //img_detail_tugas.setImageResource(data.gambar)
         }
-        else if(data.video!=0) {
-
+        else if(data.video!="") {
             vv_detail_tugas.visibility = View.VISIBLE
             img_detail_tugas.visibility = View.GONE
-            vv_detail_tugas.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + data.video))
+            vv_detail_tugas.setVideoURI(Uri.parse( data.video))
             var media_Controller: MediaController = MediaController(this)
             vv_detail_tugas.setMediaController(media_Controller)
             media_Controller.setAnchorView(vv_detail_tugas)
