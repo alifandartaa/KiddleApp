@@ -87,7 +87,8 @@ class DetailTugasActivity : AppCompatActivity() {
 
         //intent untuk kembali ke halaman sebelumnya
         img_back_detail_tugas.setOnClickListener {
-            onBackPressed()
+            val intent: Intent =  Intent(this@DetailTugasActivity,TugasActivity::class.java  )
+            startActivity(intent)
         }
 
         // menu

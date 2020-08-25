@@ -190,7 +190,7 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:textSize="12sp"
-                    tools:text="00.00" />
+                    tools:text="00:00" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
