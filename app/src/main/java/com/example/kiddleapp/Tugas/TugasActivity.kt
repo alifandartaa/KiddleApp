@@ -8,6 +8,7 @@ import android.widget.AutoCompleteTextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kiddleapp.R
+import com.example.kiddleapp.Tugas.Adapter.HasilTugasAdapter
 import com.example.kiddleapp.Tugas.Adapter.TugasAdapter
 import com.example.kiddleapp.Tugas.Model.Tugas
 import com.google.firebase.firestore.FirebaseFirestore
@@ -31,10 +32,7 @@ class TugasActivity : AppCompatActivity() {
 
         Log.d("Tugas Activity", "onCreate: before show recycler tugas")
         showRecyclerList(tugas)
-
-            Log.d("Tugas Activity", "onCreate: after show recycler tugas")
-
-
+        Log.d("Tugas Activity", "onCreate: after show recycler tugas")
 
         //intent untuk kembali ke halaman sebelumnya
         img_back_tugas.setOnClickListener {
@@ -71,6 +69,7 @@ class TugasActivity : AppCompatActivity() {
     }
 
     private fun getPageTugasList(callback: (item: ArrayList<Tugas>) -> Unit) {
+
         val listTugas: ArrayList<Tugas> = arrayListOf()
         Log.d("Tugas Activity", "getPageTugasList: before get collection data")
         tugasCollection.addSnapshotListener { result, e ->

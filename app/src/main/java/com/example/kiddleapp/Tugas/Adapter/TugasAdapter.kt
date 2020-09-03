@@ -22,6 +22,7 @@ class TugasAdapter(private var data: List<Tugas>, private val listener: (Tugas) 
 
     //assign value dari model ke xml
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
         private val img_jenis: ImageView = view.findViewById(R.id.img_jenis_list_tugas)
         private val tv_judul: TextView = view.findViewById(R.id.tv_judul_list_tugas)
         private val tv_tanggal: TextView = view.findViewById(R.id.tv_tanggal_list_tugas)
@@ -61,6 +62,7 @@ class TugasAdapter(private var data: List<Tugas>, private val listener: (Tugas) 
         return ViewHolder(
             inflatedView
         )
+
     }
 
     override fun getItemCount(): Int {

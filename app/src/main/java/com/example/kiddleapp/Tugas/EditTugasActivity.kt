@@ -45,26 +45,14 @@ class EditTugasActivity : AppCompatActivity() {
     private var image_uri: Uri? = null
 
     private val db = FirebaseFirestore.getInstance()
-    //  private val storage = Firebase.storage
-    //  var storageRef = storage.reference
-
     var storage = FirebaseStorage.getInstance().reference
-
-
-    // var storageReference: StorageReference = storage.getReference()
-
-    //   var reference = storageReference.child(path)
-
-    // val sharedPreferences = getSharedPreferences("KIDDLE", MODE_PRIVATE)
-    //   lateinit var storage: StorageReference
-
 
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_tugas)
-        val sharedPreferences = getSharedPreferences("Kiddle", Context.MODE_PRIVATE)
+       // val sharedPreferences = getSharedPreferences("Kiddle", Context.MODE_PRIVATE)
 
         //mengambil data dari halaman sebelumnya
 
@@ -128,7 +116,6 @@ class EditTugasActivity : AppCompatActivity() {
 
                             if (getFileExtension(image_uri!!) == "jpg" || getFileExtension(image_uri!!) == "png" || getFileExtension( image_uri!!) == "jpeg") {
                                 //storage = FirebaseStorage.getInstance().reference.child("Tugas").child(sharedPreferences.getString("id_tugas", "").toString()).child(builder.toString())
-
                                 storage.child("Tugas").child(data.id_tugas!!).child(builder.toString()).putFile(image_uri!!).addOnSuccessListener {
                                     storage.child("Tugas").child(data.id_tugas!!).child(builder.toString()).downloadUrl.addOnSuccessListener {
                                             db.collection("Tugas").document(data.id_tugas!!)
@@ -217,12 +204,7 @@ class EditTugasActivity : AppCompatActivity() {
         } else if (intent.getStringExtra("jenis") == "TAMBAH_TUGAS") {
             // simpan
             //link
-
-
             btn_simpan_edit_tugas.setOnClickListener {
-
-
-
                 btn_simpan_edit_tugas.isEnabled = false
                 btn_simpan_edit_tugas.text = "Loading"
 
@@ -236,8 +218,7 @@ class EditTugasActivity : AppCompatActivity() {
                     btn_simpan_edit_tugas.text = "Simpan"
 
                 }else {
-                    if (tv_link_edit_tugas.text.toString()
-                            .isValidUrl() || tv_link_edit_tugas.text.toString().equals("")) {
+                    if (tv_link_edit_tugas.text.toString().isValidUrl() || tv_link_edit_tugas.text.toString().equals("")) {
                         if (image_uri != null) {
                             val builder = StringBuilder()
                             builder.append(currentDateAndTime + "." + getFileExtension(image_uri!! ))
@@ -320,6 +301,7 @@ class EditTugasActivity : AppCompatActivity() {
                         }
                     } else {
                         tv_link_edit_tugas.error = "Pastikan tautan sudah benar"
+                        btn_simpan_edit_tugas.isEnabled = false
                     }
                 }
             }
