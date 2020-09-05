@@ -150,7 +150,6 @@ class DetailTugasActivity : AppCompatActivity() {
                         document.getString("nama"),
                         document.getString("waktu"),
                         document.getString("file")
-
                     )
                 )
 

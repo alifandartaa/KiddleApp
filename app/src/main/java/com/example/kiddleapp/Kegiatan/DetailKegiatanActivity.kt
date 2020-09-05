@@ -6,13 +6,23 @@ import android.os.Bundle
 import android.view.View
 import android.widget.MediaController
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.example.kiddleapp.Jurnal.JurnalActivity
 import com.example.kiddleapp.Kegiatan.Model.Kegiatan
 import com.example.kiddleapp.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.activity_detail_jurnal.*
 import kotlinx.android.synthetic.main.activity_detail_kegiatan.*
 
 
 class DetailKegiatanActivity : AppCompatActivity() {
+
+    private val db = FirebaseFirestore.getInstance()
+    var storage = FirebaseStorage.getInstance().reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,15 +36,16 @@ class DetailKegiatanActivity : AppCompatActivity() {
         tv_isi_detail_kegiatan.text=data.isi
         tv_link_detail_kegiatan.text=data.link
 
-        if(data.gambar!=0) {
+        if(data.gambar!="") {
             img_detail_kegiatan.visibility = View.VISIBLE
             vv_detail_kegiatan.visibility = View.GONE
-            img_detail_kegiatan.setImageResource(data.gambar)
+            Glide.with(this).load(data.gambar).centerCrop().into(img_detail_kegiatan)
+         //   img_detail_kegiatan.setImageResource(data.gambar)
         }
-        else if(data.video!=0) {
+        else if(data.video!="") {
             vv_detail_kegiatan.visibility = View.VISIBLE
             img_detail_kegiatan.visibility = View.GONE
-            vv_detail_kegiatan.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + data.video))
+            vv_detail_kegiatan.setVideoURI(Uri.parse( data.video))
             var media_Controller: MediaController = MediaController(this)
             vv_detail_kegiatan.setMediaController(media_Controller)
             media_Controller.setAnchorView(vv_detail_kegiatan)
@@ -67,11 +78,135 @@ class DetailKegiatanActivity : AppCompatActivity() {
                     return@setOnMenuItemClickListener true
                 }
                else if(it.itemId == R.id.menu_hapus2) {
-                    //belum ditambah buat ngehapus
-                    val intent: Intent =
-                        Intent(this@DetailKegiatanActivity, KegiatanActivity::class.java)
-                    startActivity(intent)
-                    return@setOnMenuItemClickListener true
+                    MaterialAlertDialogBuilder(this).apply {
+                        if(data.jenis == "Kegiatan"){
+                            setTitle("Hapus Kegiatan")
+                            setMessage(
+                                "Apa anda yakin ingin menghapus kegiatan ini?"
+                            )
+                            setPositiveButton("Ya") { _, _ ->
+
+                                db.collection("Kegiatan").document(data.id!!).delete()
+                                    .addOnSuccessListener {
+                                        storage.child("Kegiatan/" + data.id!! + "/" + data.id!! + ".jpg")
+                                            .delete().addOnSuccessListener {
+
+                                            }
+                                        storage.child("Kegiatan/" + data.id!! + "/" + data.id!! + ".jpeg")
+                                            .delete().addOnSuccessListener {
+
+                                            }
+                                        storage.child("Kegiatan/" + data.id!! + "/" + data.id!! + ".png")
+                                            .delete().addOnSuccessListener {
+
+                                            }
+                                        storage.child("Kegiatan/" + data.id!! + "/" + data.id!! + ".mp4")
+                                            .delete().addOnSuccessListener {
+
+                                            }
+
+                                        val intent: Intent = Intent(
+                                            this@DetailKegiatanActivity,
+                                            KegiatanActivity::class.java
+                                        ).putExtra("jenis", "KEGIATAN")
+
+                                        startActivity(intent)
+                                        Toast.makeText(
+                                            context,
+                                            "Kegiatan Berhasil di Hapus",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+
+                                setNegativeButton("Tidak") { _, _ -> }
+                            }.show()
+                        }
+                        else if(data.jenis == "Parenting"){
+                            setTitle("Hapus Parenting")
+                            setMessage(
+                                "Apa anda yakin ingin menghapus parenting ini?"
+                            )
+                            setPositiveButton("Ya") { _, _ ->
+
+                                db.collection("Parenting").document(data.id!!).delete()
+                                    .addOnSuccessListener {
+                                        storage.child("Parenting/" + data.id!! + "/" + data.id!! + ".jpg")
+                                            .delete().addOnSuccessListener {
+
+                                            }
+                                        storage.child("Parenting/" + data.id!! + "/" + data.id!! + ".jpeg")
+                                            .delete().addOnSuccessListener {
+
+                                            }
+                                        storage.child("Parenting/" + data.id!! + "/" + data.id!! + ".png")
+                                            .delete().addOnSuccessListener {
+
+                                            }
+                                        storage.child("Parenting/" + data.id!! + "/" + data.id!! + ".mp4")
+                                            .delete().addOnSuccessListener {
+
+                                            }
+
+                                        val intent: Intent = Intent(
+                                            this@DetailKegiatanActivity,
+                                            KegiatanActivity::class.java
+                                        ).putExtra("jenis", "PARENTING")
+
+                                        startActivity(intent)
+                                        Toast.makeText(
+                                            context,
+                                            "Parenting Berhasil di Hapus",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+
+                                setNegativeButton("Tidak") { _, _ -> }
+                            }.show()
+                        }
+                        else if(data.jenis == "Materi"){
+                            setTitle("Hapus Materi")
+                            setMessage(
+                                "Apa anda yakin ingin menghapus Materi ini?"
+                            )
+                            setPositiveButton("Ya") { _, _ ->
+
+                                db.collection("Materi").document(data.id!!).delete()
+                                    .addOnSuccessListener {
+                                        storage.child("Materi/" + data.id!! + "/" + data.id!! + ".jpg")
+                                            .delete().addOnSuccessListener {
+
+                                            }
+                                        storage.child("Materi/" + data.id!! + "/" + data.id!! + ".jpeg")
+                                            .delete().addOnSuccessListener {
+
+                                            }
+                                        storage.child("Materi/" + data.id!! + "/" + data.id!! + ".png")
+                                            .delete().addOnSuccessListener {
+
+                                            }
+                                        storage.child("Materi/" + data.id!! + "/" + data.id!! + ".mp4")
+                                            .delete().addOnSuccessListener {
+
+                                            }
+
+                                        val intent: Intent = Intent(
+                                            this@DetailKegiatanActivity,
+                                            KegiatanActivity::class.java
+                                        ).putExtra("jenis", "MATERI")
+
+                                        startActivity(intent)
+                                        Toast.makeText(
+                                            context,
+                                            "Materi Berhasil di Hapus",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+
+                                setNegativeButton("Tidak") { _, _ -> }
+                            }.show()
+                        }
+
+                    }
                 }
                 return@setOnMenuItemClickListener false
             }

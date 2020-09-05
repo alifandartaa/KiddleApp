@@ -25,7 +25,7 @@
                 android:visibility="gone"
                 app:boxStrokeErrorColor="#FF0000"
                 app:layout_constraintStart_toEndOf="@+id/img_link_edit_tugas"
-                app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
+                app:layout_constraintTop_toBottomOf="@+id/frame_edit_tugas">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tv_link_edit_tugas"
@@ -46,7 +46,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
                 app:layout_constraintStart_toEndOf="@+id/img_gambar_edit_tugas"
-                app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/frame_edit_tugas"
                 app:srcCompat="@drawable/ic_link" />
 
             <TextView
@@ -113,7 +113,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
                 app:layout_constraintStart_toEndOf="@+id/img_kamera_edit_tugas"
-                app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/frame_edit_tugas"
                 app:srcCompat="@drawable/ic_image" />
 
             <TextView
@@ -231,7 +231,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/frame_edit_tugas"
                 app:srcCompat="@drawable/ic_camera_black" />
 
             <TextView
@@ -306,13 +306,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView55" />
 
             <FrameLayout
-                android:id="@+id/frameLayout2"
+                android:id="@+id/frame_edit_tugas"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="250dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.523"
                 app:layout_constraintStart_toStartOf="parent"
@@ -320,8 +321,8 @@
 
                 <ImageView
                     android:id="@+id/img_edit_tugas"
-                    android:layout_width="400dp"
-                    android:layout_height="200dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:scaleType="fitXY"
@@ -330,8 +331,8 @@
 
                 <VideoView
                     android:id="@+id/vv_edit_tugas"
-                    android:layout_width="400dp"
-                    android:layout_height="200dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="8dp"
@@ -349,7 +350,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginRight="16dp"
                     android:visibility="gone"
-                    app:srcCompat="@drawable/ic_tutup_banner" />
+                    app:srcCompat="@drawable/x_circle" />
 
             </FrameLayout>
 
@@ -357,7 +358,7 @@
                 android:id="@+id/btn_simpan_edit_tugas"
                 android:layout_width="394dp"
                 android:layout_height="52dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:text="Simpan"
                 app:layout_constraintBottom_toBottomOf="parent"

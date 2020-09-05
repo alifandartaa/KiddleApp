@@ -47,7 +47,7 @@ class DetailJurnalActivity : AppCompatActivity() {
         else if(data.video!="") {
             vv_detail_jurnal.visibility = View.VISIBLE
             img_detail_jurnal.visibility = View.GONE
-            vv_detail_jurnal.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + data.video))
+            vv_detail_jurnal.setVideoURI(Uri.parse( data.video))
             var media_Controller: MediaController = MediaController(this)
             vv_detail_jurnal.setMediaController(media_Controller)
             media_Controller.setAnchorView(vv_detail_jurnal)
@@ -57,8 +57,7 @@ class DetailJurnalActivity : AppCompatActivity() {
 
         //intent untuk kembali ke halaman sebelumnya
         img_back_detail_jurnal.setOnClickListener {
-            val intent: Intent =  Intent(this@DetailJurnalActivity, JurnalActivity::class.java  )
-            startActivity(intent)
+            onBackPressed()
         }
 
         // menu

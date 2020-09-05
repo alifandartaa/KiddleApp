@@ -129,31 +129,39 @@ class EditJurnalActivity : AppCompatActivity() {
                                 } else if (getFileExtension(image_uri!!) == "mp4" ) {
                                     //storage = FirebaseStorage.getInstance().reference.child("Tugas").child(sharedPreferences.getString("id_tugas", "").toString()).child(builder.toString())
 
-                                    storage.child("Jurnal").child(data.id_jurnal!!).child(builder.toString()).putFile(image_uri!!).addOnSuccessListener {
-                                        storage.child("Jurnal").child(data.id_jurnal!!).child(builder.toString()).downloadUrl.addOnSuccessListener {
-                                            db.collection("Jurnal").document(data.id_jurnal!!)
-                                                .update(mapOf(
-                                                    "id_jurnal" to  currentDateAndTime,
-                                                    "jenis" to  tv_aspek_edit_jurnal.text.toString(),
-                                                    "kelas" to tv_kelas_edit_jurnal.text.toString(),
-                                                    "judul" to  tv_judul_edit_jurnal.text.toString(),
-                                                    "isi" to  tv_deskripsi_edit_jurnal.text.toString(),
-                                                    "tanggal" to  tanggal,
-                                                    "gambar" to   "",
-                                                    "video" to   it.toString()
+                                    storage.child("Jurnal").child(data.id_jurnal!!)
+                                        .child(builder.toString()).putFile(image_uri!!)
+                                        .addOnSuccessListener {
+                                            storage.child("Jurnal").child(data.id_jurnal!!)
+                                                .child(builder.toString()).downloadUrl.addOnSuccessListener {
+                                                db.collection("Jurnal").document(data.id_jurnal!!)
+                                                    .update(
+                                                        mapOf(
+                                                            "id_jurnal" to currentDateAndTime,
+                                                            "jenis" to tv_aspek_edit_jurnal.text.toString(),
+                                                            "kelas" to tv_kelas_edit_jurnal.text.toString(),
+                                                            "judul" to tv_judul_edit_jurnal.text.toString(),
+                                                            "isi" to tv_deskripsi_edit_jurnal.text.toString(),
+                                                            "tanggal" to tanggal,
+                                                            "gambar" to "",
+                                                            "video" to it.toString()
+                                                        )
+                                                    )
+                                            }.addOnCompleteListener {
+                                                val intent: Intent = Intent(
+                                                    this@EditJurnalActivity,
+                                                    JurnalActivity::class.java
                                                 )
-                                                )}.addOnCompleteListener {
-                                            val intent: Intent =  Intent(this@EditJurnalActivity,JurnalActivity::class.java  )
-                                            startActivity(intent)
-                                            Toast.makeText(
-                                                this,
-                                                "Simpan Berhasil",
-                                                Toast.LENGTH_SHORT
-                                            )
-                                                .show()
+                                                startActivity(intent)
+                                                Toast.makeText(
+                                                    this,
+                                                    "Simpan Berhasil",
+                                                    Toast.LENGTH_SHORT
+                                                )
+                                                    .show()
+                                            }
                                         }
                                 }
-
                             }else if (image_uri == null){
                                 db.collection("Jurnal").document(data.id_jurnal!!)
                                     .update(mapOf(
@@ -179,7 +187,7 @@ class EditJurnalActivity : AppCompatActivity() {
                                     }
                             }
 
-                        }
+
                 }
 
 
@@ -287,13 +295,14 @@ class EditJurnalActivity : AppCompatActivity() {
         //tutup gambar
         // hapus video belum bisa
         btn_tutup_edit_jurnal.setOnClickListener {
+            image_uri=null
             frame_edit_jurnal.visibility = View.GONE
             img_edit_jurnal.setImageResource(0)
             img_edit_jurnal.visibility = View.GONE
             vv_edit_jurnal.setVideoURI(Uri.parse(""))
             vv_edit_jurnal.visibility = View.GONE
             btn_tutup_edit_jurnal.visibility = View.GONE
-            image_uri=null
+
         }
 
         //kembali

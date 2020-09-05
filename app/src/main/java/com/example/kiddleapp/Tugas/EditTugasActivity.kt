@@ -29,6 +29,7 @@ import com.example.kiddleapp.Tugas.Model.Tugas
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.activity_edit_jurnal.*
 import kotlinx.android.synthetic.main.activity_edit_tugas.*
 import java.security.Timestamp
 import java.time.LocalDateTime
@@ -52,9 +53,6 @@ class EditTugasActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_tugas)
-       // val sharedPreferences = getSharedPreferences("Kiddle", Context.MODE_PRIVATE)
-
-        //mengambil data dari halaman sebelumnya
 
         fun String.isValidUrl(): Boolean = Patterns.WEB_URL.matcher(this).matches()
 
@@ -76,13 +74,14 @@ class EditTugasActivity : AppCompatActivity() {
             }
 
             if (data.gambar != "") {
+                frame_edit_tugas.visibility = View.VISIBLE
                 img_edit_tugas.visibility = View.VISIBLE
                 vv_edit_tugas.visibility = View.GONE
                 btn_tutup_edit_tugas.visibility = View.VISIBLE
                 Glide.with(this).load(data.gambar).centerCrop().into(img_edit_tugas)
 
             } else if (data.video != "") {
-
+                frame_edit_tugas.visibility = View.VISIBLE
                 vv_edit_tugas.visibility = View.VISIBLE
                 img_edit_tugas.visibility = View.GONE
                 vv_edit_tugas.setVideoURI(Uri.parse(data.video))
@@ -310,6 +309,7 @@ class EditTugasActivity : AppCompatActivity() {
         //tutup gambar
         // hapus video belum bisa
         btn_tutup_edit_tugas.setOnClickListener {
+            frame_edit_tugas.visibility = View.GONE
             img_edit_tugas.setImageResource(0)
             img_edit_tugas.visibility = View.GONE
             vv_edit_tugas.setVideoURI(Uri.parse(""))
@@ -439,12 +439,14 @@ class EditTugasActivity : AppCompatActivity() {
         //ambil gambar atau video galeri
         if (resultCode == Activity.RESULT_OK && requestCode == 1) {
             if (data?.data.toString().contains("image")) {
+                frame_edit_tugas.visibility = View.VISIBLE
                 image_uri = data?.data
                 img_edit_tugas.visibility = View.VISIBLE
                 vv_edit_tugas.visibility = View.GONE
                 img_edit_tugas.setImageURI(image_uri)
 
             } else if (data?.data.toString().contains("video")) {
+                frame_edit_tugas.visibility = View.VISIBLE
                 image_uri = data?.data
                 vv_edit_tugas.visibility = View.VISIBLE
                 img_edit_tugas.visibility = View.GONE
@@ -458,6 +460,7 @@ class EditTugasActivity : AppCompatActivity() {
 
         //ambil gambar kamera
         else if (resultCode == Activity.RESULT_OK) {
+            frame_edit_tugas.visibility = View.VISIBLE
             //set image captured to image view
             img_edit_tugas.visibility = View.VISIBLE
             vv_edit_tugas.visibility = View.GONE

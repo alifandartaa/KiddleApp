@@ -8,8 +8,10 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kiddleapp.Beranda.BerandaFragment
 import com.example.kiddleapp.Jurnal.Adapter.JurnalAdapter
 import com.example.kiddleapp.Jurnal.Model.Jurnal
+import com.example.kiddleapp.MainActivity
 import com.example.kiddleapp.R
 import com.example.kiddleapp.Tugas.Adapter.TugasAdapter
 import com.example.kiddleapp.Tugas.Model.Tugas
@@ -33,7 +35,9 @@ class JurnalActivity : AppCompatActivity() {
 
         //intent untuk kembali ke halaman sebelumnya
         img_back_jurnal.setOnClickListener {
-            onBackPressed()
+            val intent: Intent =
+                Intent(this@JurnalActivity,MainActivity::class.java)
+            startActivity(intent)
         }
 
         btn_tambah_jurnal.setOnClickListener {
