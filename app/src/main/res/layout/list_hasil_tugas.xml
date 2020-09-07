@@ -44,30 +44,8 @@
         app:layout_constraintStart_toEndOf="@+id/img_avatar_murid_tugas"
         app:layout_constraintTop_toBottomOf="@+id/tv_nama_murid_tugas" />
 
-    <TextView
-        android:id="@+id/tv_jam_murid_tugas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_light"
-        android:shadowColor="@color/colorBlack"
-        android:text="20.20 wib"
-        android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/tvstrip"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nama_murid_tugas" />
-
-    <TextView
-        android:id="@+id/tvstrip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_light"
-        android:shadowColor="@color/colorBlack"
-        android:text=" - "
-        android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/tv_tanggal_murid_tugas"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nama_murid_tugas" />
-
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/img_download_tugas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

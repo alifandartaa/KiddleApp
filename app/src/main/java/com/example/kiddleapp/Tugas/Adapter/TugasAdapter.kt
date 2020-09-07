@@ -1,29 +1,34 @@
 package com.example.kiddleapp.Tugas.Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kiddleapp.R
+import com.example.kiddleapp.Tugas.DetailTugasActivity
 import com.example.kiddleapp.Tugas.Model.Tugas
 
 class TugasAdapter(private var data: List<Tugas>, private val listener: (Tugas) -> Unit) :
     RecyclerView.Adapter<TugasAdapter.ViewHolder>() {
 
     lateinit var contextAdapter: Context
+    private var listTugas = ArrayList<Tugas>()
+    private val context: Context? = null
 
     //assign value dari model ke xml
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
         private val img_jenis: ImageView = view.findViewById(R.id.img_jenis_list_tugas)
         private val tv_judul: TextView = view.findViewById(R.id.tv_judul_list_tugas)
         private val tv_tanggal: TextView = view.findViewById(R.id.tv_tanggal_list_tugas)
         private val tv_jumlah: TextView = view.findViewById(R.id.tv_pengumpulan_list_tugas)
 
         // kalau mau ditambah kelas apa atau deksripsi lain jangan lupa ubah layout dan model
-
         fun bindItem(data: Tugas, listener: (Tugas) -> Unit, context: Context, position: Int) {
             if (data.judul == "Motorik") {
                 img_jenis.setImageResource(R.drawable.ic_motorik)
@@ -43,7 +48,10 @@ class TugasAdapter(private var data: List<Tugas>, private val listener: (Tugas) 
 
             itemView.setOnClickListener {
                 listener(data)
+
             }
+
+            listener.invoke(data)
         }
     }
 
@@ -54,6 +62,7 @@ class TugasAdapter(private var data: List<Tugas>, private val listener: (Tugas) 
         return ViewHolder(
             inflatedView
         )
+
     }
 
     override fun getItemCount(): Int {
@@ -62,5 +71,15 @@ class TugasAdapter(private var data: List<Tugas>, private val listener: (Tugas) 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(data[position], listener, contextAdapter, position)
+
+        holder.itemView.setOnClickListener(View.OnClickListener { v ->
+            val intent: Intent = Intent(v.context, DetailTugasActivity::class.java).putExtra("data", data[position])
+            v.context.startActivity(intent)
+        })
+    }
+
+    fun addItemToList(list: ArrayList<Tugas>) {
+        listTugas.clear()
+        listTugas.addAll(list)
     }
 }

@@ -7,14 +7,15 @@
     android:layout_marginTop="16dp">
 
     <FrameLayout
-        android:id="@+id/frameLayout2"
+        android:id="@+id/frame_edit_tugas"
 
         android:layout_width="400dp"
         android:layout_height="200dp"
+        android:backgroundTint="#D7000000"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_gambar_edit_tugas">
 
@@ -22,15 +23,19 @@
             android:id="@+id/img_banner_list_kegiatan"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:visibility="gone" />
+            android:scaleType="fitXY"
+            android:tint="#80000000"
+            android:visibility="gone"
+            app:srcCompat="@drawable/black_layer" />
 
         <VideoView
             android:id="@+id/vv_banner_list_kegiatan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:backgroundTint="#80000000"
             android:foregroundGravity="center"
+            android:foregroundTint="#80000000"
             android:visibility="gone" />
 
     </FrameLayout>

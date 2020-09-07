@@ -3,45 +3,58 @@ package com.example.kiddleapp.Tugas
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.MediaController
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.kiddleapp.R
 import com.example.kiddleapp.Tugas.Adapter.HasilTugasAdapter
+import com.example.kiddleapp.Tugas.Adapter.TugasAdapter
 import com.example.kiddleapp.Tugas.Model.HasilTugas
 import com.example.kiddleapp.Tugas.Model.Tugas
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_detail_tugas.*
+import kotlinx.android.synthetic.main.activity_tugas.*
 
 class DetailTugasActivity : AppCompatActivity() {
 
     //untuk menyimpan Hasil TugasActivity
-    private var detailTugas = ArrayList<HasilTugas>()
+
+    private val hasilTugas: ArrayList<HasilTugas> = arrayListOf()
+    private val db = FirebaseFirestore.getInstance()
+    private val hasilTugasCollection = db.collection("Hasil Tugas")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_tugas)
-
+        showRecyclerList(hasilTugas)
         //mengambil data dari halaman sebelumnya
-        val data = intent.getParcelableExtra<Tugas>("data")
+
+       val data = intent.getParcelableExtra<Tugas>("data")
+
+
 
         tv_kelas_detail_tugas.text = data.kelas
         tv_judul_detail_tugas.text = data.judul
+        tv_isi_detail_tugas.text = data.isi
         tv_tanggal_detail_tugas.text=data.tanggal
         tv_jam_detail_tugas.text=data.jam
         tv_link_detail_tugas.text=data.link
 
-        if(data.gambar!=0) {
+        if(data.gambar!= "") {
             img_detail_tugas.visibility = View.VISIBLE
             vv_detail_tugas.visibility = View.GONE
-            img_detail_tugas.setImageResource(data.gambar)
+            Glide.with(this).load(data.gambar).centerCrop().into(img_detail_tugas)
+            //img_detail_tugas.setImageResource(data.gambar)
         }
-        else if(data.video!=0) {
-
+        else if(data.video!="") {
             vv_detail_tugas.visibility = View.VISIBLE
             img_detail_tugas.visibility = View.GONE
-            vv_detail_tugas.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + data.video))
+            vv_detail_tugas.setVideoURI(Uri.parse( data.video))
             var media_Controller: MediaController = MediaController(this)
             vv_detail_tugas.setMediaController(media_Controller)
             media_Controller.setAnchorView(vv_detail_tugas)
@@ -55,37 +68,10 @@ class DetailTugasActivity : AppCompatActivity() {
 
         }
 
-        //recyclerView hasil tugas
-        rv_hasil_tugas.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-        //mengkosongkan isi arraylist
-        detailTugas.clear()
-
-        //bisa diganti dengan data dari firebase
-        val temp = HasilTugas(
-            R.drawable.avatar,
-            "Lidya",
-            "20 Juli 2020",
-            "20.20 WIB"
-        )
-        detailTugas.add(temp)
-
-        val temp2 = HasilTugas(
-            R.drawable.avatar,
-            "Lidya",
-            "20 Juli 2020",
-            "20.20 WIB"
-        )
-        detailTugas.add(temp2)
-
-        rv_hasil_tugas.adapter =
-            HasilTugasAdapter(detailTugas) {
-            }
-
         //intent untuk kembali ke halaman sebelumnya
         img_back_detail_tugas.setOnClickListener {
-            onBackPressed()
+            val intent: Intent =  Intent(this@DetailTugasActivity,TugasActivity::class.java  )
+            startActivity(intent)
         }
 
         // menu
@@ -123,4 +109,59 @@ class DetailTugasActivity : AppCompatActivity() {
         }
 
     }
+
+
+    //recyclerView hasil tugas
+    private fun showRecyclerList(list: ArrayList<HasilTugas>): HasilTugasAdapter {
+        val adapter = HasilTugasAdapter(list) {
+            //Log.d("Tugas Activity", "Result: $it")
+
+        }
+
+        getPageHasilTugasList { item: ArrayList<HasilTugas> ->
+            hasilTugas.addAll(item)
+            Log.d("Tugas Activity", "showRecyclerList: before adapter notify")
+            adapter.notifyDataSetChanged()
+            adapter.addItemToList(list)
+            Log.d("Tugas Activity", "showRecyclerList: before rv_tugas set adapter layout")
+            rv_hasil_tugas.layoutManager = LinearLayoutManager(this)
+            rv_hasil_tugas.adapter = adapter
+
+        }
+        return adapter
+    }
+
+    private fun getPageHasilTugasList(callback: (item: ArrayList<HasilTugas>) -> Unit) {
+        val data = intent.getParcelableExtra<Tugas>("data")
+        val listTugas: ArrayList<HasilTugas> = arrayListOf()
+        Log.d("Tugas Activity", "getPageTugasList: before get collection data")
+        hasilTugasCollection.document(data.id_tugas!!).collection("Isi Tugas").addSnapshotListener { result, e ->
+            if (e != null) {
+                Log.w("Tugas Activity", "listen:error", e)
+                return@addSnapshotListener
+            }
+
+            for (document in result!!) {
+                Log.d("TugasActivity", document.toString())
+                listTugas.add(
+                    HasilTugas(
+                        document.id,
+                        document.getString("avatar"),
+                        document.getString("nama"),
+                        document.getString("waktu"),
+                        document.getString("file")
+                    )
+                )
+
+            }
+
+            Log.d("TugasActivity", "callback should be call")
+            callback.invoke(listTugas)
+        }
+        Log.d("Tugas Activity", "getPageTugasList: after get collection data, should not be printed")
+    }
+
+
+
+
 }
