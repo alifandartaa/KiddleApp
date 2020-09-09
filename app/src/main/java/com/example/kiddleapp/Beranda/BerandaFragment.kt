@@ -1,12 +1,17 @@
 package com.example.kiddleapp.Beranda
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.kiddleapp.Jurnal.JurnalActivity
 import com.example.kiddleapp.Kegiatan.KegiatanActivity
 import com.example.kiddleapp.Notifikasi.NotifikasiActivity
@@ -18,11 +23,17 @@ import com.example.kiddleapp.Profil.ProfilActivity
 import com.example.kiddleapp.R
 import com.example.kiddleapp.Rapor.RaporActivity
 import com.example.kiddleapp.Tugas.TugasActivity
+import com.google.firebase.firestore.FirebaseFirestore
 import com.synnapps.carouselview.ImageClickListener
 import com.synnapps.carouselview.ImageListener
+import kotlinx.android.synthetic.main.fragment_beranda.*
 import kotlinx.android.synthetic.main.fragment_beranda.view.*
 
 class BerandaFragment : Fragment() {
+
+    private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private lateinit var sharedPreferences: SharedPreferences
+    lateinit var data:Pengumuman
 
     //tempat menaruh image pada carousel
     var sampleImages = intArrayOf(R.drawable.slide_1, R.drawable.slide_2)
@@ -42,25 +53,19 @@ class BerandaFragment : Fragment() {
 
             if(position == 1){
                 startActivity(
-                    Intent(activity, KegiatanActivity::class.java).putExtra(
-                        "jenis",
-                        "MATERI"
-                    )
+                    Intent(activity, KegiatanActivity::class.java).putExtra("jenis", "MATERI")
                 )
             }
             else if(position==0){
                 startActivity(
-                    Intent(activity, KegiatanActivity::class.java).putExtra(
-                        "jenis",
-                        "PARENTING"
-                    )
+                    Intent(activity, KegiatanActivity::class.java).putExtra("jenis", "PARENTING")
                 )
             }
 
         }
     }
 
-    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_beranda, container, false)
 
         //instansiasi carousel
@@ -68,6 +73,29 @@ class BerandaFragment : Fragment() {
         carouselView.pageCount = sampleImages.size
         carouselView.setImageListener(imageListener)
         carouselView.setImageClickListener(clickListener)
+
+        sharedPreferences = activity?.getSharedPreferences("KIDDLE", Context.MODE_PRIVATE)!!
+        view.nama_guru.text = "Bapak/Ibu " + sharedPreferences.getString("nama", "")
+
+        Glide.with(this).load(sharedPreferences.getString("avatar", "")).centerCrop().into(view.img_avatar)
+
+        db.collection("Pengumuman").limit(1).addSnapshotListener { value, error ->
+            if(error != null) return@addSnapshotListener
+            for(document in value!!) {
+                Glide.with(this).load(document.getString("gambar")).transform(RoundedCorners(32)).into(view.img_pengumuman_beranda)
+                view.tv_judul_pengumuman_beranda.text = document.getString("judul")
+                view.tv_tanggal_pengumuman_beranda.text = document.getString("tanggal")
+                view.tv_isi_pengumuman_beranda.text = document.getString("isi")
+
+                data = Pengumuman(
+                    document.id,
+                    document.getString("judul"),
+                    document.getString("isi"),
+                    document.getString("tanggal"),
+                    document.getString("gambar"),
+                    document.getString("video"))
+            }
+        }
 
         view.keperluan_presensi.setOnClickListener {
             startActivity(Intent(activity, PresensiActivity::class.java))
@@ -108,18 +136,8 @@ class BerandaFragment : Fragment() {
             )
         }
 
-        //pengumuman bisa diubah dari data firebase
-        val temp = Pengumuman(
-            "Pembelajaran Online",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae tellus feugiat, efficitur lacus nec, maximus felis. Maecenas ultrices tempor enim, et malesuada nisl lacinia eget",
-            "20 Juli 2020",
-            R.drawable.banner_pengumuman2,
-            0
-        )
-
         view.img_pengumuman_beranda.setOnClickListener {
-            val intent: Intent =
-                Intent(activity, DetailPengumumanActivity::class.java).putExtra("data", temp)
+            val intent: Intent = Intent(activity, DetailPengumumanActivity::class.java).putExtra("data", data)
             startActivity(intent)
         }
 
