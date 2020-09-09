@@ -16,6 +16,7 @@ import android.widget.MediaController
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.kiddleapp.Pengumuman.Model.Pengumuman
 import com.example.kiddleapp.R
 import kotlinx.android.synthetic.main.activity_edit_pengumuman.*
@@ -38,15 +39,15 @@ class EditPengumumanActivity : AppCompatActivity() {
             tv_deskripsi_edit_pengumuman.setText(data.isi)
             tv_judul_edit_pengumuman.setText(data.judul)
 
-            if (data.gambar != 0) {
+            if (!data.gambar.isNullOrEmpty()) {
                 img_edit_pengumuman.visibility = View.VISIBLE
                 vv_edit_pengumuman.visibility = View.GONE
                 btn_tutup_edit_pengumuman.visibility = View.VISIBLE
-                img_edit_pengumuman.setImageResource(data.gambar)
-            } else if (data.video != 0) {
+                Glide.with(this).load(data.gambar).centerCrop().into(img_edit_pengumuman)
+            } else if (!data.video.isNullOrEmpty()) {
                 vv_edit_pengumuman.visibility = View.VISIBLE
                 img_edit_pengumuman.visibility = View.GONE
-                vv_edit_pengumuman.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + data.video))
+                vv_edit_pengumuman.setVideoURI(Uri.parse(data.video))
                 var media_Controller: MediaController = MediaController(this)
                 vv_edit_pengumuman.setMediaController(media_Controller)
                 media_Controller.setAnchorView(vv_edit_pengumuman)

@@ -6,7 +6,7 @@
     android:layout_height="300dp"
     android:layout_alignWithParentIfMissing="false"
     android:layout_marginBottom="16dp"
-    android:background="@drawable/blue_list">
+    android:background="@drawable/blue_list_big">
 
     <FrameLayout
         android:id="@+id/frame_edit_tugas"
@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_gambar_edit_tugas">
 

@@ -1,5 +1,6 @@
 package com.example.kiddleapp
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -15,12 +16,27 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        handler = Handler()
-        handler.postDelayed({
-            val intent = Intent(this@SplashActivity, OnBoardingActivity::class.java)
-            startActivity(intent)
-            finish()
-        }, 5000)
+        val sharedPreferences = getSharedPreferences("KIDDLE", Context.MODE_PRIVATE)
+        val jenis_akses = sharedPreferences.getBoolean("pernah_login", false)
+
+        if(jenis_akses) {
+            if(sharedPreferences.getString("id_guru", "").isNullOrEmpty()) {
+                Handler().postDelayed({
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
+                }, 1000)
+            } else {
+                Handler().postDelayed({
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }, 1000)
+            }
+        } else {
+            Handler().postDelayed({
+                startActivity(Intent(this, OnBoardingActivity::class.java))
+                finish()
+            }, 1000)
+        }
 
         supportActionBar?.hide()
     }
