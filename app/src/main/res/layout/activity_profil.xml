@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/avatar" />
+        tools:srcCompat="@drawable/avatar" />
 
     <View
         android:id="@+id/imageView13"
@@ -61,12 +61,12 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="Lee Ji Eun"
         android:textColor="@color/colorWhite"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/img_profil"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Lee Ji Eun" />
 
     <LinearLayout
         android:id="@+id/linearLayout24"
@@ -94,9 +94,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
-            android:text="175150201"
             android:textColor="@color/colorBlack"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:text="175150201" />
     </LinearLayout>
 
     <View
@@ -138,9 +138,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
-            android:text="085779993333"
             android:textColor="@color/colorBlack"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:text="085779993333" />
     </LinearLayout>
 
     <View
@@ -182,9 +182,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
-            android:text="Bintang Kecil"
             android:textColor="@color/colorBlack"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:text="Bintang Kecil" />
     </LinearLayout>
 
     <View
@@ -226,9 +226,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
-            android:text="punten123"
             android:textColor="@color/colorBlack"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:text="punten123" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
