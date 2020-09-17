@@ -1,5 +1,6 @@
 package com.example.kiddleapp.Pengumuman
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -7,15 +8,23 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.MediaController
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.kiddleapp.Jurnal.JurnalActivity
 import com.example.kiddleapp.Komentar.Komentar
 import com.example.kiddleapp.Komentar.KomentarAdapter
 import com.example.kiddleapp.Pengumuman.Model.Pengumuman
 import com.example.kiddleapp.R
+import com.example.kiddleapp.Tugas.EditTugasActivity
+import com.example.kiddleapp.Tugas.TugasActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 
 import kotlinx.android.synthetic.main.activity_detail_pengumuman.*
+import kotlinx.android.synthetic.main.activity_detail_tugas.*
 
 class DetailPengumumanActivity : AppCompatActivity() {
 
@@ -24,6 +33,8 @@ class DetailPengumumanActivity : AppCompatActivity() {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var data: Pengumuman
+    var storage = FirebaseStorage.getInstance().reference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +46,63 @@ class DetailPengumumanActivity : AppCompatActivity() {
         img_back_detail_pengumuman.setOnClickListener {
             onBackPressed()
         }
+        // menu
+        menu_detail_pengumuman.setOnClickListener {
+            val popup: PopupMenu = PopupMenu(this, it)
+            popup.setOnMenuItemClickListener {
+                if(it.itemId == R.id.menu_edit2) {
+                    //val intent: Intent = Intent(this@DetailTugasActivity, EditTugasActivity::class.java)
+                    val intent: Intent = Intent(
+                        this@DetailPengumumanActivity,
+                        EditPengumumanActivity::class.java
+                    ).putExtra("jenis", "EDIT_PENGUMUMAN")
+                    intent.putExtra("data", data)
+                    startActivity(intent)
+                    return@setOnMenuItemClickListener true
+                }
+                else if(it.itemId == R.id.menu_hapus2) {
+                    MaterialAlertDialogBuilder(this).apply {
+                        setTitle("Hapus Pengumuman")
+                        setMessage(
+                            "Apa anda yakin ingin menghapus pengumuman ini?"
+                        )
+                        setPositiveButton("Ya") { _, _ ->
+                            db.collection("Pengumuman").document(data.id!!).delete()
+                                .addOnSuccessListener {
+                                    storage.child("Pengumuman/"+data.id!!+"/"+data.id!!+".jpg").delete().addOnSuccessListener {
+
+                                    }
+                                    storage.child("Pengumuman/"+data.id!!+"/"+data.id!!+".jpeg").delete().addOnSuccessListener {
+
+                                    }
+                                    storage.child("Pengumuman/"+data.id!!+"/"+data.id!!+".png").delete().addOnSuccessListener {
+
+                                    }
+                                    storage.child("Pengumuman/"+data.id!!+"/"+data.id!!+".mp4").delete().addOnSuccessListener {
+
+                                    }
+
+                                    val intent: Intent =
+                                        Intent(this@DetailPengumumanActivity, PengumumanActivity::class.java)
+                                    startActivity(intent)
+                                    Toast.makeText(
+                                        context,
+                                        "Jurnal Berhasil di Hapus",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+
+                            setNegativeButton("Tidak") { _, _ -> }
+                        }.show()
+                    }
+
+                }
+                return@setOnMenuItemClickListener false
+            }
+            popup.inflate(R.menu.menu_hapus_edit)
+            popup.show()
+        }
+
 
         if (data != null) {
             tv_judul_detail_pengumuman.text = data.judul
