@@ -12,6 +12,7 @@ import android.widget.VideoView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.example.kiddleapp.Jurnal.Model.Jurnal
 import com.example.kiddleapp.Pengumuman.DetailPengumumanActivity
 import com.example.kiddleapp.Pengumuman.Model.Pengumuman
 import com.example.kiddleapp.R
@@ -22,7 +23,7 @@ class PengumumanAdapter(private var data: List<Pengumuman>, private val listener
     lateinit var contextAdapter: Context
     private val listPengumuman = ArrayList<Pengumuman>()
 
-    //assign value dari model ke xml
+      //assign value dari model ke xml
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tv_judul: TextView = view.findViewById(R.id.tv_judul_list_pengumuman)
         val tv_isi: TextView = view.findViewById(R.id.tv_isi_list_pengumuman)

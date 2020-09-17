@@ -7,13 +7,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.kiddleapp.R
+import com.example.kiddleapp.Tugas.Model.HasilTugas
 
 
 class KomentarAdapter(private var data: List<Komentar>, private val listener: (Komentar) -> Unit) :
     RecyclerView.Adapter<KomentarAdapter.ViewHolder>() {
 
     lateinit var contextAdapter: Context
+    private var listKomentar = ArrayList<Komentar>()
 
     //assign value dari model ke xml
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -30,7 +33,7 @@ class KomentarAdapter(private var data: List<Komentar>, private val listener: (K
             context: Context,
             position: Int
         ) {
-            img_avatar.setImageResource(data.avatar)
+            Glide.with(context).load(data.avatar).centerCrop().into(img_avatar)
             tv_nama.text = data.nama
             tv_jabatan.text = data.jabatan
             tv_isi.text = data.isi
@@ -38,6 +41,7 @@ class KomentarAdapter(private var data: List<Komentar>, private val listener: (K
             itemView.setOnClickListener {
                 listener(data)
             }
+            listener.invoke(data)
         }
     }
 
@@ -58,6 +62,11 @@ class KomentarAdapter(private var data: List<Komentar>, private val listener: (K
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(data[position], listener, contextAdapter, position)
+    }
+
+    fun addItemToList(list: ArrayList<Komentar>) {
+        listKomentar.clear()
+        listKomentar.addAll(list)
     }
 
 

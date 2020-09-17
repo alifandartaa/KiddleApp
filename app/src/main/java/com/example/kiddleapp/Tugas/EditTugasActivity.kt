@@ -57,7 +57,6 @@ class EditTugasActivity : AppCompatActivity() {
         fun String.isValidUrl(): Boolean = Patterns.WEB_URL.matcher(this).matches()
 
         val data = intent.getParcelableExtra<Tugas>("data")
-
         val simpleDateFormat = SimpleDateFormat("yyyyMMddHHmmss")
         val currentDateAndTime: String = simpleDateFormat.format(Date())
 
@@ -440,7 +439,9 @@ class EditTugasActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK && requestCode == 1) {
             if (data?.data.toString().contains("image")) {
                 frame_edit_tugas.visibility = View.VISIBLE
-                image_uri = data?.data
+
+
+
                 img_edit_tugas.visibility = View.VISIBLE
                 vv_edit_tugas.visibility = View.GONE
                 img_edit_tugas.setImageURI(image_uri)
