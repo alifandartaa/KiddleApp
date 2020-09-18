@@ -41,7 +41,7 @@ class PengumumanAdapter(private var data: List<Pengumuman>, private val listener
             if (!data.gambar.isNullOrEmpty()) {
                 img_pengumuman.visibility = View.VISIBLE
                 vv_pengumuman.visibility = View.GONE
-                Glide.with(context).load(data.gambar).into(img_pengumuman)
+                Glide.with(context).load(data.gambar).centerCrop().into(img_pengumuman)
             } else if (!data.video.isNullOrEmpty()) {
                 img_pengumuman.visibility = View.VISIBLE
                 vv_pengumuman.visibility = View.GONE

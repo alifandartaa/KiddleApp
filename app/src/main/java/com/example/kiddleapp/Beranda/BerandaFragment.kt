@@ -3,6 +3,7 @@ package com.example.kiddleapp.Beranda
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -26,6 +27,7 @@ import com.example.kiddleapp.Tugas.TugasActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.synnapps.carouselview.ImageClickListener
 import com.synnapps.carouselview.ImageListener
+import kotlinx.android.synthetic.main.activity_edit_pengumuman.*
 import kotlinx.android.synthetic.main.fragment_beranda.*
 import kotlinx.android.synthetic.main.fragment_beranda.view.*
 
@@ -82,7 +84,18 @@ class BerandaFragment : Fragment() {
         db.collection("Pengumuman").limit(1).addSnapshotListener { value, error ->
             if(error != null) return@addSnapshotListener
             for(document in value!!) {
-                Glide.with(this).load(document.getString("gambar")).transform(RoundedCorners(32)).into(view.img_pengumuman_beranda)
+                if(document.getString("gambar") != ""){
+                    Glide.with(this).load(document.getString("gambar"))
+                        .transform(RoundedCorners(62)).into(view.img_pengumuman_beranda)
+                }else if(document.getString("video")!=""){
+                    Glide.with(this).load(document.getString("video"))
+                        .transform(RoundedCorners(62)).into(view.img_pengumuman_beranda)
+                }else{
+                    Glide.with(this).load(R.drawable.black_layer)
+                        .transform(RoundedCorners(62)).into(view.img_pengumuman_beranda)
+                }
+
+
                 view.tv_judul_pengumuman_beranda.text = document.getString("judul")
                 view.tv_tanggal_pengumuman_beranda.text = document.getString("tanggal")
                 view.tv_isi_pengumuman_beranda.text = document.getString("isi")

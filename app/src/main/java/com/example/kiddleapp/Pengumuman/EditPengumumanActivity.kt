@@ -59,6 +59,7 @@ class EditPengumumanActivity : AppCompatActivity() {
             tv_judul_edit_pengumuman.setText(data.judul)
 
             if (data.gambar != "") {
+                image_uri = Uri.parse(data.gambar)
                 frame_edit_pengumuman.visibility = View.VISIBLE
                 img_edit_pengumuman.visibility = View.VISIBLE
                 vv_edit_pengumuman.visibility = View.GONE
@@ -66,10 +67,11 @@ class EditPengumumanActivity : AppCompatActivity() {
                 Glide.with(this).load(data.gambar).centerCrop().into(img_edit_pengumuman)
 
             } else if (data.video != "") {
+                image_uri = Uri.parse(data.video)
                 frame_edit_pengumuman.visibility = View.VISIBLE
                 vv_edit_pengumuman.visibility = View.VISIBLE
                 img_edit_pengumuman.visibility = View.GONE
-                //    vv_edit_jurnal.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + data.video))
+                 vv_edit_jurnal.setVideoURI(Uri.parse( data.video))
                 var media_Controller: MediaController = MediaController(this)
                 vv_edit_jurnal.setMediaController(media_Controller)
                 media_Controller.setAnchorView(vv_edit_jurnal)
@@ -94,7 +96,6 @@ class EditPengumumanActivity : AppCompatActivity() {
 
 
                 }else {
-
                     if (image_uri != null) {
                         val builder = StringBuilder()
                         builder.append(data.id + "." + getFileExtension(image_uri!! ))
@@ -152,6 +153,25 @@ class EditPengumumanActivity : AppCompatActivity() {
                                                 .show()
                                         }
                                 }
+                        }else{
+                            db.collection("Pengumuman").document(data.id!!)
+                                .update(mapOf(
+                                    "id" to  currentDateAndTime,
+                                    "judul" to  tv_judul_edit_pengumuman.text.toString(),
+                                    "isi" to  tv_deskripsi_edit_pengumuman.text.toString(),
+                                    "tanggal" to  tanggal,
+                                    "gambar" to  data.gambar,
+                                    "video" to   data.video
+                                )
+                                )
+                            val intent: Intent =  Intent(this@EditPengumumanActivity,PengumumanActivity::class.java  )
+                            startActivity(intent)
+                            Toast.makeText(
+                                this,
+                                "Simpan Berhasil",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
                         }
                     }else if (image_uri == null){
                         db.collection("Pengumuman").document(data.id!!)

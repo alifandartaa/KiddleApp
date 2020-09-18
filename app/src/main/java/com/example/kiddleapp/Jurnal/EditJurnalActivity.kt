@@ -31,6 +31,7 @@ import kotlinx.android.synthetic.main.activity_edit_tugas.*
 import java.util.*
 
 
+@Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class EditJurnalActivity : AppCompatActivity() {
 
     private val PERMISSION_CODE = 1000
@@ -52,27 +53,29 @@ class EditJurnalActivity : AppCompatActivity() {
         val simpleDateFormat2 = SimpleDateFormat("dd-MM-yyyy")
         val tanggal : String = simpleDateFormat2.format(Date())
 
+
         if(intent.getStringExtra("jenis") == "EDIT_JURNAL") {
             //mengambil data dari halaman sebelumnya
-            val data = intent.getParcelableExtra<Jurnal>("data")
+
             tv_kelas_edit_jurnal.setText(data.kelas)
             tv_deskripsi_edit_jurnal.setText(data.isi)
             tv_aspek_edit_jurnal.setText(data.jenis)
             tv_judul_edit_jurnal.setText(data.judul)
 
-
             if (data.gambar != "") {
+                image_uri = Uri.parse(data.gambar)
                 frame_edit_jurnal.visibility = View.VISIBLE
                 img_edit_jurnal.visibility = View.VISIBLE
                 vv_edit_jurnal.visibility = View.GONE
                 btn_tutup_edit_jurnal.visibility = View.VISIBLE
-                Glide.with(this).load(data.gambar).centerCrop().into(img_edit_jurnal)
+                Glide.with(this).load(image_uri).centerCrop().into(img_edit_jurnal)
 
             } else if (data.video != "") {
+                image_uri = Uri.parse(data.video)
                 frame_edit_jurnal.visibility = View.VISIBLE
                 vv_edit_jurnal.visibility = View.VISIBLE
                 img_edit_jurnal.visibility = View.GONE
-            //    vv_edit_jurnal.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + data.video))
+                vv_edit_jurnal.setVideoURI(image_uri)
                 var media_Controller: MediaController = MediaController(this)
                 vv_edit_jurnal.setMediaController(media_Controller)
                 media_Controller.setAnchorView(vv_edit_jurnal)
@@ -93,10 +96,7 @@ class EditJurnalActivity : AppCompatActivity() {
                         ).show()
                         btn_simpan_edit_jurnal.isEnabled = true
                         btn_simpan_edit_jurnal.text = "Simpan"
-
-
                     }else {
-
                             if (image_uri != null) {
                                 val builder = StringBuilder()
                                 builder.append(data.id_jurnal + "." + getFileExtension(image_uri!! ))
@@ -161,7 +161,27 @@ class EditJurnalActivity : AppCompatActivity() {
                                                     .show()
                                             }
                                         }
+                                }else{
+                                    db.collection("Jurnal").document(data.id_jurnal!!)
+                                        .update(mapOf(
+                                            "id_jurnal" to  currentDateAndTime,
+                                            "jenis" to  tv_aspek_edit_jurnal.text.toString(),
+                                            "kelas" to tv_kelas_edit_jurnal.text.toString(),
+                                            "judul" to  tv_judul_edit_jurnal.text.toString(),
+                                            "isi" to  tv_deskripsi_edit_jurnal.text.toString(),
+                                            "tanggal" to  tanggal,
+                                            "gambar" to   data.gambar,
+                                            "video" to   data.video
+                                        )
+                                        )
+
+                                    val intent: Intent = Intent(
+                                        this@EditJurnalActivity,
+                                        JurnalActivity::class.java
+                                    )
+                                    startActivity(intent)
                                 }
+
                             }else if (image_uri == null){
                                 db.collection("Jurnal").document(data.id_jurnal!!)
                                     .update(mapOf(

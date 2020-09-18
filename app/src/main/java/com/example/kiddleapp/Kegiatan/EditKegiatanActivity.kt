@@ -67,13 +67,14 @@ class EditKegiatanActivity : AppCompatActivity() {
             }
 
             if (data.gambar != "") {
+                image_uri = Uri.parse(data.gambar)
                 frame_edit_kegiatan.visibility = View.VISIBLE
                 img_edit_kegiatan.visibility = View.VISIBLE
                 vv_edit_kegiatan.visibility = View.GONE
                 btn_tutup_edit_kegiatan.visibility = View.VISIBLE
-                //  img_edit_kegiatan.setImageResource(data.gambar)
                 Glide.with(this).load(data.gambar).centerCrop().into(img_edit_kegiatan)
             } else if (data.video != "") {
+                image_uri = Uri.parse(data.video)
                 frame_edit_kegiatan.visibility = View.VISIBLE
                 vv_edit_kegiatan.visibility = View.VISIBLE
                 img_edit_kegiatan.visibility = View.GONE
@@ -328,6 +329,92 @@ class EditKegiatanActivity : AppCompatActivity() {
 
                                     }
                                 }
+                            }else{
+                                when (data.jenis) {
+                                    "Kegiatan" -> {
+
+                                                        db.collection("Kegiatan").document(data.id!!)
+                                                            .update(
+                                                                mapOf(
+                                                                    "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
+                                                                    "judul" to tv_judul_edit_kegiatan.text.toString(),
+                                                                    "link" to tv_link_edit_kegiatan.text.toString(),
+                                                                    "gambar" to data.gambar,
+                                                                    "video" to  data.video
+
+                                                                )
+                                                            )
+                                                        val intent: Intent = Intent(
+                                                            this@EditKegiatanActivity,
+                                                            KegiatanActivity::class.java
+                                                        ).putExtra("jenis", "KEGIATAN")
+
+                                                        startActivity(intent)
+                                                        Toast.makeText(
+                                                            this,
+                                                            "Simpan Berhasil",
+                                                            Toast.LENGTH_SHORT
+                                                        )
+                                                            .show()
+                                                    }
+                                    "Parenting" -> {
+                                                        db.collection("Parenting").document(data.id!!)
+                                                            .update(
+                                                                mapOf(
+                                                                    "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
+                                                                    "judul" to tv_judul_edit_kegiatan.text.toString(),
+                                                                    "link" to tv_link_edit_kegiatan.text.toString(),
+                                                                    "gambar" to data.gambar,
+                                                                    "video" to data.video
+
+                                                                )
+                                                            )
+
+                                                        val intent: Intent = Intent(
+                                                            this@EditKegiatanActivity,
+                                                            KegiatanActivity::class.java
+                                                        ).putExtra("jenis", "PARENTING")
+
+                                                        startActivity(intent)
+                                                        Toast.makeText(
+                                                            this,
+                                                            "Simpan Berhasil",
+                                                            Toast.LENGTH_SHORT
+                                                        )
+                                                            .show()
+                                                    }
+
+                                    "materi" -> {
+
+                                                        db.collection("materi").document(data.id!!)
+                                                            .update(
+                                                                mapOf(
+                                                                    "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
+                                                                    "judul" to tv_judul_edit_kegiatan.text.toString(),
+                                                                    "link" to tv_link_edit_kegiatan.text.toString(),
+                                                                    "gambar" to data.gambar,
+                                                                    "video" to data.video
+
+                                                                )
+                                                            )
+
+                                                        val intent: Intent = Intent(
+                                                            this@EditKegiatanActivity,
+                                                            KegiatanActivity::class.java
+                                                        ).putExtra("jenis", "MATERI")
+
+                                                        startActivity(intent)
+                                                        Toast.makeText(
+                                                            this,
+                                                            "Simpan Berhasil",
+                                                            Toast.LENGTH_SHORT
+                                                        )
+                                                            .show()
+                                                    }
+                                            }
+
+
+
                             }
 
                         } else if (image_uri == null) {
