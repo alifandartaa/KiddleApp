@@ -57,7 +57,8 @@ class DetailJurnalActivity : AppCompatActivity() {
 
         //intent untuk kembali ke halaman sebelumnya
         img_back_detail_jurnal.setOnClickListener {
-            onBackPressed()
+            val intent: Intent =  Intent(this@DetailJurnalActivity,JurnalActivity::class.java  )
+            startActivity(intent)
         }
 
         // menu

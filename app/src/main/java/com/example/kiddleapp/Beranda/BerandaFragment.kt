@@ -86,13 +86,13 @@ class BerandaFragment : Fragment() {
             for(document in value!!) {
                 if(document.getString("gambar") != ""){
                     Glide.with(this).load(document.getString("gambar"))
-                        .transform(RoundedCorners(62)).into(view.img_pengumuman_beranda)
+                        .transform(RoundedCorners(32)).centerCrop().into(view.img_pengumuman_beranda)
                 }else if(document.getString("video")!=""){
                     Glide.with(this).load(document.getString("video"))
-                        .transform(RoundedCorners(62)).into(view.img_pengumuman_beranda)
+                        .transform(RoundedCorners(32)).centerCrop().into(view.img_pengumuman_beranda)
                 }else{
                     Glide.with(this).load(R.drawable.black_layer)
-                        .transform(RoundedCorners(62)).into(view.img_pengumuman_beranda)
+                        .transform(RoundedCorners(32)).centerCrop().into(view.img_pengumuman_beranda)
                 }
 
 

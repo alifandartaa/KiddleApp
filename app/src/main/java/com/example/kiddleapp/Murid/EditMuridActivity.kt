@@ -11,56 +11,261 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.example.kiddleapp.Jurnal.JurnalActivity
+import com.example.kiddleapp.Jurnal.Model.Jurnal
+import com.example.kiddleapp.MainActivity
+import com.example.kiddleapp.Murid.Model.Murid
 import com.example.kiddleapp.R
+import com.google.common.io.Files.getFileExtension
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.activity_detail__murid.*
 import kotlinx.android.synthetic.main.activity_edit__murid.*
+import kotlinx.android.synthetic.main.activity_edit_jurnal.*
 
 class EditMuridActivity : AppCompatActivity() {
 
-    lateinit var img_location: Uri
+    private val PERMISSION_CODE = 1000
+    private val IMAGE_CAPTURE_CODE = 1001
+    var image_uri: Uri? = null
+    private val db = FirebaseFirestore.getInstance()
+    var storage = FirebaseStorage.getInstance().reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit__murid)
+        val data = intent.getParcelableExtra<Murid>("data")
 
-        if (intent.getStringExtra("jenis") == "EDIT_PROFIL") {
+
+        if (intent.getStringExtra("jenis") == "EDIT_MURID") {
+
             //biar langsung keisi. kurang bagian gambar
-            edit_nama_murid.setText(intent.getStringExtra("nama_murid"))
-            edit_nomor_murid.setText(intent.getStringExtra("nomor_murid"))
-            edit_password_murid.setText(intent.getStringExtra("password_murid"))
-            dropdown_value_kelas_murid.setText(intent.getStringExtra("kelas_murid"))
-            edit_ttl_murid.setText(intent.getStringExtra("ttl_murid"))
-            edit_alamat_murid.setText(intent.getStringExtra("alamat_murid"))
-            edit_ayah_murid.setText(intent.getStringExtra("ayah_murid"))
-            edit_kontak_ayah.setText(intent.getStringExtra("kontak_ayah"))
-            edit_ibu_murid.setText(intent.getStringExtra("ibu_murid"))
-            edit_kontak_ibu.setText(intent.getStringExtra("kontak_ibu"))
+            edit_nama_murid.setText(data.nama)
+            edit_angkatan_murid.setText(data.angkatan)
+            edit_nomor_murid.setText(data.nomor)
+            edit_password_murid.setText(data.password)
+            dropdown_value_kelas_murid.setText(data.kelas)
+            edit_ttl_murid.setText(data.ttl)
+            edit_alamat_murid.setText(data.alamat)
+            edit_ayah_murid.setText(data.ayah)
+            edit_kontak_ayah.setText(data.kontakAyah)
+            edit_ibu_murid.setText(data.ibu)
+            edit_kontak_ibu.setText(data.kontakIbu)
+            Glide.with(this).load(data.avatar).centerCrop().into(img_edit_murid)
+            image_uri = Uri.parse(data.avatar)
 
-            //gambar masih manual
-            img_edit_murid.setImageResource(R.drawable.avatar)
 
             //tampilkan warning dan matikan input
             waring_nomor_murid.visibility = View.VISIBLE
             warning_kelas_murid.visibility = View.VISIBLE
             edit_nomor_murid.isEnabled = false
             dropdown_kelas_murid.isEnabled = false
-        } else {
+
+            btn_simpan_murid.setOnClickListener {
+                btn_simpan_murid.isEnabled = false
+                btn_simpan_murid.text = "Loading"
+
+                if (edit_nama_murid.text.toString().isEmpty() || edit_password_murid.text.toString()
+                        .isEmpty() || edit_ttl_murid.text.toString().isEmpty()
+                    || edit_alamat_murid.text.toString()
+                        .isEmpty() || edit_ayah_murid.text.toString()
+                        .isEmpty() || edit_kontak_ayah.text.toString().isEmpty()
+                    || edit_ibu_murid.text.toString().isEmpty() || edit_kontak_ibu.text.toString()
+                        .isEmpty() || edit_angkatan_murid.text.toString().isEmpty()
+                ) {
+                    Toast.makeText(
+                        this,
+                        "Semua Kolom Harus Diisi!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    btn_simpan_murid.isEnabled = true
+                    btn_simpan_murid.text = "Simpan"
+                } else {
+                    if (image_uri != null) {
+                        val builder = StringBuilder()
+                        builder.append(data.nomor + "." + getFileExtension(image_uri!!))
+
+                        if (getFileExtension(image_uri!!) == "jpg" || getFileExtension(image_uri!!) == "png" || getFileExtension(
+                                image_uri!!
+                            ) == "jpeg"
+                        ) {
+                            storage.child("Murid").child(data.nomor!!).child(builder.toString())
+                                .putFile(image_uri!!).addOnSuccessListener {
+                                    storage.child("Murid").child(data.nomor!!)
+                                        .child(builder.toString()).downloadUrl.addOnSuccessListener {
+                                            db.collection("Murid").document(data.nomor!!)
+                                                .update(
+                                                    mapOf(
+                                                        "avatar" to it.toString(),
+                                                        "nama" to edit_nama_murid.text.toString(),
+                                                        "angkatan" to edit_angkatan_murid.text.toString(),
+                                                        "ttl" to edit_ttl_murid.text.toString(),
+                                                        "alamat" to edit_alamat_murid.text.toString(),
+                                                        "ayah" to edit_ayah_murid.text.toString(),
+                                                        "ibu" to edit_ibu_murid.text.toString(),
+                                                        "kontak_ayah" to edit_kontak_ayah.text.toString(),
+                                                        "kontak_ibu" to edit_kontak_ibu.text.toString(),
+                                                        "password" to edit_password_murid.text.toString()
+                                                    )
+                                                )
+                                        }.addOnCompleteListener {
+                                            val intent: Intent =
+                                                Intent(
+                                                    this@EditMuridActivity,
+                                                    MainActivity::class.java
+                                                )
+                                            startActivity(intent)
+                                            Toast.makeText(
+                                                this,
+                                                "Simpan Berhasil",
+                                                Toast.LENGTH_SHORT
+                                            )
+                                                .show()
+                                        }
+                                }
+                        } else {
+                            db.collection("Murid").document(data.nomor!!)
+                                .update(
+                                    mapOf(
+                                        "avatar" to data.avatar,
+                                        "nama" to edit_nama_murid.text.toString(),
+                                        "angkatan" to edit_angkatan_murid.text.toString(),
+                                        "ttl" to edit_ttl_murid.text.toString(),
+                                        "alamat" to edit_alamat_murid.text.toString(),
+                                        "ayah" to edit_ayah_murid.text.toString(),
+                                        "ibu" to edit_ibu_murid.text.toString(),
+                                        "kontak_ayah" to edit_kontak_ayah.text.toString(),
+                                        "kontak_ibu" to edit_kontak_ibu.text.toString(),
+                                        "password" to edit_password_murid.text.toString()
+                                    )
+                                )
+                            val intent: Intent =
+                                Intent(this@EditMuridActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            Toast.makeText(
+                                this,
+                                "Simpan Berhasil",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        }
+                    } else if (image_uri == null) {
+                        db.collection("Murid").document(data.nomor!!)
+                            .update(
+                                mapOf(
+                                    "avatar" to "",
+                                    "nama" to edit_nama_murid.text.toString(),
+                                    "angkatan" to edit_angkatan_murid.text.toString(),
+                                    "ttl" to edit_ttl_murid.text.toString(),
+                                    "alamat" to edit_alamat_murid.text.toString(),
+                                    "ayah" to edit_ayah_murid.text.toString(),
+                                    "ibu" to edit_ibu_murid.text.toString(),
+                                    "kontak_ayah" to edit_kontak_ayah.text.toString(),
+                                    "kontak_ibu" to edit_kontak_ibu.text.toString(),
+                                    "password" to edit_password_murid.text.toString()
+                                )
+                            )
+                        val intent: Intent =
+                            Intent(this@EditMuridActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        Toast.makeText(
+                            this,
+                            "Simpan Berhasil",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                }
+            }
+        } else  if (intent.getStringExtra("jenis") == "TAMBAH_MURID") {
             //assign dropdown kelas
             val items = listOf("Bintang Kecil", "Bintang Besar", "Bulan Kecil", "Bulan Besar")
-            val adapter = ArrayAdapter(
-                this,
-                R.layout.dropdown_text, items
-            )
+            val adapter = ArrayAdapter(this, R.layout.dropdown_text, items)
             (dropdown_kelas_murid.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+
+            btn_simpan_murid.setOnClickListener {
+                btn_simpan_murid.isEnabled = false
+                btn_simpan_murid.text = "Loading"
+
+                if (edit_nama_murid.text.toString().isEmpty() || edit_password_murid.text.toString()
+                        .isEmpty() || edit_ttl_murid.text.toString().isEmpty()
+                    || edit_alamat_murid.text.toString()
+                        .isEmpty() || edit_ayah_murid.text.toString()
+                        .isEmpty() || edit_kontak_ayah.text.toString().isEmpty()
+                    || edit_ibu_murid.text.toString().isEmpty() || edit_kontak_ibu.text.toString()
+                        .isEmpty() || dropdown_value_kelas_murid.text.toString().isEmpty() || edit_nomor_murid.text.toString()
+                        .isEmpty()||  edit_angkatan_murid.text.toString().isEmpty()
+                ) {
+                    Toast.makeText(
+                        this,
+                        "Semua Kolom Harus Diisi!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    btn_simpan_murid.isEnabled = true
+                    btn_simpan_murid.text = "Simpan"
+                }else{
+                    if (image_uri != null) {
+                        val builder = StringBuilder()
+                        builder.append(edit_nomor_murid.text.toString() + "." + getFileExtension(image_uri!!))
+
+                        storage.child("Murid").child( edit_nomor_murid.text.toString()).child(builder.toString())
+                            .putFile(image_uri!!)
+                            .addOnSuccessListener {
+                                storage.child("Murid").child(edit_nomor_murid.text.toString()).child(builder.toString()).downloadUrl.addOnSuccessListener {
+                                    val murid = hashMapOf(
+                                        "avatar" to it.toString(),
+                                        "nomor" to edit_nomor_murid.text.toString(),
+                                        "angkatan" to edit_angkatan_murid.text.toString(),
+                                        "kelas" to dropdown_value_kelas_murid.text.toString(),
+                                        "nama" to edit_nama_murid.text.toString(),
+                                        "ttl" to edit_ttl_murid.text.toString(),
+                                        "alamat" to edit_alamat_murid.text.toString(),
+                                        "ayah" to edit_ayah_murid.text.toString(),
+                                        "ibu" to edit_ibu_murid.text.toString(),
+                                        "kontak_ayah" to edit_kontak_ayah.text.toString(),
+                                        "kontak_ibu" to edit_kontak_ibu.text.toString(),
+                                        "password" to edit_password_murid.text.toString()
+                                    )
+                                    db.collection("Murid").document(edit_nomor_murid.text.toString()).set(murid)}.addOnCompleteListener {
+                                    val intent: Intent =  Intent(this@EditMuridActivity,
+                                        MainActivity::class.java  )
+                                    startActivity(intent)
+                                    Toast.makeText(  this, "Simpan Berhasil", Toast.LENGTH_SHORT).show()
+                                }
+
+                            }
+                    }else {
+                        val murid = hashMapOf(
+                            "avatar" to "",
+                            "nomor" to edit_nomor_murid.text.toString(),
+                            "angkatan" to edit_angkatan_murid.text.toString(),
+                            "kelas" to dropdown_value_kelas_murid.text.toString(),
+                            "nama" to edit_nama_murid.text.toString(),
+                            "ttl" to edit_ttl_murid.text.toString(),
+                            "alamat" to edit_alamat_murid.text.toString(),
+                            "ayah" to edit_ayah_murid.text.toString(),
+                            "ibu" to edit_ibu_murid.text.toString(),
+                            "kontak_ayah" to edit_kontak_ayah.text.toString(),
+                            "kontak_ibu" to edit_kontak_ibu.text.toString(),
+                            "password" to edit_password_murid.text.toString()
+                        )
+                        db.collection("Murid").document(edit_nomor_murid.text.toString()).set(murid)}.addOnCompleteListener {
+                        val intent: Intent =  Intent(this@EditMuridActivity,
+                            MainActivity::class.java  )
+                        startActivity(intent)
+                        Toast.makeText(  this, "Simpan Berhasil", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+
+            }
         }
 
         //intent untuk kembali ke halaman sebelumnya
         img_back_edit_murid.setOnClickListener {
-            onBackPressed()
-        }
-
-        //diganti pake firebase
-        btn_simpan_murid.setOnClickListener {
-            Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
+            val intent: Intent = Intent(this@EditMuridActivity, MainActivity::class.java)
+            startActivity(intent)
         }
 
         //buat pilih foto dari galeri
@@ -80,10 +285,11 @@ class EditMuridActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if(requestCode == 1 && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
-            img_location = data.data!!
-            img_edit_murid.setImageURI(img_location)
+            image_uri = data.data!!
+
+            Glide.with(this).load(image_uri).centerCrop().into(img_edit_murid)
         }
     }
+
 }

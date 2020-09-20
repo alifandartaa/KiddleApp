@@ -55,9 +55,6 @@ class HasilTugasAdapter(
             Glide.with(context).load(data.avatar).centerCrop().into(img_avatar)
             tv_nama.text = data.nama
             tv_tanggal.text = data.tanggal
-
-
-
             itemView.setOnClickListener {
                 listener(data)
             }

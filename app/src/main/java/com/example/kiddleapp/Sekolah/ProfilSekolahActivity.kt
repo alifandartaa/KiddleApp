@@ -32,7 +32,6 @@ class ProfilSekolahActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profil_sekolah)
 
-
         val sekolah = db.collection("Profil Sekolah").document("LBbnMxieBzdWuxvOMGbw")
         sekolah.get()
             .addOnSuccessListener { document ->

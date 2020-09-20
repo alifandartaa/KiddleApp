@@ -30,7 +30,6 @@ class JurnalActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_jurnal)
-
         showRecyclerList(jurnal)
 
         //intent untuk kembali ke halaman sebelumnya
@@ -53,6 +52,7 @@ class JurnalActivity : AppCompatActivity() {
         val kelas = listOf("Bintang Kecil", "Bintang Besar", "Bulan Kecil", "Bulan Besar","Semua Kelas")
         val adapter_kelas = ArrayAdapter(this, R.layout.dropdown_text, kelas)
         (dropdown_jurnal_kelas.editText as? AutoCompleteTextView)?.setAdapter(adapter_kelas)
+
 
         auto_kelas_jurnal.setOnItemClickListener { parent, view, position, id ->
             var item = parent.getItemAtPosition(position).toString()

@@ -2,58 +2,136 @@ package com.example.kiddleapp.Rapor
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kiddleapp.MainActivity
 import com.example.kiddleapp.Murid.Adapter.MuridAdapter
 import com.example.kiddleapp.Murid.Model.Murid
 import com.example.kiddleapp.R
+import com.example.kiddleapp.Rapor.Adapter.RaporAdapter
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_rapor.*
+import kotlinx.android.synthetic.main.fragment_murid.view.*
 
 class RaporActivity : AppCompatActivity() {
 
     //untuk menyimpan murid
-    private var murid = ArrayList<Murid>()
+    private val murid: ArrayList<Murid> = arrayListOf()
+    private val db = FirebaseFirestore.getInstance()
+    private val muridCollection = db.collection("Murid")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rapor)
+        showRecyclerList(murid)
 
         //untuk dropdown. bisa ganti kelas yang ada di firebase nya untuk dropdown
-        val items = listOf("Bintang Kecil", "Bintang Besar", "Bulan Kecil", "Bulan Besar")
-        val adapter = ArrayAdapter(
-            this,
-            R.layout.dropdown_text, items
-        )
-        (dropdown_rapor_kelas.editText as? AutoCompleteTextView)?.setAdapter(adapter)
-
-        //recyclerView murid
-        rv_rapor.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val kelas = listOf("Bintang Kecil", "Bintang Besar", "Bulan Kecil", "Bulan Besar", "Semua Kelas")
+        val adapter_kelas = ArrayAdapter(this, R.layout.dropdown_text, kelas)
+        (dropdown_rapor_kelas.editText as? AutoCompleteTextView)?.setAdapter(adapter_kelas)
 
         //mengkosongkan isi arraylist
-        murid.clear()
-
-        //bisa diganti dengan data dari firebase
-        val temp = Murid(
-            R.drawable.avatar, "198022", "Lee Ji Eun", "Bintang Besar",
-            "Bandung, 3 Mei 1999", "Jl. Watugong No.17F", "Budi", "Siti",
-            "0812345678", "089765432", "mangga123"
-        )
-        murid.add(temp)
-
-
-        //agar murid dapat di-click sekaligus mengisi adapter dengan data di arraylist tadi
-        rv_rapor.adapter =
-            MuridAdapter(murid) {
-                val intent: Intent =
-                    Intent(this@RaporActivity, EditRaporActivity::class.java).putExtra("data", it)
-                startActivity(intent)
-            }
+       // murid.clear()
+        dropdown_value_rapor_kelas.setOnItemClickListener { parent, view, position, id ->
+            var item = parent.getItemAtPosition(position).toString()
+            murid.clear()
+            showRecyclerList(murid)
+        }
 
         //intent untuk kembali ke halaman sebelumnya
         img_back_rapor.setOnClickListener {
-            onBackPressed()
+            val intent: Intent = Intent(this@RaporActivity, MainActivity::class.java)
+            startActivity(intent)
         }
+    }
+    private fun showRecyclerList(list: ArrayList<Murid>): RaporAdapter {
+        val adapter = RaporAdapter(list) {
+            //Log.d("Tugas Activity", "Result: $it")
+        }
+
+        getPageTugasList { item: ArrayList<Murid> ->
+            murid.addAll(item)
+            Log.d("Tugas Activity", "showRecyclerList: before adapter notify")
+            adapter.notifyDataSetChanged()
+            adapter.addItemToList(list)
+            Log.d("Tugas Activity", "showRecyclerList: before rv_tugas set adapter layout")
+            rv_rapor.layoutManager = LinearLayoutManager(this)
+            rv_rapor.adapter = adapter
+
+        }
+        return adapter
+    }
+
+    private fun getPageTugasList(callback: (item: ArrayList<Murid>) -> Unit) {
+        val listMurid: ArrayList<Murid> = arrayListOf()
+
+        if( dropdown_value_rapor_kelas.text.toString() == "" || dropdown_value_rapor_kelas.text.toString() =="Semua Kelas"){
+            muridCollection.addSnapshotListener { result, e ->
+                if (e != null) {
+                    return@addSnapshotListener
+                }
+                for (document in result!!) {
+                    Log.d("TugasActivity", document.toString())
+                    listMurid.add(
+                        Murid(
+                            document.getString("avatar"),
+                            document.getString("nomor"),
+                            document.getString("angkatan"),
+                            document.getString("nama"),
+                            document.getString("kelas"),
+                            document.getString("ttl"),
+                            document.getString("alamat"),
+                            document.getString("ayah"),
+                            document.getString("ibu"),
+                            document.getString("kontak_ayah"),
+                            document.getString("kontak_ibu"),
+                            document.getString("password")
+                        )
+                    )
+
+                }
+
+                Log.d("TugasActivity", "callback should be call")
+                callback.invoke(listMurid)
+            }
+
+        }else if( dropdown_value_rapor_kelas.text.toString() != "Semua Kelas"){
+            muridCollection.whereEqualTo("kelas" ,dropdown_value_rapor_kelas.text.toString()).addSnapshotListener { result, e ->
+                if (e != null) {
+                    return@addSnapshotListener
+                }
+                for (document in result!!) {
+                    Log.d("TugasActivity", document.toString())
+                    listMurid.add(
+                        Murid(
+                            document.getString("avatar"),
+                            document.getString("nomor"),
+                            document.getString("angkatan"),
+                            document.getString("nama"),
+                            document.getString("kelas"),
+                            document.getString("ttl"),
+                            document.getString("alamat"),
+                            document.getString("ayah"),
+                            document.getString("ibu"),
+                            document.getString("kontak_ayah"),
+                            document.getString("kontak_ibu"),
+                            document.getString("password")
+                        )
+                    )
+
+                }
+
+                Log.d("TugasActivity", "callback should be call")
+                callback.invoke(listMurid)
+            }
+
+
+        }
+
+
+        Log.d("Tugas Activity", "getPageTugasList: after get collection data, should not be printed")
     }
 }
