@@ -6,6 +6,7 @@ import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.icu.text.SimpleDateFormat
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -17,15 +18,25 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.example.kiddleapp.Jurnal.JurnalActivity
 import com.example.kiddleapp.Pengumuman.Model.Pengumuman
 import com.example.kiddleapp.R
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.activity_edit_jurnal.*
 import kotlinx.android.synthetic.main.activity_edit_pengumuman.*
+import kotlinx.android.synthetic.main.activity_edit_pengumuman.btn_tutup_edit_pengumuman
+import kotlinx.android.synthetic.main.activity_edit_pengumuman.img_edit_pengumuman
+import kotlinx.android.synthetic.main.activity_edit_pengumuman.vv_edit_pengumuman
+import java.util.*
 
 class EditPengumumanActivity : AppCompatActivity() {
 
     private val PERMISSION_CODE = 1000
     private val IMAGE_CAPTURE_CODE = 1001
     var image_uri: Uri? = null
+    private val db = FirebaseFirestore.getInstance()
+    var storage = FirebaseStorage.getInstance().reference
 
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -33,48 +44,275 @@ class EditPengumumanActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_pengumuman)
+        val data = intent.getParcelableExtra<Pengumuman>("data")
+        val simpleDateFormat = SimpleDateFormat("yyyyMMddHHmmss")
+        val currentDateAndTime: String = simpleDateFormat.format(Date())
+
+        val simpleDateFormat2 = SimpleDateFormat("dd-MM-yyyy")
+        val tanggal : String = simpleDateFormat2.format(Date())
+
+
         if(intent.getStringExtra("jenis") == "EDIT_PENGUMUMAN") {
             //mengambil data dari halaman sebelumnya
-            val data = intent.getParcelableExtra<Pengumuman>("data")
+
             tv_deskripsi_edit_pengumuman.setText(data.isi)
             tv_judul_edit_pengumuman.setText(data.judul)
 
-            if (!data.gambar.isNullOrEmpty()) {
+            if (data.gambar != "") {
+                image_uri = Uri.parse(data.gambar)
+                frame_edit_pengumuman.visibility = View.VISIBLE
                 img_edit_pengumuman.visibility = View.VISIBLE
                 vv_edit_pengumuman.visibility = View.GONE
                 btn_tutup_edit_pengumuman.visibility = View.VISIBLE
                 Glide.with(this).load(data.gambar).centerCrop().into(img_edit_pengumuman)
-            } else if (!data.video.isNullOrEmpty()) {
+
+            } else if (data.video != "") {
+                image_uri = Uri.parse(data.video)
+                frame_edit_pengumuman.visibility = View.VISIBLE
                 vv_edit_pengumuman.visibility = View.VISIBLE
                 img_edit_pengumuman.visibility = View.GONE
-                vv_edit_pengumuman.setVideoURI(Uri.parse(data.video))
+                 vv_edit_jurnal.setVideoURI(Uri.parse( data.video))
                 var media_Controller: MediaController = MediaController(this)
-                vv_edit_pengumuman.setMediaController(media_Controller)
-                media_Controller.setAnchorView(vv_edit_pengumuman)
+                vv_edit_jurnal.setMediaController(media_Controller)
+                media_Controller.setAnchorView(vv_edit_jurnal)
                 vv_edit_pengumuman.seekTo(10)
                 btn_tutup_edit_pengumuman.visibility = View.VISIBLE
+            }
 
+            // simpan
+            btn_simpan_edit_pengumuman.setOnClickListener {
+
+                btn_simpan_edit_pengumuman.isEnabled = false
+                btn_simpan_edit_pengumuman.text = "Loading"
+
+                if(tv_judul_edit_pengumuman.text.toString().isEmpty() || tv_deskripsi_edit_pengumuman.text.toString().isEmpty() ) {
+                    Toast.makeText(
+                        this,
+                        "Semua Kolom Harus Diisi!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    btn_simpan_edit_pengumuman.isEnabled = true
+                    btn_simpan_edit_pengumuman.text = "Simpan"
+
+
+                }else {
+                    if (image_uri != null) {
+                        val builder = StringBuilder()
+                        builder.append(data.id + "." + getFileExtension(image_uri!! ))
+
+                        if (getFileExtension(image_uri!!) == "jpg" || getFileExtension(image_uri!!) == "png" || getFileExtension( image_uri!!) == "jpeg") {
+                            storage.child("Pengumuman").child(data.id!!).child(builder.toString()).putFile(image_uri!!).addOnSuccessListener {
+                                storage.child("Pengumuman").child(data.id!!).child(builder.toString()).downloadUrl.addOnSuccessListener {
+                                    db.collection("Pengumuman").document(data.id!!)
+                                        .update(mapOf(
+                                            "id" to  currentDateAndTime,
+                                            "judul" to  tv_judul_edit_pengumuman.text.toString(),
+                                            "isi" to  tv_deskripsi_edit_pengumuman.text.toString(),
+                                            "tanggal" to  tanggal,
+                                            "gambar" to   it.toString(),
+                                            "video" to   ""
+                                        )
+                                        )}.addOnCompleteListener {
+                                    val intent: Intent =  Intent(this@EditPengumumanActivity,PengumumanActivity::class.java  )
+                                    startActivity(intent)
+                                    Toast.makeText(
+                                        this,
+                                        "Simpan Berhasil",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                }
+                            }
+                        } else if (getFileExtension(image_uri!!) == "mp4" ) {
+                            //storage = FirebaseStorage.getInstance().reference.child("Tugas").child(sharedPreferences.getString("id_tugas", "").toString()).child(builder.toString())
+
+                            storage.child("Pengumuman").child(data.id!!)
+                                .child(builder.toString()).putFile(image_uri!!)
+                                .addOnSuccessListener {
+                                    storage.child("Pengumuman").child(data.id!!)
+                                        .child(builder.toString()).downloadUrl.addOnSuccessListener {
+                                            db.collection("Jurnal").document(data.id!!)
+                                                .update(
+                                                    mapOf(
+                                                        "id" to  currentDateAndTime,
+                                                        "judul" to  tv_judul_edit_pengumuman.text.toString(),
+                                                        "isi" to  tv_deskripsi_edit_pengumuman.text.toString(),
+                                                        "tanggal" to  tanggal,
+                                                        "gambar" to  "" ,
+                                                        "video" to   it.toString()
+                                                    )
+                                                )
+                                        }.addOnCompleteListener {
+                                            val intent: Intent =  Intent(this@EditPengumumanActivity,PengumumanActivity::class.java  )
+                                            startActivity(intent)
+                                            Toast.makeText(
+                                                this,
+                                                "Simpan Berhasil",
+                                                Toast.LENGTH_SHORT
+                                            )
+                                                .show()
+                                        }
+                                }
+                        }else{
+                            db.collection("Pengumuman").document(data.id!!)
+                                .update(mapOf(
+                                    "id" to  currentDateAndTime,
+                                    "judul" to  tv_judul_edit_pengumuman.text.toString(),
+                                    "isi" to  tv_deskripsi_edit_pengumuman.text.toString(),
+                                    "tanggal" to  tanggal,
+                                    "gambar" to  data.gambar,
+                                    "video" to   data.video
+                                )
+                                )
+                            val intent: Intent =  Intent(this@EditPengumumanActivity,PengumumanActivity::class.java  )
+                            startActivity(intent)
+                            Toast.makeText(
+                                this,
+                                "Simpan Berhasil",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        }
+                    }else if (image_uri == null){
+                        db.collection("Pengumuman").document(data.id!!)
+                            .update(mapOf(
+                                "id" to  currentDateAndTime,
+                                "judul" to  tv_judul_edit_pengumuman.text.toString(),
+                                "isi" to  tv_deskripsi_edit_pengumuman.text.toString(),
+                                "tanggal" to  tanggal,
+                                "gambar" to  "" ,
+                                "video" to   ""
+                            )
+                            ).addOnCompleteListener {
+                                val intent: Intent =  Intent(this@EditPengumumanActivity,PengumumanActivity::class.java  )
+                                startActivity(intent)
+                                Toast.makeText(
+                                    this,
+                                    "Simpan Berhasil",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+                    }
+                }
+            }
+
+        }else if (intent.getStringExtra("jenis") == "TAMBAH_PENGUMUMAN") {
+            // simpan
+            //link
+            btn_simpan_edit_pengumuman.setOnClickListener {
+                btn_simpan_edit_pengumuman.isEnabled = false
+                btn_simpan_edit_pengumuman.text = "Loading"
+
+                if(tv_judul_edit_pengumuman.text.toString().isEmpty() || tv_deskripsi_edit_pengumuman.text.toString().isEmpty() )
+                        {
+                    Toast.makeText(
+                        this,
+                        "Semua Kolom Harus Diisi!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    btn_simpan_edit_pengumuman.isEnabled = true
+                    btn_simpan_edit_pengumuman.text = "Simpan"
+
+                } else {
+                    if (image_uri != null) {
+                        val builder = StringBuilder()
+                        builder.append(currentDateAndTime + "." + getFileExtension(image_uri!!))
+                        if (getFileExtension(image_uri!!) == "jpg" || getFileExtension(image_uri!!) == "png" || getFileExtension(
+                                image_uri!!
+                            ) == "jpeg"
+                        ) {
+                            storage.child("Pengumuman").child(currentDateAndTime)
+                                .child(builder.toString())
+                                .putFile(image_uri!!)
+                                .addOnSuccessListener {
+                                    storage.child("Pengumuman").child(currentDateAndTime)
+                                        .child(builder.toString()).downloadUrl.addOnSuccessListener {
+                                        val pengumuman = hashMapOf(
+                                            "id" to  currentDateAndTime,
+                                            "judul" to  tv_judul_edit_pengumuman.text.toString(),
+                                            "isi" to  tv_deskripsi_edit_pengumuman.text.toString(),
+                                            "tanggal" to  tanggal,
+                                            "gambar" to   it.toString() ,
+                                            "video" to  ""
+                                        )
+                                        db.collection("Pengumuman").document(currentDateAndTime)
+                                            .set(pengumuman)
+                                    }.addOnCompleteListener {
+                                            val intent: Intent =  Intent(this@EditPengumumanActivity,PengumumanActivity::class.java  )
+                                            startActivity(intent)
+                                        Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT)
+                                            .show()
+                                    }
+
+                                }
+                        } else if (getFileExtension(image_uri!!) == "mp4") {
+                            storage.child("Pengumuman").child(currentDateAndTime)
+                                .child(builder.toString())
+                                .putFile(image_uri!!)
+                                .addOnSuccessListener {
+                                    storage.child("Pengumuman").child(currentDateAndTime)
+                                        .child(builder.toString()).downloadUrl.addOnSuccessListener {
+                                            val pengumuman = hashMapOf(
+                                                "id" to  currentDateAndTime,
+                                                "judul" to  tv_judul_edit_pengumuman.text.toString(),
+                                                "isi" to  tv_deskripsi_edit_pengumuman.text.toString(),
+                                                "tanggal" to  tanggal,
+                                                "gambar" to   "" ,
+                                                "video" to  it.toString()
+                                            )
+                                        db.collection("Pengumuman").document(currentDateAndTime)
+                                            .set(pengumuman)
+                                    }.addOnCompleteListener {
+                                            val intent: Intent =  Intent(this@EditPengumumanActivity,PengumumanActivity::class.java  )
+                                            startActivity(intent)
+                                        Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT)
+                                            .show()
+                                    }
+
+                                }
+                        }
+                    } else {
+                        val pengumuman = hashMapOf(
+                            "id" to  currentDateAndTime,
+                            "judul" to  tv_judul_edit_pengumuman.text.toString(),
+                            "isi" to  tv_deskripsi_edit_pengumuman.text.toString(),
+                            "tanggal" to  tanggal,
+                            "gambar" to   "" ,
+                            "video" to  ""
+                        )
+                        db.collection("Pengumuman").document(currentDateAndTime).set(pengumuman)
+                            .addOnCompleteListener {
+                                val intent: Intent =  Intent(this@EditPengumumanActivity,PengumumanActivity::class.java  )
+                                startActivity(intent)
+                                Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                    }
+
+                }
             }
         }
 
         //tutup gambar
        // hapus video belum bisa
         btn_tutup_edit_pengumuman.setOnClickListener {
+            image_uri=null
+            frame_edit_pengumuman.visibility = View.GONE
             img_edit_pengumuman.setImageResource(0)
             img_edit_pengumuman.visibility = View.GONE
+            vv_edit_pengumuman.setVideoURI(Uri.parse(""))
+            vv_edit_pengumuman.visibility = View.GONE
             btn_tutup_edit_pengumuman.visibility = View.GONE
         }
 
         //kembali
         img_back_edit_pengumuman.setOnClickListener {
-            onBackPressed()
+            val intent: Intent = Intent(this@EditPengumumanActivity, PengumumanActivity::class.java)
+            startActivity(intent)
         }
 
 
-        // simpan
-        btn_simpan_edit_pengumuman.setOnClickListener {
-            Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
-        }
 
 
 
@@ -127,14 +365,20 @@ class EditPengumumanActivity : AppCompatActivity() {
         //ambil gambar atau video galeri
         if (resultCode == Activity.RESULT_OK && requestCode == 1) {
             if (data?.data.toString().contains("image")) {
+                image_uri = data?.data
+                frame_edit_pengumuman.visibility = View.VISIBLE
                 img_edit_pengumuman.visibility = View.VISIBLE
                 vv_edit_pengumuman.visibility = View.GONE
-                img_edit_pengumuman.setImageURI(data?.data)
+                //    img_edit_jurnal.setImageURI(image_uri)
+                Glide.with(this).load(image_uri).centerCrop().into(img_edit_pengumuman)
+
 
             } else if (data?.data.toString().contains("video")) {
+                image_uri = data?.data
+                frame_edit_pengumuman.visibility = View.VISIBLE
                 vv_edit_pengumuman.visibility = View.VISIBLE
                 img_edit_pengumuman.visibility = View.GONE
-                vv_edit_pengumuman.setVideoURI(data?.data)
+                vv_edit_pengumuman.setVideoURI(image_uri)
                 var media_Controller: MediaController = MediaController(this)
                 vv_edit_pengumuman.setMediaController(media_Controller)
                 media_Controller.setAnchorView(vv_edit_pengumuman)
@@ -145,9 +389,10 @@ class EditPengumumanActivity : AppCompatActivity() {
         //ambil gambar kamera
         else if (resultCode == Activity.RESULT_OK) {
             //set image captured to image view
+            frame_edit_pengumuman.visibility = View.VISIBLE
             img_edit_pengumuman.visibility = View.VISIBLE
             vv_edit_pengumuman.visibility = View.GONE
-            img_edit_pengumuman.setImageURI(image_uri)
+            Glide.with(this).load(image_uri).centerCrop().into(img_edit_pengumuman)
         }
 
         btn_tutup_edit_pengumuman.visibility = View.VISIBLE
@@ -185,8 +430,5 @@ class EditPengumumanActivity : AppCompatActivity() {
                 }
             }
         }
-
-
-
     }
 }

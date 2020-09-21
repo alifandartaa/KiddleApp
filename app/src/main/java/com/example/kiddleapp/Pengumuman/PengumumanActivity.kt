@@ -4,9 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kiddleapp.Beranda.BerandaFragment
+import com.example.kiddleapp.MainActivity
 import com.example.kiddleapp.Pengumuman.Adapter.PengumumanAdapter
 import com.example.kiddleapp.Pengumuman.Model.Pengumuman
 import com.example.kiddleapp.R
+import com.example.kiddleapp.Tugas.TugasActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_pengumuman.*
 
@@ -21,7 +24,8 @@ class PengumumanActivity : AppCompatActivity() {
 
         //intent untuk kembali ke halaman sebelumnya
         img_back_pengumuman.setOnClickListener {
-            onBackPressed()
+            val intent: Intent = Intent(this@PengumumanActivity, MainActivity::class.java)
+            startActivity(intent)
         }
 
         btn_tambah_pengumuman.setOnClickListener {

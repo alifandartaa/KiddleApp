@@ -57,7 +57,6 @@ class EditTugasActivity : AppCompatActivity() {
         fun String.isValidUrl(): Boolean = Patterns.WEB_URL.matcher(this).matches()
 
         val data = intent.getParcelableExtra<Tugas>("data")
-
         val simpleDateFormat = SimpleDateFormat("yyyyMMddHHmmss")
         val currentDateAndTime: String = simpleDateFormat.format(Date())
 
@@ -74,6 +73,7 @@ class EditTugasActivity : AppCompatActivity() {
             }
 
             if (data.gambar != "") {
+                image_uri = Uri.parse(data.gambar)
                 frame_edit_tugas.visibility = View.VISIBLE
                 img_edit_tugas.visibility = View.VISIBLE
                 vv_edit_tugas.visibility = View.GONE
@@ -81,6 +81,7 @@ class EditTugasActivity : AppCompatActivity() {
                 Glide.with(this).load(data.gambar).centerCrop().into(img_edit_tugas)
 
             } else if (data.video != "") {
+                image_uri = Uri.parse(data.video)
                 frame_edit_tugas.visibility = View.VISIBLE
                 vv_edit_tugas.visibility = View.VISIBLE
                 img_edit_tugas.visibility = View.GONE
@@ -165,6 +166,28 @@ class EditTugasActivity : AppCompatActivity() {
                                             startActivity(intent)
                                         }
                                 }
+                            }else{
+                                db.collection("Tugas").document(data.id_tugas!!)
+                                    .update(mapOf(
+                                        "isi" to tv_deskripsi_edit_tugas.text.toString() ,
+                                        "judul" to tv_aspek_edit_tugas.text.toString(),
+                                        "jam" to tv_jam_edit_tugas.text.toString() ,
+                                        "tanggal" to tv_tanggal_edit_tugas.text.toString(),
+                                        "link" to tv_link_edit_tugas.text.toString(),
+                                        "kelas" to tv_kelas_edit_tugas.text.toString(),
+                                        "gambar" to  data.gambar ,
+                                        "video" to data.video,
+                                        "jumlah" to "20/20"
+                                    )
+                                    )
+                                val intent: Intent =  Intent(this@EditTugasActivity,TugasActivity::class.java  )
+                                startActivity(intent)
+                                Toast.makeText(
+                                    this,
+                                    "Simpan Berhasil",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
                             }
 
                         }else if (image_uri == null){
@@ -439,8 +462,8 @@ class EditTugasActivity : AppCompatActivity() {
         //ambil gambar atau video galeri
         if (resultCode == Activity.RESULT_OK && requestCode == 1) {
             if (data?.data.toString().contains("image")) {
-                frame_edit_tugas.visibility = View.VISIBLE
                 image_uri = data?.data
+                frame_edit_tugas.visibility = View.VISIBLE
                 img_edit_tugas.visibility = View.VISIBLE
                 vv_edit_tugas.visibility = View.GONE
                 img_edit_tugas.setImageURI(image_uri)

@@ -1,4 +1,5 @@
-package com.example.kiddleapp.Murid.Adapter
+package com.example.kiddleapp.Rapor.Adapter
+
 
 import android.content.Context
 import android.content.Intent
@@ -11,15 +12,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kiddleapp.Jurnal.DetailJurnalActivity
 import com.example.kiddleapp.Jurnal.Model.Jurnal
+import com.example.kiddleapp.Murid.Adapter.MuridAdapter
 import com.example.kiddleapp.Murid.DetailMuridActivity
 import com.example.kiddleapp.Murid.Model.Murid
 import com.example.kiddleapp.R
+import com.example.kiddleapp.Rapor.EditRaporActivity
 
-class MuridAdapter(private var data: List<Murid>, private val listener: (Murid) -> Unit) :
-    RecyclerView.Adapter<MuridAdapter.ViewHolder>() {
+class RaporAdapter(private var data: List<Murid>, private val listener: (Murid) -> Unit) :
+    RecyclerView.Adapter<RaporAdapter.ViewHolder>() {
 
     lateinit var contextAdapter: Context
-    private var listMurid= ArrayList<Murid>()
+    private var listMurid = ArrayList<Murid>()
 
     //assign value dari model ke xml
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -56,7 +59,8 @@ class MuridAdapter(private var data: List<Murid>, private val listener: (Murid) 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(data[position], listener, contextAdapter, position)
         holder.itemView.setOnClickListener(View.OnClickListener { v ->
-            val intent: Intent = Intent(v.context, DetailMuridActivity::class.java).putExtra("data", data[position])
+            val intent: Intent =
+                Intent(v.context, EditRaporActivity::class.java).putExtra("data", data[position])
             v.context.startActivity(intent)
         })
     }

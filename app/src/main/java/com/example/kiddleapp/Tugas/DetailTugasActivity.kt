@@ -7,15 +7,19 @@ import android.util.Log
 import android.view.View
 import android.widget.MediaController
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.kiddleapp.Pengumuman.PengumumanActivity
 import com.example.kiddleapp.R
 import com.example.kiddleapp.Tugas.Adapter.HasilTugasAdapter
 import com.example.kiddleapp.Tugas.Adapter.TugasAdapter
 import com.example.kiddleapp.Tugas.Model.HasilTugas
 import com.example.kiddleapp.Tugas.Model.Tugas
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_detail_tugas.*
 import kotlinx.android.synthetic.main.activity_tugas.*
 
@@ -26,6 +30,7 @@ class DetailTugasActivity : AppCompatActivity() {
     private val hasilTugas: ArrayList<HasilTugas> = arrayListOf()
     private val db = FirebaseFirestore.getInstance()
     private val hasilTugasCollection = db.collection("Hasil Tugas")
+    var storage = FirebaseStorage.getInstance().reference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +40,6 @@ class DetailTugasActivity : AppCompatActivity() {
         //mengambil data dari halaman sebelumnya
 
        val data = intent.getParcelableExtra<Tugas>("data")
-
-
 
         tv_kelas_detail_tugas.text = data.kelas
         tv_judul_detail_tugas.text = data.judul
@@ -88,11 +91,42 @@ class DetailTugasActivity : AppCompatActivity() {
                     startActivity(intent)
                     return@setOnMenuItemClickListener true
                 }
-               else if(it.itemId == R.id.menu_hapus2) {
-                    //belum ditambah buat ngehapus
-                    val intent: Intent = Intent(this@DetailTugasActivity, TugasActivity::class.java)
-                    startActivity(intent)
-                    return@setOnMenuItemClickListener true
+                else if(it.itemId == R.id.menu_hapus2) {
+                    MaterialAlertDialogBuilder(this).apply {
+                        setTitle("Hapus Tugas")
+                        setMessage(
+                            "Apa anda yakin ingin menghapus Tugas ini?"
+                        )
+                        setPositiveButton("Ya") { _, _ ->
+                            db.collection("Tugas").document(data.id_tugas!!).delete()
+                                .addOnSuccessListener {
+                                    storage.child("Tugas/"+data.id_tugas!!+"/"+data.id_tugas!!+".jpg").delete().addOnSuccessListener {
+
+                                    }
+                                    storage.child("Tugas/"+data.id_tugas!!+"/"+data.id_tugas!!+".jpeg").delete().addOnSuccessListener {
+
+                                    }
+                                    storage.child("Tugas/"+data.id_tugas!!+"/"+data.id_tugas!!+".png").delete().addOnSuccessListener {
+
+                                    }
+                                    storage.child("Tugas/"+data.id_tugas!!+"/"+data.id_tugas!!+".mp4").delete().addOnSuccessListener {
+
+                                    }
+
+                                    val intent: Intent =
+                                        Intent(this@DetailTugasActivity, TugasActivity::class.java)
+                                    startActivity(intent)
+                                    Toast.makeText(
+                                        context,
+                                        "Jurnal Berhasil di Hapus",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+
+                            setNegativeButton("Tidak") { _, _ -> }
+                        }.show()
+                    }
+
                 }
                 return@setOnMenuItemClickListener false
             }

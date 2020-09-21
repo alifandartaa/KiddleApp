@@ -82,6 +82,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView17">
 
         <AutoCompleteTextView
+            android:id="@+id/dropdown_value_rapor_kelas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"

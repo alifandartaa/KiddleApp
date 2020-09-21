@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
             btn_login_admin.text = "Loading"
 
             if(et_nip_admin.text.toString().isEmpty() || et_password_admin.text.toString().isEmpty()) {
-                Toast.makeText(this, "ID Murid dan Kata Sandi harap diisi!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "ID Guru dan Kata Sandi harap diisi!", Toast.LENGTH_SHORT).show()
                 btn_login_admin.isEnabled = true
                 btn_login_admin.text = "Masuk"
             } else {
@@ -39,12 +39,12 @@ class LoginActivity : AppCompatActivity() {
                             startActivity(Intent(this, MainActivity::class.java))
                             finishAffinity()
                         } else {
-                            Toast.makeText(this, "ID Murid atau Kata Sandi salah!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "ID Guru atau Kata Sandi salah!", Toast.LENGTH_SHORT).show()
                             btn_login_admin.isEnabled = true
                             btn_login_admin.text = "Masuk"
                         }
                     } else {
-                        Toast.makeText(this, "ID Murid atau Kata Sandi salah!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "IDGuru atau Kata Sandi salah!", Toast.LENGTH_SHORT).show()
                         btn_login_admin.isEnabled = true
                         btn_login_admin.text = "Masuk"
                     }

@@ -30,7 +30,7 @@ class KegiatanActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kegiatan)
-       kegiatan.clear()
+        kegiatan.clear()
         showRecyclerList(kegiatan)
 
         btn_tambah_jenis_fungsi.setOnClickListener {

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.kiddleapp.Guru.GuruActivity
 import com.example.kiddleapp.Kegiatan.KegiatanActivity
-import com.example.kiddleapp.Profil.ProfilSekolahActivity
 import com.example.kiddleapp.R
 import kotlinx.android.synthetic.main.fragment_sekolah.view.*
 

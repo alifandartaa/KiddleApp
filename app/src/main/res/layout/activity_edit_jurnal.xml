@@ -9,8 +9,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="150dp"
-        tools:layout_editor_absoluteY="-60dp">
+        tools:layout_editor_absoluteX="-132dp"
+        tools:layout_editor_absoluteY="26dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

@@ -23,7 +23,6 @@
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -37,7 +36,7 @@
         <activity android:name=".Profil.EditProfilActivity" />
         <activity android:name=".Profil.ProfilActivity" />
         <activity android:name=".Sekolah.EditSekolahActivity" />
-        <activity android:name=".Profil.ProfilSekolahActivity" />
+        <activity android:name=".Sekolah.ProfilSekolahActivity" />
         <activity android:name=".Rapor.EditRaporActivity" />
         <activity android:name=".Rapor.RaporActivity" />
         <activity android:name=".Tugas.DetailTugasActivity" />
@@ -53,6 +52,7 @@
         <activity android:name=".Pengumuman.DetailPengumumanActivity" />
         <activity android:name=".Pengumuman.EditPengumumanActivity" />
         <activity android:name=".Notifikasi.NotifikasiActivity" />
+
 
         <meta-data
             android:name="preloaded_fonts"
