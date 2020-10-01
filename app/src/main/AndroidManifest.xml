@@ -32,6 +32,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".Murid.EditMuridActivity" />
         <activity android:name=".Murid.DetailMuridActivity" />
+        <activity android:name=".Murid.RekapRaporActivity" />
         <activity android:name=".Guru.GuruActivity" />
         <activity android:name=".Profil.EditProfilActivity" />
         <activity android:name=".Profil.ProfilActivity" />

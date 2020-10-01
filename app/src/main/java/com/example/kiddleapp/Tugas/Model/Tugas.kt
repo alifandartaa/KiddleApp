@@ -12,7 +12,7 @@ data class Tugas(
     val isi: String?,
     val tanggal: String?,
     val jam: String?,
-    val jumlah: String?,
+
     val gambar: String?,
     val video: String?,
     val link: String?

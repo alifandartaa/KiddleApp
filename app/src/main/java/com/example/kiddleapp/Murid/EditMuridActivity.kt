@@ -38,6 +38,7 @@ class EditMuridActivity : AppCompatActivity() {
         val data = intent.getParcelableExtra<Murid>("data")
 
 
+
         if (intent.getStringExtra("jenis") == "EDIT_MURID") {
 
             //biar langsung keisi. kurang bagian gambar
@@ -92,8 +93,10 @@ class EditMuridActivity : AppCompatActivity() {
                         ) {
                             storage.child("Murid").child(data.nomor!!).child(builder.toString())
                                 .putFile(image_uri!!).addOnSuccessListener {
+
                                     storage.child("Murid").child(data.nomor!!)
                                         .child(builder.toString()).downloadUrl.addOnSuccessListener {
+
                                             db.collection("Murid").document(data.nomor!!)
                                                 .update(
                                                     mapOf(
@@ -110,15 +113,9 @@ class EditMuridActivity : AppCompatActivity() {
                                                     )
                                                 )
                                         }.addOnCompleteListener {
-                                            val intent: Intent =
-                                                Intent(
-                                                    this@EditMuridActivity,
-                                                    MainActivity::class.java
-                                                )
+                                            val intent: Intent = Intent(this@EditMuridActivity, MainActivity::class.java)
                                             startActivity(intent)
-                                            Toast.makeText(
-                                                this,
-                                                "Simpan Berhasil",
+                                            Toast.makeText(this, "Simpan Berhasil",
                                                 Toast.LENGTH_SHORT
                                             )
                                                 .show()
@@ -261,6 +258,7 @@ class EditMuridActivity : AppCompatActivity() {
 
             }
         }
+
 
         //intent untuk kembali ke halaman sebelumnya
         img_back_edit_murid.setOnClickListener {

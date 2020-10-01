@@ -127,8 +127,7 @@ class EditTugasActivity : AppCompatActivity() {
                                                     "link" to tv_link_edit_tugas.text.toString(),
                                                     "kelas" to tv_kelas_edit_tugas.text.toString(),
                                                     "gambar" to  it.toString() ,
-                                                    "video" to "",
-                                                    "jumlah" to "20/20"
+                                                    "video" to ""
                                                 )
                                                )}.addOnCompleteListener {
                                             val intent: Intent =  Intent(this@EditTugasActivity,TugasActivity::class.java  )
@@ -157,8 +156,8 @@ class EditTugasActivity : AppCompatActivity() {
                                                     "link" to tv_link_edit_tugas.text.toString(),
                                                     "kelas" to tv_kelas_edit_tugas.text.toString(),
                                                     "gambar" to  "" ,
-                                                    "video" to it.toString(),
-                                                    "jumlah" to "20/20"
+                                                    "video" to it.toString()
+
                                                 )
                                                 )}.addOnCompleteListener {
 
@@ -176,8 +175,7 @@ class EditTugasActivity : AppCompatActivity() {
                                         "link" to tv_link_edit_tugas.text.toString(),
                                         "kelas" to tv_kelas_edit_tugas.text.toString(),
                                         "gambar" to  data.gambar ,
-                                        "video" to data.video,
-                                        "jumlah" to "20/20"
+                                        "video" to data.video
                                     )
                                     )
                                 val intent: Intent =  Intent(this@EditTugasActivity,TugasActivity::class.java  )
@@ -200,8 +198,7 @@ class EditTugasActivity : AppCompatActivity() {
                                     "link" to tv_link_edit_tugas.text.toString(),
                                     "kelas" to tv_kelas_edit_tugas.text.toString(),
                                     "gambar" to  "" ,
-                                    "video" to "",
-                                    "jumlah" to "20/20"
+                                    "video" to ""
                                 )
                                 ).addOnCompleteListener {
 
@@ -257,7 +254,6 @@ class EditTugasActivity : AppCompatActivity() {
                                                     "isi" to  tv_deskripsi_edit_tugas.text.toString(),
                                                     "tanggal" to  tv_tanggal_edit_tugas.text.toString(),
                                                     "jam" to  tv_jam_edit_tugas.text.toString(),
-                                                    "jumlah" to  "20/20",
                                                     "gambar" to   it.toString(),
                                                     "video" to  "",
                                                     "link" to  tv_link_edit_tugas.text.toString()
@@ -282,7 +278,6 @@ class EditTugasActivity : AppCompatActivity() {
                                                     "isi" to  tv_deskripsi_edit_tugas.text.toString(),
                                                     "tanggal" to  tv_tanggal_edit_tugas.text.toString(),
                                                     "jam" to  tv_jam_edit_tugas.text.toString(),
-                                                    "jumlah" to  "20/20",
                                                     "gambar" to   "",
                                                     "video" to  it.toString(),
                                                     "link" to  tv_link_edit_tugas.text.toString()
@@ -309,7 +304,6 @@ class EditTugasActivity : AppCompatActivity() {
                                 "isi" to  tv_deskripsi_edit_tugas.text.toString(),
                                 "tanggal" to  tv_tanggal_edit_tugas.text.toString(),
                                 "jam" to  tv_jam_edit_tugas.text.toString(),
-                                "jumlah" to  "20/20",
                                 "gambar" to   "",
                                 "video" to  "",
                                 "link" to  tv_link_edit_tugas.text.toString()

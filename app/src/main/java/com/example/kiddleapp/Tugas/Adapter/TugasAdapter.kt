@@ -26,7 +26,6 @@ class TugasAdapter(private var data: List<Tugas>, private val listener: (Tugas) 
         private val img_jenis: ImageView = view.findViewById(R.id.img_jenis_list_tugas)
         private val tv_judul: TextView = view.findViewById(R.id.tv_judul_list_tugas)
         private val tv_tanggal: TextView = view.findViewById(R.id.tv_tanggal_list_tugas)
-        private val tv_jumlah: TextView = view.findViewById(R.id.tv_pengumpulan_list_tugas)
 
         // kalau mau ditambah kelas apa atau deksripsi lain jangan lupa ubah layout dan model
         fun bindItem(data: Tugas, listener: (Tugas) -> Unit, context: Context, position: Int) {
@@ -44,7 +43,7 @@ class TugasAdapter(private var data: List<Tugas>, private val listener: (Tugas) 
 
             tv_judul.text = data.judul
             tv_tanggal.text=data.tanggal
-            tv_jumlah.text=data.jumlah
+
 
             itemView.setOnClickListener {
                 listener(data)

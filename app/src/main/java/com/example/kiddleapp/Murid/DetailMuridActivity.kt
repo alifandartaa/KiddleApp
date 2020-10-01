@@ -32,7 +32,6 @@ class DetailMuridActivity : AppCompatActivity() {
         val data = intent.getParcelableExtra<Murid>("data")
 
         img_back_murid.setOnClickListener {
-
             val intent: Intent =  Intent(this@DetailMuridActivity, MainActivity::class.java  )
             startActivity(intent)
         }
@@ -78,8 +77,7 @@ class DetailMuridActivity : AppCompatActivity() {
                             "Apa anda yakin ingin menghapus murid ini?"
                         )
                         setPositiveButton("Ya") { _, _ ->
-                            db.collection("Murid").document(data.nomor!!).delete()
-                                .addOnSuccessListener {
+                            db.collection("Murid").document(data.nomor!!).delete().addOnSuccessListener {
                                     storage.child("Murid/"+data.nomor!!+"/"+data.nomor!!+".jpg").delete().addOnSuccessListener {
 
                                     }
@@ -120,7 +118,7 @@ class DetailMuridActivity : AppCompatActivity() {
         //intent ke halaman rapor
         btn_lihat_rapor.setOnClickListener {
             val intent: Intent =
-                Intent(this@DetailMuridActivity, EditRaporActivity::class.java).putExtra(
+                Intent(this@DetailMuridActivity, RekapRaporActivity::class.java).putExtra(
                     "data",
                     data
                 )

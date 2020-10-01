@@ -31,6 +31,13 @@ class GuruActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+
+        btn_plus_guru.setOnClickListener{
+            val intent: Intent = Intent(this@GuruActivity, EditProfilActivity::class.java)
+            intent.putExtra("jenis", "TAMBAH_GURU")
+            startActivity(intent)
+        }
+
     }
 
     private fun showRecyclerList(list: ArrayList<Guru>): GuruAdapter {
