@@ -101,6 +101,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView37">
 
                 <AutoCompleteTextView
+                    android:id="@+id/auto_kelas_tugas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"

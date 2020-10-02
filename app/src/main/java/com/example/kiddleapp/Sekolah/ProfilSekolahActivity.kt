@@ -28,6 +28,7 @@ class ProfilSekolahActivity : AppCompatActivity() {
     var id_sekolah : String? = null
     var gambar :String? = null
     lateinit var data: Sekolah
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profil_sekolah)

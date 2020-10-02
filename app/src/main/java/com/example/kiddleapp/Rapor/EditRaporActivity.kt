@@ -37,7 +37,7 @@ class EditRaporActivity : AppCompatActivity(), View.OnClickListener {
     var motorik: Boolean = false
 
     private val db = FirebaseFirestore.getInstance()
-    val semester = mutableListOf<String>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,15 +102,15 @@ class EditRaporActivity : AppCompatActivity(), View.OnClickListener {
                 .document(data.nomor!!).get()
                 .addOnSuccessListener {
                     if (it != null) {
-                        dropdown_nilai_kognitif.setText(it.getString("nilai_kognitif"))
+                        dropdown_nilai_kognitif.setText(it.getString("nilai_kognitif"),false)
                         input_kognitif_deskripsi.setText(it.getString("des_kognitif"))
-                        dropdown_nilai_berbahasa.setText(it.getString("nilai_berbahasa"))
+                        dropdown_nilai_berbahasa.setText(it.getString("nilai_berbahasa"),false)
                         input_berbahasa_deskripsi.setText(it.getString("des_berbahasa"))
-                        dropdown_nilai_keterampilan.setText(it.getString("nilai_keterampilan"))
+                        dropdown_nilai_keterampilan.setText(it.getString("nilai_keterampilan"),false)
                         input_keterampilan_deskripsi.setText(it.getString("des_keterampilan"))
-                        dropdown_nilai_agama.setText(it.getString("nilai_agama"))
+                        dropdown_nilai_agama.setText(it.getString("nilai_agama"),false)
                         input_agama_deskripsi.setText(it.getString("des_agama"))
-                        dropdown_nilai_motorik.setText(it.getString("nilai_motorik"))
+                        dropdown_nilai_motorik.setText(it.getString("nilai_motorik"),false)
                         input_motorik_deskripsi.setText(it.getString("des_motorik"))
                     }
                 }

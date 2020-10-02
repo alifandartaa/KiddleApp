@@ -43,15 +43,4 @@
         app:layout_constraintStart_toEndOf="@+id/img_jenis_list_tugas"
         app:layout_constraintTop_toBottomOf="@+id/tv_judul_list_tugas" />
 
-    <TextView
-        android:id="@+id/tv_pengumpulan_list_tugas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/roboto_light"
-        android:text="20/20"
-        android:textColor="@color/colorWhite"
-        android:textSize="9sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_judul_list_tugas" />
 </androidx.constraintlayout.widget.ConstraintLayout>

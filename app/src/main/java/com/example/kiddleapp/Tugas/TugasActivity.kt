@@ -12,6 +12,7 @@ import com.example.kiddleapp.Tugas.Adapter.HasilTugasAdapter
 import com.example.kiddleapp.Tugas.Adapter.TugasAdapter
 import com.example.kiddleapp.Tugas.Model.Tugas
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_jurnal.*
 import kotlinx.android.synthetic.main.activity_tugas.*
 import java.security.AccessController.getContext
 
@@ -26,9 +27,16 @@ class TugasActivity : AppCompatActivity() {
         setContentView(R.layout.activity_tugas)
 
         //untuk dropdown
-        val items = listOf("Bintang Kecil", "Bintang Besar", "Bulan Kecil", "Bulan Besar")
+        val items =
+            listOf("Bintang Kecil", "Bintang Besar", "Bulan Kecil", "Bulan Besar", "Semua Kelas")
         val adapter = ArrayAdapter(this, R.layout.dropdown_text, items)
         (dropdown_tugas_kelas.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+
+        auto_kelas_tugas.setOnItemClickListener { parent, view, position, id ->
+            var item = parent.getItemAtPosition(position).toString()
+            tugas.clear()
+            showRecyclerList(tugas)
+        }
 
         Log.d("Tugas Activity", "onCreate: before show recycler tugas")
         showRecyclerList(tugas)
@@ -71,38 +79,62 @@ class TugasActivity : AppCompatActivity() {
     private fun getPageTugasList(callback: (item: ArrayList<Tugas>) -> Unit) {
 
         val listTugas: ArrayList<Tugas> = arrayListOf()
-        Log.d("Tugas Activity", "getPageTugasList: before get collection data")
-        tugasCollection.addSnapshotListener { result, e ->
-            if (e != null) {
-                Log.w("Tugas Activity", "listen:error", e)
-                return@addSnapshotListener
-            }
+        if (auto_kelas_tugas.text.toString() == "Semua Kelas" || auto_kelas_tugas.text.toString() == "") {
+            tugasCollection.addSnapshotListener { result, e ->
+                if (e != null) {
+                    return@addSnapshotListener
+                }
 
-            for (document in result!!) {
-                Log.d("TugasActivity", document.toString())
-                listTugas.add(
-                    Tugas(
-                        document.id,
-                        document.getString("kelas"),
-                        document.getString("judul"),
-                        document.getString("isi"),
-                        document.getString("tanggal"),
-                        document.getString("jam"),
-                        document.getString("jumlah"),
-                        document.getString("gambar"),
-                        document.getString("video"),
-                        document.getString("link")
+                for (document in result!!) {
+                    Log.d("TugasActivity", document.toString())
+                    listTugas.add(
+                        Tugas(
+                            document.id,
+                            document.getString("kelas"),
+                            document.getString("judul"),
+                            document.getString("isi"),
+                            document.getString("tanggal"),
+                            document.getString("jam"),
+                            document.getString("gambar"),
+                            document.getString("video"),
+                            document.getString("link")
+                        )
                     )
-                )
 
+                }
+                callback.invoke(listTugas)
             }
 
-            Log.d("TugasActivity", "callback should be call")
-            callback.invoke(listTugas)
+        } else if (auto_kelas_tugas.text.toString() != "Semua Kelas") {
+            tugasCollection.whereEqualTo("kelas", auto_kelas_tugas.text.toString())
+                .addSnapshotListener { result, e ->
+                    if (e != null) {
+                        return@addSnapshotListener
+                    }
+
+                    for (document in result!!) {
+                        Log.d("TugasActivity", document.toString())
+                        listTugas.add(
+                            Tugas(
+                                document.id,
+                                document.getString("kelas"),
+                                document.getString("judul"),
+                                document.getString("isi"),
+                                document.getString("tanggal"),
+                                document.getString("jam"),
+                                document.getString("gambar"),
+                                document.getString("video"),
+                                document.getString("link")
+                            )
+                        )
+
+                    }
+                    callback.invoke(listTugas)
+                }
         }
-        Log.d("Tugas Activity", "getPageTugasList: after get collection data, should not be printed")
     }
 }
+
 
 
 

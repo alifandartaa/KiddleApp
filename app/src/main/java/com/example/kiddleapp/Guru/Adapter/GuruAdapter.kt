@@ -11,7 +11,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kiddleapp.Guru.Model.Guru
+import com.example.kiddleapp.Profil.ProfilActivity
 import com.example.kiddleapp.R
+import com.example.kiddleapp.Tugas.DetailTugasActivity
 
 class GuruAdapter(private var data: List<Guru>, private val listener: (Guru) -> Unit) :
     RecyclerView.Adapter<GuruAdapter.ViewHolder>() {
@@ -59,6 +61,11 @@ class GuruAdapter(private var data: List<Guru>, private val listener: (Guru) -> 
             intent.data = Uri.parse("tel:" + data[position].kontak)
             it.context.startActivity(intent)
         }
+
+        holder.itemView.setOnClickListener(View.OnClickListener { v ->
+            val intent: Intent = Intent(v.context, ProfilActivity::class.java).putExtra("data", data[position]).putExtra("tipeAkses", "GURU")
+            v.context.startActivity(intent)
+        })
     }
 
     fun addItemToList(list: ArrayList<Guru>) {

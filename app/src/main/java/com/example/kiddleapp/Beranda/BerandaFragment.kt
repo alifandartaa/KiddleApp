@@ -13,6 +13,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.example.kiddleapp.Guru.Model.Guru
 import com.example.kiddleapp.Jurnal.JurnalActivity
 import com.example.kiddleapp.Kegiatan.KegiatanActivity
 import com.example.kiddleapp.Notifikasi.NotifikasiActivity
@@ -28,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.synnapps.carouselview.ImageClickListener
 import com.synnapps.carouselview.ImageListener
 import kotlinx.android.synthetic.main.activity_edit_pengumuman.*
+import kotlinx.android.synthetic.main.activity_profil.*
 import kotlinx.android.synthetic.main.fragment_beranda.*
 import kotlinx.android.synthetic.main.fragment_beranda.view.*
 
@@ -75,11 +77,18 @@ class BerandaFragment : Fragment() {
         carouselView.pageCount = sampleImages.size
         carouselView.setImageListener(imageListener)
         carouselView.setImageClickListener(clickListener)
-
         sharedPreferences = activity?.getSharedPreferences("KIDDLE", Context.MODE_PRIVATE)!!
-        view.nama_guru.text = "Bapak/Ibu " + sharedPreferences.getString("nama", "")
+        db.document("Guru/${sharedPreferences.getString("id_guru", "")}").get().addOnSuccessListener {
 
-        Glide.with(this).load(sharedPreferences.getString("avatar", "")).centerCrop().into(view.img_avatar)
+           view.nama_guru.text = it.getString("nama")
+            Glide.with(this).load(it.getString("avatar")).centerCrop().into(view.img_avatar)
+//                avatar = it.getString("avatar").toString()
+//                sharedPreferences.edit().putString("avatar", avatar).apply()
+        }
+
+//        view.nama_guru.text = "Bapak/Ibu " + sharedPreferences.getString("nama", "")
+//
+//        Glide.with(this).load(sharedPreferences.getString("avatar", "")).centerCrop().into(view.img_avatar)
 
         db.collection("Pengumuman").limit(1).addSnapshotListener { value, error ->
             if(error != null) return@addSnapshotListener
