@@ -1,8 +1,10 @@
 package com.example.kiddleapp.Guru
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kiddleapp.Guru.Adapter.GuruAdapter
@@ -18,31 +20,36 @@ class GuruActivity : AppCompatActivity() {
     //untuk menyimpan guru
     private var guru: ArrayList<Guru> = arrayListOf()
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
-    private lateinit var sharedPreferences: SharedPreferences
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guru)
 
+        val sharedPreferences = getSharedPreferences("KIDDLE", Context.MODE_PRIVATE)
+        guru.clear()
         showRecyclerList(guru)
 
         //intent untuk kembali ke halaman sebelumnya
         img_back_guru.setOnClickListener {
             onBackPressed()
+            finish()
         }
 
-
-        btn_plus_guru.setOnClickListener{
-            val intent: Intent = Intent(this@GuruActivity, EditProfilActivity::class.java)
-            intent.putExtra("jenis", "TAMBAH_GURU")
-            startActivity(intent)
+        //Agar tombol tambah hanya bisa dilihat admin
+        if(sharedPreferences.getString("kelas","") == "admin"){
+            btn_plus_guru.visibility= View.VISIBLE
+            btn_plus_guru.setOnClickListener{
+                val intent: Intent = Intent(this@GuruActivity, EditProfilActivity::class.java)
+                intent.putExtra("jenis", "TAMBAH_GURU")
+                startActivity(intent)
+            }
         }
-
     }
 
     private fun showRecyclerList(list: ArrayList<Guru>): GuruAdapter {
+        guru.clear()
         val adapter = GuruAdapter(list) {
-
         }
 
         getPageGuruList{item: ArrayList<Guru> ->

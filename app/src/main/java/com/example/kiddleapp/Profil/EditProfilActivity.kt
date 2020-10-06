@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.ArrayAdapter
@@ -25,13 +26,17 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_edit__murid.*
 import kotlinx.android.synthetic.main.activity_edit__profil.*
+import kotlinx.android.synthetic.main.activity_edit__profil.btn_simpan_profil
+import kotlinx.android.synthetic.main.activity_jurnal.*
+import kotlinx.android.synthetic.main.activity_profil.*
 
 class EditProfilActivity : AppCompatActivity() {
 
-    lateinit var img_location: Uri
+    var img_location: Uri? =null
     lateinit var avatar:String
     var flag:Boolean = true
     var storage = FirebaseStorage.getInstance().reference
+   lateinit var listGuru:Guru
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +49,8 @@ class EditProfilActivity : AppCompatActivity() {
         val data = intent.getParcelableExtra<Guru>("data")
 
         if (intent.getStringExtra("jenis") == "EDIT_PROFIL") {
-            edit_nama_profil.setText(data.nama)
+            Log.d("masuk1", "masukkok")
+            edit_nama_edit_profil.setText(data.nama)
             edit_nomor_profil.setText(data.nomor)
             edit_kontak_profil.setText(data.kontak)
             edit_password_profil.setText(data.password)
@@ -57,26 +63,42 @@ class EditProfilActivity : AppCompatActivity() {
             tv_warning_wali_kelas.visibility = View.VISIBLE
             edit_nomor_profil.isEnabled = false
             dropdown_wali_kelas.isEnabled = false
+            Log.d("masuk", edit_password_profil.text.toString())
+            Log.d("masuk", edit_nama_edit_profil.text.toString())
+
+
+            //intent untuk kembali ke halaman sebelumnya
+            img_back_edit_profil.setOnClickListener {
+                val intent: Intent = Intent(this@EditProfilActivity, ProfilActivity::class.java)
+                    .putExtra(
+                        "tipeAkses",
+                        "PROFIL"
+                    )
+                startActivity(intent)
+                finish()
+            }
+
 
             //diganti pake firebase
             btn_simpan_profil.setOnClickListener {
                 btn_simpan_profil.isEnabled = false
                 btn_simpan_profil.text = "Loading"
 
-                if(edit_nama_profil.text.toString().isEmpty() || edit_password_profil.text.toString().isEmpty()) {
+                if(edit_nama_edit_profil.text.toString().isNullOrBlank()|| edit_password_profil.text.toString().isNullOrEmpty()) {
                     Toast.makeText(this, "Pastikan Nama dan Kata Sandi terisi!", Toast.LENGTH_SHORT).show()
                     btn_simpan_profil.isEnabled = true
                     btn_simpan_profil.text = "Simpan"
+
                 } else {
                     if (getFileExtension(img_location!!) == "jpg" || getFileExtension(img_location!!) == "png" || getFileExtension( img_location!! ) == "jpeg") {
                         val builder = StringBuilder()
-                        builder.append(sharedPreferences.getString("id_guru", "")).append(".").append(getFileExtension(img_location))
-                        storage.child("Guru").child(sharedPreferences.getString("id_guru", "").toString()).child(builder.toString()).putFile(img_location).addOnSuccessListener {
+                        builder.append(sharedPreferences.getString("id_guru", "")).append(".").append(getFileExtension(img_location!!))
+                        storage.child("Guru").child(sharedPreferences.getString("id_guru", "").toString()).child(builder.toString()).putFile(img_location!!).addOnSuccessListener {
                             storage.child("Guru").child(sharedPreferences.getString("id_guru", "").toString()).child(builder.toString()).downloadUrl.addOnSuccessListener {
                                 avatar = it.toString()
                                 db.document("Guru/${sharedPreferences.getString("id_guru", "")}").update(
                                     mapOf("avatar" to it.toString(),
-                                        "nama" to edit_nama_profil.text.toString(),
+                                        "nama" to edit_nama_edit_profil.text.toString(),
                                         "kontak" to edit_kontak_profil.text.toString(),
                                         "password" to edit_password_profil.text.toString())
                                 )
@@ -87,6 +109,8 @@ class EditProfilActivity : AppCompatActivity() {
                                     "PROFIL"
                                 )
                                 startActivity(intent)
+                                finish()
+
                             }
                         }
 
@@ -94,7 +118,7 @@ class EditProfilActivity : AppCompatActivity() {
                         avatar = data.avatar.toString()
                         db.document("Guru/${sharedPreferences.getString("id_guru", "")}").update(
                             mapOf("avatar" to data.avatar,
-                                "nama" to edit_nama_profil.text.toString(),
+                                "nama" to edit_nama_edit_profil.text.toString(),
                                 "kontak" to edit_kontak_profil.text.toString(),
                                 "password" to edit_password_profil.text.toString())
                         )
@@ -105,6 +129,8 @@ class EditProfilActivity : AppCompatActivity() {
                                 "PROFIL"
                             )
                         startActivity(intent)
+                        finish()
+
                     }
                 }
 
@@ -112,8 +138,9 @@ class EditProfilActivity : AppCompatActivity() {
 
 
         } else if (intent.getStringExtra("jenis") == "EDIT_GURU") {
+
             //assign dropdown wali kelas
-            edit_nama_profil.setText(data.nama)
+            edit_nama_edit_profil.setText(data.nama)
             edit_nomor_profil.setText(data.nomor)
             edit_kontak_profil.setText(data.kontak)
             edit_password_profil.setText(data.password)
@@ -132,15 +159,29 @@ class EditProfilActivity : AppCompatActivity() {
             val adapter = ArrayAdapter(this, R.layout.dropdown_text, items)
             (dropdown_wali_kelas.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
+
+
+            //intent untuk kembali ke halaman sebelumnya
+            img_back_edit_profil.setOnClickListener {
+                val intent: Intent = Intent(this@EditProfilActivity, ProfilActivity::class.java)
+                    .putExtra(
+                        "tipeAkses",
+                        "GURU"
+                    )
+                intent.putExtra("data",data)
+                startActivity(intent)
+                finish()
+            }
+
+
             btn_simpan_profil.setOnClickListener {
                 btn_simpan_profil.isEnabled = false
                 btn_simpan_profil.text = "Loading"
 
-                if (edit_nama_profil.text.toString()
-                        .isEmpty() || edit_password_profil.text.toString()
-                        .isEmpty() || edit_nomor_profil.text.toString()
-                        .isEmpty() || edit_kontak_profil.text.toString()
-                        .isEmpty() || dropdown_value_wali_kelas.toString().isEmpty())
+                if (edit_nama_edit_profil.text.toString().isNullOrBlank()|| edit_password_profil.text.toString()
+                        .isNullOrEmpty() || edit_nomor_profil.text.toString()
+                        .isNullOrEmpty() || edit_kontak_profil.text.toString()
+                        .isNullOrEmpty() || dropdown_value_wali_kelas.toString().isNullOrEmpty())
                 {
                     Toast.makeText(this@EditProfilActivity, "Pastikan semua kolom dan foto terisi!", Toast.LENGTH_SHORT).show()
                     btn_simpan_profil.isEnabled = true
@@ -148,8 +189,7 @@ class EditProfilActivity : AppCompatActivity() {
                 }
 
                 else {
-                    if (
-                        getFileExtension(img_location!!) == "jpg" || getFileExtension(img_location!!) == "png" || getFileExtension( img_location!! ) == "jpeg") {
+                    if (getFileExtension(img_location!!) == "jpg" || getFileExtension(img_location!!) == "png" || getFileExtension( img_location!! ) == "jpeg") {
                             storage.child("Guru/"+data.nomor!!+"/"+data.nomor!!+".jpg").delete().addOnSuccessListener {
 
                             }
@@ -166,23 +206,37 @@ class EditProfilActivity : AppCompatActivity() {
                         val builder = StringBuilder()
                         builder.append( edit_nomor_profil.text.toString() + "." + getFileExtension(img_location!! ))
                         storage.child("Guru").child(edit_nomor_profil.text.toString()!!).child(builder.toString())
-                            .putFile(img_location).addOnSuccessListener {
+                            .putFile(img_location!!).addOnSuccessListener {
                                 storage.child("Guru").child(edit_nomor_profil.text.toString()!!).child(builder.toString()).downloadUrl.addOnSuccessListener {
                                 avatar = it.toString()
                                 db.collection("Guru").document(edit_nomor_profil.text.toString()!!).update(
                                     mapOf("avatar" to it.toString(),
-                                        "nama" to edit_nama_profil.text.toString(),
+                                        "nama" to edit_nama_edit_profil.text.toString(),
                                         "kontak" to edit_kontak_profil.text.toString(),
                                         "password" to edit_password_profil.text.toString(),
                                         "jabatan" to dropdown_value_wali_kelas.text.toString(),
                                         "nomor" to  edit_nomor_profil.text.toString()
                                     )
                                 )
+                                 listGuru=  Guru(
+                                        it.toString(),
+                                        edit_nama_edit_profil.text.toString(),
+                                        edit_kontak_profil.text.toString(),
+                                        edit_password_profil.text.toString(),
+                                        dropdown_value_wali_kelas.text.toString(),
+                                        edit_nomor_profil.text.toString()
+                                    )
 
                                 Toast.makeText(this, "Mohon tunggu, data guru akan segara diubah!", Toast.LENGTH_SHORT).show()
                             }.addOnSuccessListener {
-                                val intent: Intent = Intent(this@EditProfilActivity, GuruActivity::class.java)
-                                startActivity(intent)
+                                    val intent: Intent = Intent(this@EditProfilActivity, ProfilActivity::class.java)
+                                        .putExtra(
+                                            "tipeAkses",
+                                            "GURU"
+                                        )
+                                    intent.putExtra("data",listGuru)
+                                    startActivity(intent)
+                                    finish()
                             }
                         }
 
@@ -191,15 +245,35 @@ class EditProfilActivity : AppCompatActivity() {
                         avatar = data.avatar.toString()
                         db.collection("Guru").document(edit_nomor_profil.text.toString()!!).update(
                             mapOf("avatar" to data.avatar,
-                                "nama" to edit_nama_profil.text.toString(),
+                                "nama" to edit_nama_edit_profil.text.toString(),
                                 "kontak" to edit_kontak_profil.text.toString(),
                                 "password" to edit_password_profil.text.toString(),
-                            "jabatan" to dropdown_value_wali_kelas.text.toString(),
-                            "nomor" to  edit_nomor_profil.text.toString())
-                        )
-                        Toast.makeText(this, "Mohon tunggu, profil anda akan segara diubah!", Toast.LENGTH_SHORT).show()
-                        val intent: Intent = Intent(this@EditProfilActivity, GuruActivity::class.java)
-                        startActivity(intent)
+                                "jabatan" to dropdown_value_wali_kelas.text.toString(),
+                                "nomor" to  edit_nomor_profil.text.toString())
+                        ).addOnSuccessListener {
+
+                            listGuru=   Guru(
+                                data.avatar,
+                                edit_nama_edit_profil.text.toString(),
+                                edit_kontak_profil.text.toString(),
+                                edit_password_profil.text.toString(),
+                                dropdown_value_wali_kelas.text.toString(),
+                                edit_nomor_profil.text.toString())
+
+                            Toast.makeText(
+                                this,
+                                "Mohon tunggu, profil anda akan segara diubah!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            val intent: Intent = Intent(this@EditProfilActivity, ProfilActivity::class.java)
+                                .putExtra(
+                                    "tipeAkses",
+                                    "GURU"
+                                )
+                            intent.putExtra("data",listGuru)
+                            startActivity(intent)
+                            finish()
+                        }
                     }
 
                 }
@@ -217,15 +291,21 @@ class EditProfilActivity : AppCompatActivity() {
             val adapter = ArrayAdapter(this, R.layout.dropdown_text, items)
             (dropdown_wali_kelas.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
+            img_back_edit_profil.setOnClickListener {
+                val intent: Intent = Intent(this@EditProfilActivity, GuruActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
             btn_simpan_profil.setOnClickListener {
                 btn_simpan_profil.isEnabled = false
                 btn_simpan_profil.text = "Loading"
 
-                if (edit_nama_profil.text.toString()
-                        .isEmpty() || edit_password_profil.text.toString()
-                        .isEmpty() || edit_nomor_profil.text.toString()
-                        .isEmpty() || edit_kontak_profil.text.toString()
-                        .isEmpty() || dropdown_value_wali_kelas.text.toString().isEmpty()
+                if (edit_nama_edit_profil.text.toString().isNullOrBlank()
+                    || edit_password_profil.text.toString().isNullOrEmpty()
+                    || edit_nomor_profil.text.toString().isNullOrEmpty()
+                    || edit_kontak_profil.text.toString().isNullOrEmpty()
+                    || dropdown_value_wali_kelas.text.toString().isNullOrEmpty()
                     || img_location == null
                 ) {
                     Toast.makeText(
@@ -236,45 +316,49 @@ class EditProfilActivity : AppCompatActivity() {
                     btn_simpan_profil.isEnabled = true
                     btn_simpan_profil.text = "Simpan"
                 } else {
-                    val builder = StringBuilder()
-                    builder.append(
-                        edit_nomor_profil.text.toString() + "." + getFileExtension(
-                            img_location!!
-                        )
-                    )
-                    storage.child("Guru").child(edit_nomor_profil.text.toString()!!)
-                        .child(builder.toString())
-                        .putFile(img_location).addOnSuccessListener {
-                            storage.child("Guru").child(edit_nomor_profil.text.toString()!!)
-                                .child(builder.toString()).downloadUrl.addOnSuccessListener {
-                                    val guru = hashMapOf(
-                                        "avatar" to it.toString(),
-                                        "nama" to edit_nama_profil.text.toString(),
-                                        "kontak" to edit_kontak_profil.text.toString(),
-                                        "password" to edit_password_profil.text.toString(),
-                                        "jabatan" to dropdown_value_wali_kelas.text.toString(),
-                                        "nomor" to  edit_nomor_profil.text.toString())
+                    db.collection("Guru")
+                        .whereEqualTo("nomor", edit_nomor_profil.text.toString()).get()
+                        .addOnSuccessListener {
+                            if (it.size() == 0) {
+                                val builder = StringBuilder()
+                                builder.append(
+                                    edit_nomor_profil.text.toString() + "." + getFileExtension(
+                                        img_location!!
+                                    )
+                                )
+                                storage.child("Guru").child(edit_nomor_profil.text.toString()!!)
+                                    .child(builder.toString())
+                                    .putFile(img_location!!).addOnSuccessListener {
+                                        storage.child("Guru").child(edit_nomor_profil.text.toString()!!)
+                                            .child(builder.toString()).downloadUrl.addOnSuccessListener {
+                                                val guru = hashMapOf(
+                                                    "avatar" to it.toString(),
+                                                    "nama" to edit_nama_edit_profil.text.toString(),
+                                                    "kontak" to edit_kontak_profil.text.toString(),
+                                                    "password" to edit_password_profil.text.toString(),
+                                                    "jabatan" to dropdown_value_wali_kelas.text.toString(),
+                                                    "nomor" to  edit_nomor_profil.text.toString())
 
-                                    db.collection("Guru").document(edit_nomor_profil.text.toString()).set(guru)}.addOnCompleteListener {
-                                    val intent: Intent =  Intent(this, GuruActivity::class.java  )
-                                    startActivity(intent)
-                                    Toast.makeText(  this, "Simpan Berhasil", Toast.LENGTH_SHORT).show()
-                                }
+                                                db.collection("Guru").document(edit_nomor_profil.text.toString()).set(guru)}.addOnCompleteListener {
+                                                val intent: Intent =  Intent(this, GuruActivity::class.java  )
+                                                startActivity(intent)
+                                                finish()
+                                                Toast.makeText(  this, "Simpan Berhasil", Toast.LENGTH_SHORT).show()
+                                            }
 
+                                    }
+                            }else{
+                                Toast.makeText(  this, "Nomor Induk Telah Terpakai", Toast.LENGTH_SHORT).show()
+                                btn_simpan_profil.isEnabled = true
+                                btn_simpan_profil.text = "Simpan"
+                            }
                         }
+
                 }
 
 
             }
         }
-
-
-        //intent untuk kembali ke halaman sebelumnya
-        img_back_edit_profil.setOnClickListener {
-            onBackPressed()
-        }
-
-
 
         //buat pilih foto dari galeri
         btn_upload_profil.setOnClickListener {
@@ -294,7 +378,6 @@ class EditProfilActivity : AppCompatActivity() {
     //mengisi gambar yang telah dipilih ke imageView
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if(requestCode == 1 && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
             img_location = data.data!!
             Glide.with(this).load(img_location).centerCrop().into(img_edit_profil)
