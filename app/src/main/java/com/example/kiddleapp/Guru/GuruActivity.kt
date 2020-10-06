@@ -32,8 +32,8 @@ class GuruActivity : AppCompatActivity() {
 
         //intent untuk kembali ke halaman sebelumnya
         img_back_guru.setOnClickListener {
-            onBackPressed()
-            finish()
+            super.onBackPressed()
+
         }
 
         //Agar tombol tambah hanya bisa dilihat admin
@@ -43,6 +43,7 @@ class GuruActivity : AppCompatActivity() {
                 val intent: Intent = Intent(this@GuruActivity, EditProfilActivity::class.java)
                 intent.putExtra("jenis", "TAMBAH_GURU")
                 startActivity(intent)
+                finish()
             }
         }
     }

@@ -6,66 +6,80 @@
     android:layout_height="match_parent"
     tools:context=".Guru.GuruActivity">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout5"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/colorPrimary"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="16dp">
 
-        <ImageView
-            android:id="@+id/img_back_guru"
-            android:layout_width="35dp"
-            android:layout_height="30dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_back" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView35"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"
-            android:layout_toEndOf="@id/img_back_guru"
-            android:fontFamily="@font/roboto_medium"
-            android:text="Guru"
-            android:textColor="@color/colorWhite"
-            android:textSize="24sp" />
-    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relativeLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/colorPrimary"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    <View
-        android:id="@+id/view9"
-        android:layout_width="0dp"
-        android:layout_height="160dp"
-        android:background="@drawable/top_blue_box"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout5" />
+                <ImageView
+                    android:id="@+id/img_back_guru"
+                    android:layout_width="35dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/ic_back" />
 
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout5"
-        app:srcCompat="@drawable/ilustrasi_guru" />
+                <TextView
+                    android:id="@+id/textView35"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_toEndOf="@id/img_back_guru"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Guru"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="24sp" />
+            </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_guru"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+            <View
+                android:id="@+id/view9"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:background="@drawable/top_blue_box"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout5" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout5"
+                app:srcCompat="@drawable/ilustrasi_guru" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_guru"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <ImageButton
         android:id="@+id/btn_plus_guru"

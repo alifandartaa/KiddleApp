@@ -97,6 +97,7 @@ lateinit var  guru : Guru
             img_back_profil.setOnClickListener {
                 val intent: Intent = Intent(this@ProfilActivity, GuruActivity::class.java)
                 startActivity(intent)
+                finish()
             }
 
             if(sharedPreferences.getString("kelas","") == "admin"){
@@ -135,6 +136,7 @@ lateinit var  guru : Guru
                                             val intent: Intent =
                                                 Intent(this@ProfilActivity, GuruActivity::class.java)
                                             startActivity(intent)
+                                            finish()
                                             Toast.makeText(
                                                 context,
                                                 "Guru Berhasil di Hapus",
