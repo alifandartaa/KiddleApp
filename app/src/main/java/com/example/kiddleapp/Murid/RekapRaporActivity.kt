@@ -2,12 +2,14 @@ package com.example.kiddleapp.Murid
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.kiddleapp.MainActivity
 import com.example.kiddleapp.Murid.Model.Murid
 import com.example.kiddleapp.R
 import com.example.kiddleapp.Rapor.RaporActivity
@@ -39,7 +41,52 @@ class RekapRaporActivity : AppCompatActivity() , View.OnClickListener  {
             .document(data.angkatan!!)
             .collection(data.kelas!! + " " + dropdown_rekap_value_rapor_semester.text.toString())
             .document(data.nomor!!).get().addOnSuccessListener {
-                if (it != null) {
+                if (it.exists()) {
+                    Toast.makeText(this, "Mengambil data dari database, mohon tunggu!", Toast.LENGTH_SHORT)
+                        .show()
+                }else {
+                    Log.d("dok1", "No such document")
+                    Toast.makeText(this, "Data Rapor Tidak Tersedia", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                dropdown_rekap_nilai_kognitif.setText(it.getString("nilai_kognitif"),false)
+                input_rekap_kognitif_deskripsi.setText(it.getString("des_kognitif"))
+                dropdown_rekap_nilai_berbahasa.setText(it.getString("nilai_berbahasa"),false)
+                input_rekap_berbahasa_deskripsi.setText(it.getString("des_berbahasa"))
+                dropdown_rekap_nilai_keterampilan.setText(it.getString("nilai_keterampilan"),false)
+                input_rekap_keterampilan_deskripsi.setText(it.getString("des_keterampilan"))
+                dropdown_rekap_nilai_agama.setText(it.getString("nilai_agama"),false)
+                input_rekap_agama_deskripsi.setText(it.getString("des_agama"))
+                dropdown_rekap_nilai_motorik.setText(it.getString("nilai_motorik"),false)
+                input_rekap_motorik_deskripsi.setText(it.getString("des_motorik"))
+            }
+
+
+
+
+        //untuk dropdown semester
+        val semester = listOf("Ganjil", "Genap")
+        val adapter_semester = ArrayAdapter(this, R.layout.dropdown_text, semester)
+        (dropdown_rekap_rapor_semester.editText as? AutoCompleteTextView)?.setAdapter(adapter_semester)
+        dropdown_rekap_value_rapor_semester.setOnClickListener {
+
+        }
+
+        dropdown_rekap_value_rapor_semester.setOnItemClickListener { parent, view, position, id ->
+            var item = parent.getItemAtPosition(position).toString()
+            db.collection("Rapor").document(data.angkatan!!)
+                .collection(dropdown_rekap_value_rapor_kelas.text.toString() + " " + item)
+                .document(data.nomor!!).get()
+                .addOnSuccessListener {
+                    if (it.exists()) {
+                        Toast.makeText(this, "Mengambil data dari database, mohon tunggu!", Toast.LENGTH_SHORT)
+                            .show()
+
+                    }
+                    else{
+                        Toast.makeText(this, "Data Rapor Tidak Tersedia", Toast.LENGTH_SHORT)
+                            .show()
+                    }
                     dropdown_rekap_nilai_kognitif.setText(it.getString("nilai_kognitif"),false)
                     input_rekap_kognitif_deskripsi.setText(it.getString("des_kognitif"))
                     dropdown_rekap_nilai_berbahasa.setText(it.getString("nilai_berbahasa"),false)
@@ -51,49 +98,15 @@ class RekapRaporActivity : AppCompatActivity() , View.OnClickListener  {
                     dropdown_rekap_nilai_motorik.setText(it.getString("nilai_motorik"),false)
                     input_rekap_motorik_deskripsi.setText(it.getString("des_motorik"))
                 }
-            }
-
-
-
-
-        //untuk dropdown semester
-        val semester = listOf("Ganjil", "Genap")
-        val adapter_semester = ArrayAdapter(this, R.layout.dropdown_text, semester)
-        (dropdown_rekap_rapor_semester.editText as? AutoCompleteTextView)?.setAdapter(adapter_semester)
-        dropdown_rekap_value_rapor_semester.setOnClickListener {
-            Toast.makeText(this, "Mengambil data dari database, mohon tunggu!", Toast.LENGTH_SHORT)
-                .show()
-        }
-
-        dropdown_rekap_value_rapor_semester.setOnItemClickListener { parent, view, position, id ->
-            var item = parent.getItemAtPosition(position).toString()
-            db.collection("Rapor").document(data.angkatan!!)
-                .collection(dropdown_rekap_value_rapor_kelas.text.toString() + " " + item)
-                .document(data.nomor!!).get()
-                .addOnSuccessListener {
-                    if (it != null) {
-                        dropdown_rekap_nilai_kognitif.setText(it.getString("nilai_kognitif"),false)
-                        input_rekap_kognitif_deskripsi.setText(it.getString("des_kognitif"))
-                        dropdown_rekap_nilai_berbahasa.setText(it.getString("nilai_berbahasa"),false)
-                        input_rekap_berbahasa_deskripsi.setText(it.getString("des_berbahasa"))
-                        dropdown_rekap_nilai_keterampilan.setText(it.getString("nilai_keterampilan"),false)
-                        input_rekap_keterampilan_deskripsi.setText(it.getString("des_keterampilan"))
-                        dropdown_rekap_nilai_agama.setText(it.getString("nilai_agama"),false)
-                        input_rekap_agama_deskripsi.setText(it.getString("des_agama"))
-                        dropdown_rekap_nilai_motorik.setText(it.getString("nilai_motorik"),false)
-                        input_rekap_motorik_deskripsi.setText(it.getString("des_motorik"))
-                    }
-                }
         }
 
 
-        //untuk dropdown semester
+        //untuk dropdown Kelas
         val kelas = listOf("Bintang Kecil", "Bintang Besar", "Bulan Kecil", "Bulan Besar")
         val adapter_kelas= ArrayAdapter(this, R.layout.dropdown_text, kelas)
         (dropdown_rekap_rapor_kelas.editText as? AutoCompleteTextView)?.setAdapter(adapter_kelas)
         dropdown_rekap_value_rapor_kelas.setOnClickListener {
-            Toast.makeText(this, "Mengambil data dari database, mohon tunggu!", Toast.LENGTH_SHORT)
-                .show()
+
         }
 
         dropdown_rekap_value_rapor_kelas.setOnItemClickListener { parent, view, position, id ->
@@ -102,23 +115,33 @@ class RekapRaporActivity : AppCompatActivity() , View.OnClickListener  {
                 .collection(item + " " +  dropdown_rekap_value_rapor_semester.text.toString())
                 .document(data.nomor!!).get()
                 .addOnSuccessListener {
-                    if (it != null) {
-                        dropdown_rekap_nilai_kognitif.setText(it.getString("nilai_kognitif"),false)
-                        input_rekap_kognitif_deskripsi.setText(it.getString("des_kognitif"))
-                        dropdown_rekap_nilai_berbahasa.setText(it.getString("nilai_berbahasa"),false)
-                        input_rekap_berbahasa_deskripsi.setText(it.getString("des_berbahasa"))
-                        dropdown_rekap_nilai_keterampilan.setText(it.getString("nilai_keterampilan"),false)
-                        input_rekap_keterampilan_deskripsi.setText(it.getString("des_keterampilan"))
-                        dropdown_rekap_nilai_agama.setText(it.getString("nilai_agama"),false)
-                        input_rekap_agama_deskripsi.setText(it.getString("des_agama"))
-                        dropdown_rekap_nilai_motorik.setText(it.getString("nilai_motorik"),false)
-                        input_rekap_motorik_deskripsi.setText(it.getString("des_motorik"))
+                    if (it.exists()) {
+                        Toast.makeText(this, "Mengambil data dari database, mohon tunggu!", Toast.LENGTH_SHORT)
+                            .show()
                     }
+                    else {
+
+                        Toast.makeText(this, "Data Rapor Tidak Tersedia", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    dropdown_rekap_nilai_kognitif.setText(it.getString("nilai_kognitif"),false)
+                    input_rekap_kognitif_deskripsi.setText(it.getString("des_kognitif"))
+                    dropdown_rekap_nilai_berbahasa.setText(it.getString("nilai_berbahasa"),false)
+                    input_rekap_berbahasa_deskripsi.setText(it.getString("des_berbahasa"))
+                    dropdown_rekap_nilai_keterampilan.setText(it.getString("nilai_keterampilan"),false)
+                    input_rekap_keterampilan_deskripsi.setText(it.getString("des_keterampilan"))
+                    dropdown_rekap_nilai_agama.setText(it.getString("nilai_agama"),false)
+                    input_rekap_agama_deskripsi.setText(it.getString("des_agama"))
+                    dropdown_rekap_nilai_motorik.setText(it.getString("nilai_motorik"),false)
+                    input_rekap_motorik_deskripsi.setText(it.getString("des_motorik"))
                 }
         }
 
         img_back_detail_rekap_rapor.setOnClickListener {
-           onBackPressed()
+            val intent: Intent =
+                Intent(this@RekapRaporActivity, DetailMuridActivity::class.java).putExtra("data", data)
+            startActivity(intent)
+            finish()
         }
 
         //set on-click listener
