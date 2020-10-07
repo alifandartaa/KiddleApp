@@ -1,5 +1,6 @@
 package com.example.kiddleapp.Pengumuman.Adapter
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -88,6 +89,7 @@ class PengumumanAdapter(private var data: List<Pengumuman>, private val listener
 
         holder.itemView.setOnClickListener {
             it.context.startActivity(Intent(it.context, DetailPengumumanActivity::class.java).putExtra("data", data[position]))
+            (it.context as Activity).finish()
         }
     }
 
