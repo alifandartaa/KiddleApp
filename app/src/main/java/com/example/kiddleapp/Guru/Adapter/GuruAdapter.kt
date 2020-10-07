@@ -1,5 +1,6 @@
 package com.example.kiddleapp.Guru.Adapter
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -13,7 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.kiddleapp.Guru.Model.Guru
 import com.example.kiddleapp.Profil.ProfilActivity
 import com.example.kiddleapp.R
-import com.example.kiddleapp.Tugas.DetailTugasActivity
+
 
 class GuruAdapter(private var data: List<Guru>, private val listener: (Guru) -> Unit) :
     RecyclerView.Adapter<GuruAdapter.ViewHolder>() {
@@ -22,12 +23,14 @@ class GuruAdapter(private var data: List<Guru>, private val listener: (Guru) -> 
 
     //assign value dari model ke xml
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
         private val img_avatar: ImageView = view.findViewById(R.id.img_avatar_guru)
         private val tv_nama: TextView = view.findViewById(R.id.tv_nama_guru)
         private val tv_kontak: TextView = view.findViewById(R.id.tv_kontak_guru)
         private val tv_jabatan: TextView = view.findViewById(R.id.tv_jabatan_guru)
 
         fun bindItem(data: Guru, listener: (Guru) -> Unit, context: Context, position: Int) {
+
             Glide.with(context).load(data.avatar).centerCrop().into(img_avatar)
             tv_nama.text = data.nama
             tv_kontak.text = data.kontak
@@ -63,8 +66,12 @@ class GuruAdapter(private var data: List<Guru>, private val listener: (Guru) -> 
         }
 
         holder.itemView.setOnClickListener(View.OnClickListener { v ->
-            val intent: Intent = Intent(v.context, ProfilActivity::class.java).putExtra("data", data[position]).putExtra("tipeAkses", "GURU")
+            val intent: Intent = Intent(v.context, ProfilActivity::class.java).putExtra(
+                "data",
+                data[position]
+            ).putExtra("tipeAkses", "GURU")
             v.context.startActivity(intent)
+            (v.context as Activity).finish()
         })
     }
 

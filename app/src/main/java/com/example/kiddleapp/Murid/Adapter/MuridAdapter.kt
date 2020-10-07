@@ -9,8 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.kiddleapp.Jurnal.DetailJurnalActivity
-import com.example.kiddleapp.Jurnal.Model.Jurnal
 import com.example.kiddleapp.Murid.DetailMuridActivity
 import com.example.kiddleapp.Murid.Model.Murid
 import com.example.kiddleapp.R
@@ -23,6 +21,8 @@ class MuridAdapter(private var data: List<Murid>, private val listener: (Murid) 
 
     //assign value dari model ke xml
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+
         private val img_avatar: ImageView = view.findViewById(R.id.img_avatar_murid)
         private val tv_nama: TextView = view.findViewById(R.id.tv_nama_murid)
 
@@ -56,8 +56,12 @@ class MuridAdapter(private var data: List<Murid>, private val listener: (Murid) 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(data[position], listener, contextAdapter, position)
         holder.itemView.setOnClickListener(View.OnClickListener { v ->
-            val intent: Intent = Intent(v.context, DetailMuridActivity::class.java).putExtra("data", data[position])
+            val intent: Intent = Intent(v.context, DetailMuridActivity::class.java).putExtra(
+                "data",
+                data[position]
+            )
             v.context.startActivity(intent)
+            //(v.context as Activity).finish()
         })
     }
 
@@ -65,4 +69,6 @@ class MuridAdapter(private var data: List<Murid>, private val listener: (Murid) 
         listMurid.clear()
         listMurid.addAll(list)
     }
+
+
 }
