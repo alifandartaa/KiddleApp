@@ -1,9 +1,11 @@
 package com.example.kiddleapp.RekapPresensi
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kiddleapp.MainActivity
 import com.example.kiddleapp.R
 import com.example.kiddleapp.RekapPresensi.Adapter.RekapPresensiAdapter
 import com.example.kiddleapp.RekapPresensi.Model.RekapPresensi
@@ -46,7 +48,9 @@ class RekapPresensiActivity : AppCompatActivity() {
 
         //intent untuk kembali ke halaman sebelumnya
         img_back_rekap.setOnClickListener {
-            onBackPressed()
+            val intent: Intent = Intent(this@RekapPresensiActivity, MainActivity::class.java).putExtra("jenis","murid")
+            startActivity(intent)
+            finish()
         }
     }
 }

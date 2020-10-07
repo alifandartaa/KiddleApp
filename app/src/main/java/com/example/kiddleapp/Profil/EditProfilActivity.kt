@@ -90,49 +90,51 @@ class EditProfilActivity : AppCompatActivity() {
                     btn_simpan_profil.text = "Simpan"
 
                 } else {
-                    if (getFileExtension(img_location!!) == "jpg" || getFileExtension(img_location!!) == "png" || getFileExtension( img_location!! ) == "jpeg") {
-                        val builder = StringBuilder()
-                        builder.append(sharedPreferences.getString("id_guru", "")).append(".").append(getFileExtension(img_location!!))
-                        storage.child("Guru").child(sharedPreferences.getString("id_guru", "").toString()).child(builder.toString()).putFile(img_location!!).addOnSuccessListener {
-                            storage.child("Guru").child(sharedPreferences.getString("id_guru", "").toString()).child(builder.toString()).downloadUrl.addOnSuccessListener {
-                                avatar = it.toString()
-                                db.document("Guru/${sharedPreferences.getString("id_guru", "")}").update(
-                                    mapOf("avatar" to it.toString(),
-                                        "nama" to edit_nama_edit_profil.text.toString(),
-                                        "kontak" to edit_kontak_profil.text.toString(),
-                                        "password" to edit_password_profil.text.toString())
-                                )
-                                Toast.makeText(this, "Mohon tunggu, profil anda akan segara diubah!", Toast.LENGTH_SHORT).show()
-                            }.addOnSuccessListener {
-                                val intent: Intent = Intent(this@EditProfilActivity, ProfilActivity::class.java) .putExtra(
-                                    "tipeAkses",
-                                    "PROFIL"
-                                )
-                                startActivity(intent)
-                                finish()
+                                if (getFileExtension(img_location!!) == "jpg" || getFileExtension(img_location!!) == "png" || getFileExtension( img_location!! ) == "jpeg") {
+                                    val builder = StringBuilder()
+                                    builder.append(sharedPreferences.getString("id_guru", "")).append(".").append(getFileExtension(img_location!!))
+                                    storage.child("Guru").child(sharedPreferences.getString("id_guru", "").toString()).child(builder.toString()).putFile(img_location!!).addOnSuccessListener {
+                                        storage.child("Guru").child(sharedPreferences.getString("id_guru", "").toString()).child(builder.toString()).downloadUrl.addOnSuccessListener {
+                                            avatar = it.toString()
+                                            db.document("Guru/${sharedPreferences.getString("id_guru", "")}").update(
+                                                mapOf("avatar" to it.toString(),
+                                                    "nama" to edit_nama_edit_profil.text.toString(),
+                                                    "kontak" to edit_kontak_profil.text.toString(),
+                                                    "password" to edit_password_profil.text.toString())
+                                            )
+                                            Toast.makeText(this, "Mohon tunggu, profil anda akan segara diubah!", Toast.LENGTH_SHORT).show()
+                                        }.addOnSuccessListener {
+                                            val intent: Intent = Intent(this@EditProfilActivity, ProfilActivity::class.java) .putExtra(
+                                                "tipeAkses",
+                                                "PROFIL"
+                                            )
+                                            startActivity(intent)
+                                            finish()
 
-                            }
+                                        }
+                                    }
+
+                                }else{
+                                    avatar = data.avatar.toString()
+                                    db.document("Guru/${sharedPreferences.getString("id_guru", "")}").update(
+                                        mapOf("avatar" to data.avatar,
+                                            "nama" to edit_nama_edit_profil.text.toString(),
+                                            "kontak" to edit_kontak_profil.text.toString(),
+                                            "password" to edit_password_profil.text.toString())
+                                    )
+                                    Toast.makeText(this, "Mohon tunggu, profil anda akan segara diubah!", Toast.LENGTH_SHORT).show()
+                                    val intent: Intent = Intent(this@EditProfilActivity, ProfilActivity::class.java)
+                                        .putExtra(
+                                            "tipeAkses",
+                                            "PROFIL"
+                                        )
+                                    startActivity(intent)
+                                    finish()
+
+                                }
+
                         }
 
-                    }else{
-                        avatar = data.avatar.toString()
-                        db.document("Guru/${sharedPreferences.getString("id_guru", "")}").update(
-                            mapOf("avatar" to data.avatar,
-                                "nama" to edit_nama_edit_profil.text.toString(),
-                                "kontak" to edit_kontak_profil.text.toString(),
-                                "password" to edit_password_profil.text.toString())
-                        )
-                        Toast.makeText(this, "Mohon tunggu, profil anda akan segara diubah!", Toast.LENGTH_SHORT).show()
-                        val intent: Intent = Intent(this@EditProfilActivity, ProfilActivity::class.java)
-                            .putExtra(
-                                "tipeAkses",
-                                "PROFIL"
-                            )
-                        startActivity(intent)
-                        finish()
-
-                    }
-                }
 
             }
 
@@ -186,95 +188,106 @@ class EditProfilActivity : AppCompatActivity() {
                     Toast.makeText(this@EditProfilActivity, "Pastikan semua kolom dan foto terisi!", Toast.LENGTH_SHORT).show()
                     btn_simpan_profil.isEnabled = true
                     btn_simpan_profil.text = "Simpan"
-                }
+                } else {
+                    db.collection("Guru")
+                        .whereEqualTo("nomor", edit_nomor_profil.text.toString()).get()
+                        .addOnSuccessListener {
+                            if (it.size() == 0 || edit_nomor_profil.text.toString()==data.nomor ) {
+                                if (getFileExtension(img_location!!) == "jpg" || getFileExtension(img_location!!) == "png" || getFileExtension( img_location!! ) == "jpeg") {
+                                    storage.child("Guru/"+data.nomor!!+"/"+data.nomor!!+".jpg").delete().addOnSuccessListener {
 
-                else {
-                    if (getFileExtension(img_location!!) == "jpg" || getFileExtension(img_location!!) == "png" || getFileExtension( img_location!! ) == "jpeg") {
-                            storage.child("Guru/"+data.nomor!!+"/"+data.nomor!!+".jpg").delete().addOnSuccessListener {
+                                    }
+                                    storage.child("Guru/"+data.nomor!!+"/"+data.nomor!!+".jpeg").delete().addOnSuccessListener {
 
-                            }
-                            storage.child("Guru/"+data.nomor!!+"/"+data.nomor!!+".jpeg").delete().addOnSuccessListener {
+                                    }
+                                    storage.child("Guru/"+data.nomor!!+"/"+data.nomor!!+".png").delete().addOnSuccessListener {
 
-                            }
-                            storage.child("Guru/"+data.nomor!!+"/"+data.nomor!!+".png").delete().addOnSuccessListener {
+                                    }
+                                    storage.child("Guru/"+data.nomor!!+"/"+data.nomor!!+".mp4").delete().addOnSuccessListener {
 
-                            }
-                            storage.child("Guru/"+data.nomor!!+"/"+data.nomor!!+".mp4").delete().addOnSuccessListener {
+                                    }
 
-                            }
+                                    val builder = StringBuilder()
+                                    builder.append( edit_nomor_profil.text.toString() + "." + getFileExtension(img_location!! ))
+                                    storage.child("Guru").child(edit_nomor_profil.text.toString()!!).child(builder.toString())
+                                        .putFile(img_location!!).addOnSuccessListener {
+                                            storage.child("Guru").child(edit_nomor_profil.text.toString()!!).child(builder.toString()).downloadUrl.addOnSuccessListener {
+                                                avatar = it.toString()
+                                                db.collection("Guru").document(edit_nomor_profil.text.toString()!!).update(
+                                                    mapOf("avatar" to it.toString(),
+                                                        "nama" to edit_nama_edit_profil.text.toString(),
+                                                        "kontak" to edit_kontak_profil.text.toString(),
+                                                        "password" to edit_password_profil.text.toString(),
+                                                        "jabatan" to dropdown_value_wali_kelas.text.toString(),
+                                                        "nomor" to  edit_nomor_profil.text.toString()
+                                                    )
+                                                )
+                                                listGuru=  Guru(
+                                                    it.toString(),
+                                                    edit_nama_edit_profil.text.toString(),
+                                                    edit_kontak_profil.text.toString(),
+                                                    edit_password_profil.text.toString(),
+                                                    dropdown_value_wali_kelas.text.toString(),
+                                                    edit_nomor_profil.text.toString()
+                                                )
 
-                        val builder = StringBuilder()
-                        builder.append( edit_nomor_profil.text.toString() + "." + getFileExtension(img_location!! ))
-                        storage.child("Guru").child(edit_nomor_profil.text.toString()!!).child(builder.toString())
-                            .putFile(img_location!!).addOnSuccessListener {
-                                storage.child("Guru").child(edit_nomor_profil.text.toString()!!).child(builder.toString()).downloadUrl.addOnSuccessListener {
-                                avatar = it.toString()
-                                db.collection("Guru").document(edit_nomor_profil.text.toString()!!).update(
-                                    mapOf("avatar" to it.toString(),
-                                        "nama" to edit_nama_edit_profil.text.toString(),
-                                        "kontak" to edit_kontak_profil.text.toString(),
-                                        "password" to edit_password_profil.text.toString(),
-                                        "jabatan" to dropdown_value_wali_kelas.text.toString(),
-                                        "nomor" to  edit_nomor_profil.text.toString()
-                                    )
-                                )
-                                 listGuru=  Guru(
-                                        it.toString(),
-                                        edit_nama_edit_profil.text.toString(),
-                                        edit_kontak_profil.text.toString(),
-                                        edit_password_profil.text.toString(),
-                                        dropdown_value_wali_kelas.text.toString(),
-                                        edit_nomor_profil.text.toString()
-                                    )
+                                                Toast.makeText(this, "Mohon tunggu, data guru akan segara diubah!", Toast.LENGTH_SHORT).show()
+                                            }.addOnSuccessListener {
+                                                val intent: Intent = Intent(this@EditProfilActivity, ProfilActivity::class.java)
+                                                    .putExtra(
+                                                        "tipeAkses",
+                                                        "GURU"
+                                                    )
+                                                intent.putExtra("data",listGuru)
+                                                startActivity(intent)
+                                                finish()
+                                            }
+                                        }
 
-                                Toast.makeText(this, "Mohon tunggu, data guru akan segara diubah!", Toast.LENGTH_SHORT).show()
-                            }.addOnSuccessListener {
-                                    val intent: Intent = Intent(this@EditProfilActivity, ProfilActivity::class.java)
-                                        .putExtra(
-                                            "tipeAkses",
-                                            "GURU"
-                                        )
-                                    intent.putExtra("data",listGuru)
-                                    startActivity(intent)
-                                    finish()
+
+                                }else{
+                                    avatar = data.avatar.toString()
+                                    db.collection("Guru").document(edit_nomor_profil.text.toString()!!).update(
+                                        mapOf("avatar" to data.avatar,
+                                            "nama" to edit_nama_edit_profil.text.toString(),
+                                            "kontak" to edit_kontak_profil.text.toString(),
+                                            "password" to edit_password_profil.text.toString(),
+                                            "jabatan" to dropdown_value_wali_kelas.text.toString(),
+                                            "nomor" to  edit_nomor_profil.text.toString())
+                                    ).addOnSuccessListener {
+
+                                        listGuru=   Guru(
+                                            data.avatar,
+                                            edit_nama_edit_profil.text.toString(),
+                                            edit_kontak_profil.text.toString(),
+                                            edit_password_profil.text.toString(),
+                                            dropdown_value_wali_kelas.text.toString(),
+                                            edit_nomor_profil.text.toString())
+
+                                        Toast.makeText(
+                                            this,
+                                            "Mohon tunggu, profil anda akan segara diubah!",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        val intent: Intent = Intent(this@EditProfilActivity, ProfilActivity::class.java)
+                                            .putExtra(
+                                                "tipeAkses",
+                                                "GURU"
+                                            )
+                                        intent.putExtra("data",listGuru)
+                                        startActivity(intent)
+                                        finish()
+                                    }
+                                }
+                            }else{
+                                Toast.makeText(  this, "Nomor Induk Telah Terpakai", Toast.LENGTH_SHORT).show()
+                                btn_simpan_profil.isEnabled = true
+                                btn_simpan_profil.text = "Simpan"
                             }
                         }
 
 
-                    }else{
-                        avatar = data.avatar.toString()
-                        db.collection("Guru").document(edit_nomor_profil.text.toString()!!).update(
-                            mapOf("avatar" to data.avatar,
-                                "nama" to edit_nama_edit_profil.text.toString(),
-                                "kontak" to edit_kontak_profil.text.toString(),
-                                "password" to edit_password_profil.text.toString(),
-                                "jabatan" to dropdown_value_wali_kelas.text.toString(),
-                                "nomor" to  edit_nomor_profil.text.toString())
-                        ).addOnSuccessListener {
 
-                            listGuru=   Guru(
-                                data.avatar,
-                                edit_nama_edit_profil.text.toString(),
-                                edit_kontak_profil.text.toString(),
-                                edit_password_profil.text.toString(),
-                                dropdown_value_wali_kelas.text.toString(),
-                                edit_nomor_profil.text.toString())
-
-                            Toast.makeText(
-                                this,
-                                "Mohon tunggu, profil anda akan segara diubah!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            val intent: Intent = Intent(this@EditProfilActivity, ProfilActivity::class.java)
-                                .putExtra(
-                                    "tipeAkses",
-                                    "GURU"
-                                )
-                            intent.putExtra("data",listGuru)
-                            startActivity(intent)
-                            finish()
-                        }
-                    }
 
                 }
             }

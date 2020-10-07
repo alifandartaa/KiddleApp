@@ -35,7 +35,6 @@ class LoginActivity : AppCompatActivity() {
                             sharedPreferences.edit().putString("nama", it.getString("nama")).apply()
                             sharedPreferences.edit().putString("kelas", it.getString("jabatan")).apply()
                             sharedPreferences.edit().putString("avatar", it.getString("avatar")).apply()
-
                             startActivity(Intent(this, MainActivity::class.java))
                             finishAffinity()
                         } else {

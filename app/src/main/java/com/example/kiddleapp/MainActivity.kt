@@ -57,9 +57,16 @@ class MainActivity : AppCompatActivity() {
         //menambahkan listener
         bottom_navigation.setOnNavigationItemSelectedListener(navListener)
 
-        //fragment home otomatis terbuka pertama kali
-        val fragment = BerandaFragment()
-        addFragment(fragment)
+        if (intent.getStringExtra("jenis") == "murid") {
+            val fragment = MuridFragment()
+            addFragment(fragment)
+
+        }else{
+            //fragment home otomatis terbuka pertama kali
+            val fragment = BerandaFragment()
+            addFragment(fragment)
+        }
+
 
     }
 }

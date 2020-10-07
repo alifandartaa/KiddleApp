@@ -1,39 +1,52 @@
 package com.example.kiddleapp.Murid
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
-import com.example.kiddleapp.Jurnal.JurnalActivity
 import com.example.kiddleapp.MainActivity
 import com.example.kiddleapp.Murid.Model.Murid
 import com.example.kiddleapp.R
-import com.example.kiddleapp.Rapor.EditRaporActivity
 import com.example.kiddleapp.RekapPresensi.RekapPresensiActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_detail__murid.*
-import kotlinx.android.synthetic.main.activity_detail_jurnal.*
+
 
 class DetailMuridActivity : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
     var storage = FirebaseStorage.getInstance().reference
+    //untuk mengisi frame layout dengan fragment
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail__murid)
+        val sharedPreferences = getSharedPreferences("KIDDLE", Context.MODE_PRIVATE)
 
         //mendapatkan data dari intent
         val data = intent.getParcelableExtra<Murid>("data")
 
         img_back_murid.setOnClickListener {
-            val intent: Intent =  Intent(this@DetailMuridActivity, MainActivity::class.java  )
+            val intent: Intent =
+                Intent(this@DetailMuridActivity, MainActivity::class.java).putExtra(
+                    "jenis",
+                    "murid"
+                )
             startActivity(intent)
+        }
+
+        if(sharedPreferences.getString("kelas", "") == "admin") {
+            menu_murid.visibility = View.VISIBLE
         }
 
         //isi value dari halaman sebelumnya
@@ -66,9 +79,13 @@ class DetailMuridActivity : AppCompatActivity() {
             val popup: PopupMenu = PopupMenu(this, it)
             popup.setOnMenuItemClickListener {
                 if(it.itemId == R.id.menu_edit) {
-                    val intent = Intent(this@DetailMuridActivity, EditMuridActivity::class.java).putExtra("data", data)
-                    intent.putExtra("jenis","EDIT_MURID")
+                    val intent = Intent(this@DetailMuridActivity, EditMuridActivity::class.java).putExtra(
+                        "data",
+                        data
+                    )
+                    intent.putExtra("jenis", "EDIT_MURID")
                     startActivity(intent)
+                    finish()
                     return@setOnMenuItemClickListener true
                 } else if(it.itemId == R.id.menu_hapus) {
                     MaterialAlertDialogBuilder(this).apply {
@@ -78,19 +95,23 @@ class DetailMuridActivity : AppCompatActivity() {
                         )
                         setPositiveButton("Ya") { _, _ ->
                             db.collection("Murid").document(data.nomor!!).delete().addOnSuccessListener {
-                                    storage.child("Murid/"+data.nomor!!+"/"+data.nomor!!+".jpg").delete().addOnSuccessListener {
+                                    storage.child("Murid/" + data.nomor!! + "/" + data.nomor!! + ".jpg").delete().addOnSuccessListener {
 
                                     }
-                                    storage.child("Murid/"+data.nomor!!+"/"+data.nomor!!+".jpeg").delete().addOnSuccessListener {
+                                    storage.child("Murid/" + data.nomor!! + "/" + data.nomor!! + ".jpeg").delete().addOnSuccessListener {
 
                                     }
-                                    storage.child("Murid/"+data.nomor!!+"/"+data.nomor!!+".png").delete().addOnSuccessListener {
+                                    storage.child("Murid/" + data.nomor!! + "/" + data.nomor!! + ".png").delete().addOnSuccessListener {
 
                                     }
 
                                     val intent: Intent =
-                                        Intent(this@DetailMuridActivity, EditMuridActivity::class.java)
+                                        Intent(
+                                            this@DetailMuridActivity,
+                                            MainActivity::class.java
+                                        ).putExtra("jenis","murid")
                                     startActivity(intent)
+                                   finish()
                                     Toast.makeText(
                                         context,
                                         "Murid Berhasil di Hapus",
@@ -113,6 +134,7 @@ class DetailMuridActivity : AppCompatActivity() {
         btn_rekap_presensi.setOnClickListener {
             val intent: Intent = Intent(this@DetailMuridActivity, RekapPresensiActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         //intent ke halaman rapor
@@ -123,6 +145,9 @@ class DetailMuridActivity : AppCompatActivity() {
                     data
                 )
             startActivity(intent)
+            finish()
         }
     }
+
+
 }
