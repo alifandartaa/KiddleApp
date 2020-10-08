@@ -84,6 +84,7 @@ class EditRaporActivity : AppCompatActivity(), View.OnClickListener {
         img_back_detail_rapor.setOnClickListener {
             val intent: Intent = Intent(this@EditRaporActivity, RaporActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         //untuk dropdown semester
@@ -193,6 +194,7 @@ class EditRaporActivity : AppCompatActivity(), View.OnClickListener {
                                         RaporActivity::class.java
                                     )
                                 startActivity(intent)
+                                finish()
                                 Toast.makeText(
                                     this,
                                     "Simpan Berhasil",
