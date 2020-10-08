@@ -15,6 +15,8 @@ import com.example.kiddleapp.R
 import com.example.kiddleapp.Tugas.TugasActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_pengumuman.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class PengumumanActivity : AppCompatActivity() {
 
@@ -56,6 +58,7 @@ class PengumumanActivity : AppCompatActivity() {
             pengumuman.addAll(item)
             adapter.notifyDataSetChanged()
             adapter.addItemToList(list)
+            Collections.reverse(list);
             rv_pengumuman.layoutManager = LinearLayoutManager(this)
             rv_pengumuman.adapter = adapter
         }

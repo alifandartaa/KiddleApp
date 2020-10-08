@@ -23,6 +23,8 @@ import kotlinx.android.synthetic.main.activity_guru.*
 import kotlinx.android.synthetic.main.activity_jurnal.*
 import kotlinx.android.synthetic.main.activity_tugas.*
 import kotlinx.android.synthetic.main.fragment_murid.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class JurnalActivity : AppCompatActivity() {
 
@@ -93,6 +95,7 @@ class JurnalActivity : AppCompatActivity() {
             Log.d("Tugas Activity", "showRecyclerList: before adapter notify")
             adapter.notifyDataSetChanged()
             adapter.addItemToList(list)
+            Collections.reverse(list);
             Log.d("Tugas Activity", "showRecyclerList: before rv_tugas set adapter layout")
             rv_jurnal.layoutManager = LinearLayoutManager(this)
             rv_jurnal.adapter = adapter

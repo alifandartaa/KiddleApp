@@ -15,6 +15,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_jurnal.*
 import kotlinx.android.synthetic.main.activity_tugas.*
 import java.security.AccessController.getContext
+import java.util.*
+import kotlin.collections.ArrayList
 
 class TugasActivity : AppCompatActivity() {
 
@@ -68,6 +70,7 @@ class TugasActivity : AppCompatActivity() {
             Log.d("Tugas Activity", "showRecyclerList: before adapter notify")
             adapter.notifyDataSetChanged()
             adapter.addItemToList(list)
+            Collections.reverse(list);
             Log.d("Tugas Activity", "showRecyclerList: before rv_tugas set adapter layout")
             rv_tugas.layoutManager = LinearLayoutManager(this)
             rv_tugas.adapter = adapter

@@ -33,7 +33,7 @@ class SekolahFragment : Fragment() {
             startActivity(
                 Intent(activity, KegiatanActivity::class.java).putExtra(
                     "jenis",
-                    "KEGIATAN"
+                    "Kegiatan"
                 )
             )
         }

@@ -60,6 +60,12 @@ class EditJurnalActivity : AppCompatActivity() {
 
 
         if(intent.getStringExtra("jenis") == "EDIT_JURNAL") {
+            //kembali
+            img_back_edit_jurnal.setOnClickListener {
+                val intent: Intent =  Intent(this@EditJurnalActivity,DetailJurnalActivity::class.java ).putExtra("data", data)
+                startActivity(intent)
+                finish()
+            }
             //mengambil data dari halaman sebelumnya
 
             tv_kelas_edit_jurnal.setText(data.kelas)
@@ -205,6 +211,12 @@ class EditJurnalActivity : AppCompatActivity() {
                 }
             }
         }else if (intent.getStringExtra("jenis") == "TAMBAH_JURNAL") {
+            //kembali
+            img_back_edit_jurnal.setOnClickListener {
+                val intent: Intent =  Intent(this@EditJurnalActivity,JurnalActivity::class.java )
+                startActivity(intent)
+                finish()
+            }
             // simpan
             //link
             btn_simpan_edit_jurnal.setOnClickListener {
@@ -308,9 +320,6 @@ class EditJurnalActivity : AppCompatActivity() {
         }
 
 
-
-
-
         //tutup gambar
         // hapus video belum bisa
         btn_tutup_edit_jurnal.setOnClickListener {
@@ -322,13 +331,6 @@ class EditJurnalActivity : AppCompatActivity() {
             vv_edit_jurnal.visibility = View.GONE
             btn_tutup_edit_jurnal.visibility = View.GONE
 
-        }
-
-        //kembali
-        img_back_edit_jurnal.setOnClickListener {
-            val intent: Intent =  Intent(this@EditJurnalActivity,DetailJurnalActivity::class.java ).putExtra("data", data)
-            startActivity(intent)
-            finish()
         }
 
 
