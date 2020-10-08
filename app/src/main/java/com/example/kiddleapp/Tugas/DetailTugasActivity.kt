@@ -89,6 +89,7 @@ class DetailTugasActivity : AppCompatActivity() {
                     ).putExtra("jenis", "EDIT_TUGAS")
                     intent.putExtra("data", data)
                     startActivity(intent)
+                    finish()
                     return@setOnMenuItemClickListener true
                 }
                 else if(it.itemId == R.id.menu_hapus2) {
@@ -116,6 +117,7 @@ class DetailTugasActivity : AppCompatActivity() {
                                     val intent: Intent =
                                         Intent(this@DetailTugasActivity, TugasActivity::class.java)
                                     startActivity(intent)
+                                    finish()
                                     Toast.makeText(
                                         context,
                                         "Jurnal Berhasil di Hapus",
@@ -174,23 +176,31 @@ class DetailTugasActivity : AppCompatActivity() {
                 Log.w("Tugas Activity", "listen:error", e)
                 return@addSnapshotListener
             }
-
-            for (document in result!!) {
-                Log.d("TugasActivity", document.toString())
-                listTugas.add(
-                    HasilTugas(
-                        document.id,
-                        document.getString("avatar"),
-                        document.getString("nama"),
-                        document.getString("waktu"),
-                        document.getString("file")
-                    )
+            if (result!!.isEmpty) {
+                Toast.makeText(
+                    this,
+                    "Tidak Ada Murid yang Mengumpulkan Tugas ",
+                    Toast.LENGTH_SHORT
                 )
+                    .show()
+            } else {
 
+                for (document in result!!) {
+                    Log.d("TugasActivity", document.toString())
+                    listTugas.add(
+                        HasilTugas(
+                            document.getString("id_hasil_tugas"),
+                            document.getString("id_tugas"),
+                            document.getString("waktu"),
+                            document.getString("file")
+                        )
+                    )
+
+                }
+
+                Log.d("TugasActivity", "callback should be call")
+                callback.invoke(listTugas)
             }
-
-            Log.d("TugasActivity", "callback should be call")
-            callback.invoke(listTugas)
         }
         Log.d("Tugas Activity", "getPageTugasList: after get collection data, should not be printed")
     }

@@ -1,5 +1,6 @@
 package com.example.kiddleapp.Tugas.Adapter
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -74,6 +75,7 @@ class TugasAdapter(private var data: List<Tugas>, private val listener: (Tugas) 
         holder.itemView.setOnClickListener(View.OnClickListener { v ->
             val intent: Intent = Intent(v.context, DetailTugasActivity::class.java).putExtra("data", data[position])
             v.context.startActivity(intent)
+            (v.context as Activity).finish()
         })
     }
 

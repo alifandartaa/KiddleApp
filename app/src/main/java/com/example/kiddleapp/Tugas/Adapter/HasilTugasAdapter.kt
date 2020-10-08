@@ -2,12 +2,16 @@ package com.example.kiddleapp.Tugas.Adapter
 
 import android.app.ProgressDialog
 import android.content.Context
+import android.net.Uri
 import android.os.Environment
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.MimeTypeMap
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -18,9 +22,11 @@ import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FileDownloadTask
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import java.io.File
 
 
@@ -33,9 +39,7 @@ class HasilTugasAdapter(
     private var listHasil = ArrayList<HasilTugas>()
     private val db = FirebaseFirestore.getInstance()
    var storage = FirebaseStorage.getInstance().reference
-   // var storage = FirebaseStorage.getInstance()
-//    var storageRef: StorageReference = storage.getReferenceFromUrl("<your_bucket>")
-//    var islandRef = storageRef.child("file.txt")
+
 
     //assign value dari model ke xml
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -51,9 +55,16 @@ class HasilTugasAdapter(
             context: Context,
             position: Int
         ) {
+            FirebaseFirestore.getInstance().collection("Murid").whereEqualTo("nomor",data.id_hasil_tugas).addSnapshotListener { result, e ->
+                if (e != null) {
+                    return@addSnapshotListener
+                }
+                for (document in result!!) {
+                    Glide.with(context).load(document.getString("avatar")).centerCrop().into(img_avatar)
+                    tv_nama.text = document.getString("nama")
+                }
+            }
 
-            Glide.with(context).load(data.avatar).centerCrop().into(img_avatar)
-            tv_nama.text = data.nama
             tv_tanggal.text = data.tanggal
             itemView.setOnClickListener {
                 listener(data)
@@ -62,6 +73,7 @@ class HasilTugasAdapter(
             listener.invoke(data)
         }
     }
+
 
 
 
@@ -79,6 +91,8 @@ class HasilTugasAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+
         holder.bindItem(data[position], listener, contextAdapter, position)
 
         holder.img_download_tugas.setOnClickListener(View.OnClickListener { v ->
@@ -88,8 +102,7 @@ class HasilTugasAdapter(
                     "Apa anda yakin ingin mengunduh berkas pengumpulan ini?"
                 )
                 setPositiveButton("Ya") { _, _ ->
-                    val storage = FirebaseStorage.getInstance()
-                    val storageRef =storage.getReferenceFromUrl(data[position].file!!)
+                    val storageRef =FirebaseStorage.getInstance().getReferenceFromUrl(data[position].file!!)
                     val pd = ProgressDialog(context)
                     pd.setTitle(data[position].id_hasil_tugas + "_"+holder.tv_nama.text.toString() )
                     pd.show()
@@ -104,8 +117,7 @@ class HasilTugasAdapter(
                         rootPath.mkdirs()
                     }
 
-
-                    val localFile = File(rootPath, data[position].id_hasil_tugas + "_"+holder.tv_nama.text.toString())
+                    val localFile = File(rootPath, data[position].id_tugas+"_"+storageRef.name)
 
                     storageRef.getFile(localFile).addOnSuccessListener(object :
                         OnSuccessListener<FileDownloadTask.TaskSnapshot?> {
@@ -114,14 +126,12 @@ class HasilTugasAdapter(
                                 "firebase ",
                                 ";local tem file created  created $localFile"
                             )
-//                            if (!isVisible()) {
-//                                return
-//                            }
+
                             if (localFile.canRead()) {
                                 pd.dismiss()
                             }
                             Toast.makeText(context, "Download Completed", Toast.LENGTH_SHORT).show()
-                           // Toast.makeText(context, "Internal storage/MADBO/Nature.jpg", Toast.LENGTH_LONG).show()
+
                         }
 
                     }).addOnFailureListener(object : OnFailureListener {
@@ -141,8 +151,11 @@ class HasilTugasAdapter(
         })
     }
 
+
     fun addItemToList(list: ArrayList<HasilTugas>) {
         listHasil.clear()
         listHasil.addAll(list)
     }
+
+
 }
