@@ -20,6 +20,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.kiddleapp.Jurnal.JurnalActivity
+import com.example.kiddleapp.Jurnal.Model.Jurnal
 import com.example.kiddleapp.Kegiatan.Model.Kegiatan
 import com.example.kiddleapp.R
 import com.example.kiddleapp.Tugas.TugasActivity
@@ -38,7 +39,7 @@ class EditKegiatanActivity : AppCompatActivity() {
     var image_uri: Uri? = null
     private val db = FirebaseFirestore.getInstance()
     var storage = FirebaseStorage.getInstance().reference
-
+    lateinit var listKegiatan: Kegiatan
 
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("SimpleDateFormat")
@@ -58,6 +59,14 @@ class EditKegiatanActivity : AppCompatActivity() {
         if(intent.getStringExtra("jenis") == "EDIT_KEGIATAN") {
             //mengambil data dari halaman sebelumnya
             val data = intent.getParcelableExtra<Kegiatan>("data")
+            //kembali
+
+            img_back_edit_kegiatan.setOnClickListener {
+                val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data",data)
+                startActivity(intent)
+                finish()
+            }
+
             tv_deskripsi_edit_kegiatan.setText(data.isi)
             tv_judul_edit_kegiatan.setText(data.judul)
 
@@ -103,11 +112,8 @@ class EditKegiatanActivity : AppCompatActivity() {
                     btn_simpan_edit_kegiatan.isEnabled = true
                     btn_simpan_edit_kegiatan.text = "Simpan"
 
-
                 } else {
-                    if (tv_link_edit_kegiatan.text.toString()
-                            .isValidUrl() || tv_link_edit_kegiatan.text.toString().equals("")
-                    ) {
+                    if (tv_link_edit_kegiatan.text.toString().isValidUrl() || tv_link_edit_kegiatan.text.toString().isNullOrEmpty()) {
                         if (image_uri != null) {
                             val builder = StringBuilder()
                             builder.append(data.id + "." + getFileExtension(image_uri!!))
@@ -131,13 +137,13 @@ class EditKegiatanActivity : AppCompatActivity() {
 
                                                                 )
                                                             )
-                                                    }.addOnCompleteListener {
-                                                        val intent: Intent = Intent(
-                                                            this@EditKegiatanActivity,
-                                                            KegiatanActivity::class.java
-                                                        ).putExtra("jenis", "KEGIATAN")
 
+                                                        listKegiatan=Kegiatan(data.id,data.jenis,tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                                        data.tanggal, it.toString(),"",tv_link_edit_kegiatan.text.toString())
+                                                    }.addOnCompleteListener {
+                                                        val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
                                                         startActivity(intent)
+                                                        finish()
                                                         Toast.makeText(
                                                             this,
                                                             "Simpan Berhasil",
@@ -166,13 +172,12 @@ class EditKegiatanActivity : AppCompatActivity() {
 
                                                                 )
                                                             )
+                                                        listKegiatan=Kegiatan(data.id,data.jenis,tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                                            data.tanggal, it.toString(),"",tv_link_edit_kegiatan.text.toString())
                                                     }.addOnCompleteListener {
-                                                        val intent: Intent = Intent(
-                                                            this@EditKegiatanActivity,
-                                                            KegiatanActivity::class.java
-                                                        ).putExtra("jenis", "PARENTING")
-
+                                                        val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
                                                         startActivity(intent)
+                                                        finish()
                                                         Toast.makeText(
                                                             this,
                                                             "Simpan Berhasil",
@@ -184,13 +189,13 @@ class EditKegiatanActivity : AppCompatActivity() {
 
 
                                     }
-                                    "materi" -> {
-                                        storage.child("materi").child(data.id!!)
+                                    "Materi" -> {
+                                        storage.child("Materi").child(data.id!!)
                                             .child(builder.toString()).putFile(image_uri!!)
                                             .addOnSuccessListener {
-                                                storage.child("materi").child(data.id!!)
+                                                storage.child("Materi").child(data.id!!)
                                                     .child(builder.toString()).downloadUrl.addOnSuccessListener {
-                                                        db.collection("materi").document(data.id!!)
+                                                        db.collection("Materi").document(data.id!!)
                                                             .update(
                                                                 mapOf(
                                                                     "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
@@ -201,13 +206,14 @@ class EditKegiatanActivity : AppCompatActivity() {
 
                                                                 )
                                                             )
-                                                    }.addOnCompleteListener {
-                                                        val intent: Intent = Intent(
-                                                            this@EditKegiatanActivity,
-                                                            KegiatanActivity::class.java
-                                                        ).putExtra("jenis", "MATERI")
+                                                        listKegiatan=Kegiatan(data.id,data.jenis,tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                                            data.tanggal, it.toString(),"",tv_link_edit_kegiatan.text.toString())
 
+                                                    }.addOnCompleteListener {
+                                                        val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
                                                         startActivity(intent)
+                                                        finish()
+
                                                         Toast.makeText(
                                                             this,
                                                             "Simpan Berhasil",
@@ -240,13 +246,14 @@ class EditKegiatanActivity : AppCompatActivity() {
 
                                                                 )
                                                             )
-                                                    }.addOnCompleteListener {
-                                                        val intent: Intent = Intent(
-                                                            this@EditKegiatanActivity,
-                                                            KegiatanActivity::class.java
-                                                        ).putExtra("jenis", "KEGIATAN")
+                                                        listKegiatan=Kegiatan(data.id,data.jenis,tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                                            data.tanggal, "",it.toString(),tv_link_edit_kegiatan.text.toString())
 
+                                                    }.addOnCompleteListener {
+                                                        val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
                                                         startActivity(intent)
+                                                        finish()
+
                                                         Toast.makeText(
                                                             this,
                                                             "Simpan Berhasil",
@@ -275,13 +282,14 @@ class EditKegiatanActivity : AppCompatActivity() {
 
                                                                 )
                                                             )
-                                                    }.addOnCompleteListener {
-                                                        val intent: Intent = Intent(
-                                                            this@EditKegiatanActivity,
-                                                            KegiatanActivity::class.java
-                                                        ).putExtra("jenis", "PARENTING")
+                                                        listKegiatan=Kegiatan(data.id,data.jenis,tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                                            data.tanggal, "",it.toString(),tv_link_edit_kegiatan.text.toString())
 
+                                                    }.addOnCompleteListener {
+                                                        val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
                                                         startActivity(intent)
+                                                        finish()
+
                                                         Toast.makeText(
                                                             this,
                                                             "Simpan Berhasil",
@@ -293,13 +301,13 @@ class EditKegiatanActivity : AppCompatActivity() {
 
 
                                     }
-                                    "materi" -> {
-                                        storage.child("materi").child(data.id!!)
+                                    "Materi" -> {
+                                        storage.child("Materi").child(data.id!!)
                                             .child(builder.toString()).putFile(image_uri!!)
                                             .addOnSuccessListener {
-                                                storage.child("materi").child(data.id!!)
+                                                storage.child("Materi").child(data.id!!)
                                                     .child(builder.toString()).downloadUrl.addOnSuccessListener {
-                                                        db.collection("materi").document(data.id!!)
+                                                        db.collection("Materi").document(data.id!!)
                                                             .update(
                                                                 mapOf(
                                                                     "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
@@ -310,13 +318,14 @@ class EditKegiatanActivity : AppCompatActivity() {
 
                                                                 )
                                                             )
-                                                    }.addOnCompleteListener {
-                                                        val intent: Intent = Intent(
-                                                            this@EditKegiatanActivity,
-                                                            KegiatanActivity::class.java
-                                                        ).putExtra("jenis", "MATERI")
+                                                        listKegiatan=Kegiatan(data.id,data.jenis,tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                                            data.tanggal, "",it.toString(),tv_link_edit_kegiatan.text.toString())
 
+                                                    }.addOnCompleteListener {
+                                                        val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
                                                         startActivity(intent)
+                                                        finish()
+
                                                         Toast.makeText(
                                                             this,
                                                             "Simpan Berhasil",
@@ -332,8 +341,7 @@ class EditKegiatanActivity : AppCompatActivity() {
                             }else{
                                 when (data.jenis) {
                                     "Kegiatan" -> {
-
-                                                        db.collection("Kegiatan").document(data.id!!)
+                                        db.collection("Kegiatan").document(data.id!!)
                                                             .update(
                                                                 mapOf(
                                                                     "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
@@ -344,13 +352,14 @@ class EditKegiatanActivity : AppCompatActivity() {
 
                                                                 )
                                                             )
-                                                        val intent: Intent = Intent(
-                                                            this@EditKegiatanActivity,
-                                                            KegiatanActivity::class.java
-                                                        ).putExtra("jenis", "KEGIATAN")
+                                        listKegiatan=Kegiatan(data.id,data.jenis,tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                            data.tanggal, data.gambar,data.video,tv_link_edit_kegiatan.text.toString())
 
-                                                        startActivity(intent)
-                                                        Toast.makeText(
+                                        val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
+                                        startActivity(intent)
+                                        finish()
+
+                                        Toast.makeText(
                                                             this,
                                                             "Simpan Berhasil",
                                                             Toast.LENGTH_SHORT
@@ -370,12 +379,12 @@ class EditKegiatanActivity : AppCompatActivity() {
                                                                 )
                                                             )
 
-                                                        val intent: Intent = Intent(
-                                                            this@EditKegiatanActivity,
-                                                            KegiatanActivity::class.java
-                                                        ).putExtra("jenis", "PARENTING")
+                                        listKegiatan=Kegiatan(data.id,data.jenis,tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                            data.tanggal, data.gambar,data.video,tv_link_edit_kegiatan.text.toString())
 
-                                                        startActivity(intent)
+                                        val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
+                                        startActivity(intent)
+                                        finish()
                                                         Toast.makeText(
                                                             this,
                                                             "Simpan Berhasil",
@@ -384,9 +393,9 @@ class EditKegiatanActivity : AppCompatActivity() {
                                                             .show()
                                                     }
 
-                                    "materi" -> {
+                                    "Materi" -> {
 
-                                                        db.collection("materi").document(data.id!!)
+                                                        db.collection("Materi").document(data.id!!)
                                                             .update(
                                                                 mapOf(
                                                                     "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
@@ -398,12 +407,12 @@ class EditKegiatanActivity : AppCompatActivity() {
                                                                 )
                                                             )
 
-                                                        val intent: Intent = Intent(
-                                                            this@EditKegiatanActivity,
-                                                            KegiatanActivity::class.java
-                                                        ).putExtra("jenis", "MATERI")
+                                        listKegiatan=Kegiatan(data.id,data.jenis,tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                            data.tanggal, data.gambar,data.video,tv_link_edit_kegiatan.text.toString())
 
-                                                        startActivity(intent)
+                                        val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
+                                        startActivity(intent)
+                                        finish()
                                                         Toast.makeText(
                                                             this,
                                                             "Simpan Berhasil",
@@ -429,12 +438,12 @@ class EditKegiatanActivity : AppCompatActivity() {
                                             "video" to ""
                                         )
                                         ).addOnCompleteListener {
+                                            listKegiatan=Kegiatan(data.id,data.jenis,tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                                data.tanggal, "","",tv_link_edit_kegiatan.text.toString())
 
-                                            val intent: Intent = Intent(
-                                                this@EditKegiatanActivity,
-                                                KegiatanActivity::class.java
-                                            ).putExtra("jenis", "KEGIATAN")
+                                            val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
                                             startActivity(intent)
+                                            finish()
                                             Toast.makeText(
                                                 this,
                                                 "Simpan Berhasil",
@@ -454,11 +463,12 @@ class EditKegiatanActivity : AppCompatActivity() {
                                         )
                                         ).addOnCompleteListener {
 
-                                            val intent: Intent = Intent(
-                                                this@EditKegiatanActivity,
-                                                KegiatanActivity::class.java
-                                            ).putExtra("jenis", "PARENTING")
+                                            listKegiatan=Kegiatan(data.id,data.jenis,tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                                data.tanggal, "","",tv_link_edit_kegiatan.text.toString())
+
+                                            val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
                                             startActivity(intent)
+                                            finish()
                                             Toast.makeText(
                                                 this,
                                                 "Simpan Berhasil",
@@ -469,7 +479,7 @@ class EditKegiatanActivity : AppCompatActivity() {
 
 
                                 }
-                                "materi" -> {
+                                "Materi" -> {
                                     db.collection("Materi").document(data.id!!)
                                         .update(mapOf(
                                             "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
@@ -480,11 +490,12 @@ class EditKegiatanActivity : AppCompatActivity() {
                                         )
                                         ).addOnCompleteListener {
 
-                                            val intent: Intent = Intent(
-                                                this@EditKegiatanActivity,
-                                                KegiatanActivity::class.java
-                                            ).putExtra("jenis", "MATERI")
+                                            listKegiatan=Kegiatan(data.id,data.jenis,tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                                data.tanggal, "","",tv_link_edit_kegiatan.text.toString())
+
+                                            val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
                                             startActivity(intent)
+                                            finish()
                                             Toast.makeText(
                                                 this,
                                                 "Simpan Berhasil",
@@ -499,254 +510,26 @@ class EditKegiatanActivity : AppCompatActivity() {
                         }
 
                     } else {
-                        tv_link_edit_tugas.error = "Pastikan tautan sudah benar"
+                        tv_link_edit_kegiatan.error = "Pastikan tautan sudah benar"
+                        btn_simpan_edit_kegiatan.isEnabled = true
+                        btn_simpan_edit_kegiatan.text = "Simpan"
+
                     }
                 }
             }
+
+
+
         }else if (intent.getStringExtra("jenis") == "TAMBAH_KEGIATAN") {
-            // simpan
-            //link
-            btn_simpan_edit_kegiatan.setOnClickListener {
-                btn_simpan_edit_kegiatan.isEnabled = false
-                btn_simpan_edit_kegiatan.text = "Loading"
+            img_back_edit_kegiatan.setOnClickListener {
+                val intent: Intent = Intent(
+                    this@EditKegiatanActivity,
+                    KegiatanActivity::class.java
+                ).putExtra("jenis", "Kegiatan")
 
-                if (tv_judul_edit_kegiatan.text.toString()
-                        .isEmpty() || tv_deskripsi_edit_kegiatan.text.toString().isEmpty()
-                ) {
-                    Toast.makeText(
-                        this,
-                        "Semua Kolom Harus Diisi!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    btn_simpan_edit_kegiatan.isEnabled = true
-                    btn_simpan_edit_kegiatan.text = "Simpan"
-
-
-                } else {
-                    if (image_uri != null) {
-                        val builder = StringBuilder()
-                        builder.append(currentDateAndTime + "." + getFileExtension(image_uri!!))
-                        if (getFileExtension(image_uri!!) == "jpg" || getFileExtension(image_uri!!) == "png" || getFileExtension(
-                                image_uri!!
-                            ) == "jpeg"
-                        ) {
-                            storage.child("Kegiatan").child(currentDateAndTime)
-                                .child(builder.toString())
-                                .putFile(image_uri!!)
-                                .addOnSuccessListener {
-                                    storage.child("Kegiatan").child(currentDateAndTime)
-                                        .child(builder.toString()).downloadUrl.addOnSuccessListener {
-                                            val kegiatan = hashMapOf(
-                                                "id" to currentDateAndTime,
-                                                "jenis" to "Kegiatan",
-                                                "judul" to tv_judul_edit_kegiatan.text.toString(),
-                                                "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
-                                                "tanggal" to tanggal,
-                                                "gambar" to it.toString(),
-                                                "video" to "",
-                                                "link" to tv_link_edit_kegiatan.text.toString()
-                                            )
-                                            db.collection("Kegiatan").document(currentDateAndTime)
-                                                .set(kegiatan)
-                                        }.addOnCompleteListener {
-                                            val intent: Intent = Intent(
-                                                this@EditKegiatanActivity,
-                                                KegiatanActivity::class.java
-                                            ).putExtra("jenis", "KEGIATAN")
-                                            startActivity(intent)
-                                            Toast.makeText(
-                                                this,
-                                                "Simpan Berhasil",
-                                                Toast.LENGTH_SHORT
-                                            )
-                                                .show()
-                                        }
-
-                                }
-
-                        } else if (getFileExtension(image_uri!!) == "mp4") {
-                            storage.child("Kegiatan").child(currentDateAndTime)
-                                .child(builder.toString())
-                                .putFile(image_uri!!)
-                                .addOnSuccessListener {
-                                    storage.child("Kegiatan").child(currentDateAndTime)
-                                        .child(builder.toString()).downloadUrl.addOnSuccessListener {
-                                            val kegiatan = hashMapOf(
-                                                "id" to currentDateAndTime,
-                                                "jenis" to "Kegiatan",
-                                                "judul" to tv_judul_edit_kegiatan.text.toString(),
-                                                "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
-                                                "tanggal" to tanggal,
-                                                "gambar" to "",
-                                                "video" to it.toString(),
-                                                "link" to tv_link_edit_kegiatan.text.toString()
-                                            )
-                                            db.collection("Kegiatan").document(currentDateAndTime)
-                                                .set(kegiatan)
-                                        }.addOnCompleteListener {
-                                            val intent: Intent = Intent(
-                                                this@EditKegiatanActivity,
-                                                KegiatanActivity::class.java
-                                            ).putExtra("jenis", "KEGIATAN")
-                                            startActivity(intent)
-                                            Toast.makeText(
-                                                this,
-                                                "Simpan Berhasil",
-                                                Toast.LENGTH_SHORT
-                                            )
-                                                .show()
-                                        }
-
-                                }
-                        }
-                    }
-                        else {
-                            val kegiatan = hashMapOf(
-                                "id" to currentDateAndTime,
-                                "jenis" to "Kegiatan",
-                                "judul" to tv_judul_edit_kegiatan.text.toString(),
-                                "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
-                                "tanggal" to tanggal,
-                                "gambar" to "",
-                                "video" to "",
-                                "link" to tv_link_edit_kegiatan.text.toString()
-                            )
-                            db.collection("Kegiatan").document(currentDateAndTime).set(kegiatan)
-                                .addOnCompleteListener {
-                                    val intent: Intent = Intent(
-                                        this@EditKegiatanActivity,
-                                        KegiatanActivity::class.java
-                                    ).putExtra("jenis", "KEGIATAN")
-                                    startActivity(intent)
-                                    Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT)
-                                        .show()
-                                }
-
-                    }
-                }
+                startActivity(intent)
+                finish()
             }
-        }else if (intent.getStringExtra("jenis") == "TAMBAH_PARENTING") {
-            // simpan
-            //link
-            btn_simpan_edit_kegiatan.setOnClickListener {
-                btn_simpan_edit_kegiatan.isEnabled = false
-                btn_simpan_edit_kegiatan.text = "Loading"
-
-                if (tv_judul_edit_kegiatan.text.toString()
-                        .isEmpty() || tv_deskripsi_edit_kegiatan.text.toString().isEmpty()
-                ) {
-                    Toast.makeText(
-                        this,
-                        "Semua Kolom Harus Diisi!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    btn_simpan_edit_kegiatan.isEnabled = true
-                    btn_simpan_edit_kegiatan.text = "Simpan"
-
-
-                } else {
-                    if (image_uri != null) {
-                        val builder = StringBuilder()
-                        builder.append(currentDateAndTime + "." + getFileExtension(image_uri!!))
-                        if (getFileExtension(image_uri!!) == "jpg" || getFileExtension(image_uri!!) == "png" || getFileExtension(
-                                image_uri!!
-                            ) == "jpeg"
-                        ) {
-                            storage.child("Parenting").child(currentDateAndTime)
-                                .child(builder.toString())
-                                .putFile(image_uri!!)
-                                .addOnSuccessListener {
-                                    storage.child("Parenting").child(currentDateAndTime)
-                                        .child(builder.toString()).downloadUrl.addOnSuccessListener {
-                                            val kegiatan = hashMapOf(
-                                                "id" to currentDateAndTime,
-                                                "jenis" to "Parenting",
-                                                "judul" to tv_judul_edit_kegiatan.text.toString(),
-                                                "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
-                                                "tanggal" to tanggal,
-                                                "gambar" to it.toString(),
-                                                "video" to "",
-                                                "link" to tv_link_edit_kegiatan.text.toString()
-                                            )
-                                            db.collection("Parenting").document(currentDateAndTime)
-                                                .set(kegiatan)
-                                        }.addOnCompleteListener {
-                                            val intent: Intent = Intent(
-                                                this@EditKegiatanActivity,
-                                                KegiatanActivity::class.java
-                                            ).putExtra("jenis", "PARENTING")
-                                            startActivity(intent)
-                                            Toast.makeText(
-                                                this,
-                                                "Simpan Berhasil",
-                                                Toast.LENGTH_SHORT
-                                            )
-                                                .show()
-                                        }
-
-                                }
-
-                        } else if (getFileExtension(image_uri!!) == "mp4") {
-                            storage.child("Parenting").child(currentDateAndTime)
-                                .child(builder.toString())
-                                .putFile(image_uri!!)
-                                .addOnSuccessListener {
-                                    storage.child("Parenting").child(currentDateAndTime)
-                                        .child(builder.toString()).downloadUrl.addOnSuccessListener {
-                                            val kegiatan = hashMapOf(
-                                                "id" to currentDateAndTime,
-                                                "jenis" to "Parenting",
-                                                "judul" to tv_judul_edit_kegiatan.text.toString(),
-                                                "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
-                                                "tanggal" to tanggal,
-                                                "gambar" to "",
-                                                "video" to it.toString(),
-                                                "link" to tv_link_edit_kegiatan.text.toString()
-                                            )
-                                            db.collection("Parenting").document(currentDateAndTime)
-                                                .set(kegiatan)
-                                        }.addOnCompleteListener {
-                                            val intent: Intent = Intent(
-                                                this@EditKegiatanActivity,
-                                                KegiatanActivity::class.java
-                                            ).putExtra("jenis", "PARENTING")
-                                            startActivity(intent)
-                                            Toast.makeText(
-                                                this,
-                                                "Simpan Berhasil",
-                                                Toast.LENGTH_SHORT
-                                            )
-                                                .show()
-                                        }
-
-                                }
-                        }
-                        } else {
-                            val kegiatan = hashMapOf(
-                                "id" to currentDateAndTime,
-                                "jenis" to "Parenting",
-                                "judul" to tv_judul_edit_kegiatan.text.toString(),
-                                "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
-                                "tanggal" to tanggal,
-                                "gambar" to "",
-                                "video" to "",
-                                "link" to tv_link_edit_kegiatan.text.toString()
-                            )
-                            db.collection("Parenting").document(currentDateAndTime).set(kegiatan)
-                                .addOnCompleteListener {
-                                    val intent: Intent = Intent(
-                                        this@EditKegiatanActivity,
-                                        KegiatanActivity::class.java
-                                    ).putExtra("jenis", "PARENTING")
-                                    startActivity(intent)
-                                    Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT)
-                                        .show()
-                                }
-                        }
-                    }
-
-            }
-        }else if (intent.getStringExtra("jenis") == "TAMBAH_MATERI") {
             // simpan
             //link
             btn_simpan_edit_kegiatan.setOnClickListener {
@@ -764,83 +547,371 @@ class EditKegiatanActivity : AppCompatActivity() {
 
 
                 } else {
-                    if (image_uri != null) {
-                        val builder = StringBuilder()
-                        builder.append(currentDateAndTime + "." + getFileExtension(image_uri!!))
-                        if (getFileExtension(image_uri!!) == "jpg" || getFileExtension(image_uri!!) == "png" || getFileExtension(
-                                image_uri!!
-                            ) == "jpeg"
-                        ) {
-                            storage.child("Materi").child(currentDateAndTime)
-                                .child(builder.toString())
-                                .putFile(image_uri!!)
-                                .addOnSuccessListener {
-                                    storage.child("Materi").child(currentDateAndTime)
-                                        .child(builder.toString()).downloadUrl.addOnSuccessListener {
-                                            val kegiatan = hashMapOf(
-                                                "id" to currentDateAndTime,
-                                                "jenis" to "Materi",
-                                                "judul" to tv_judul_edit_kegiatan.text.toString(),
-                                                "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
-                                                "tanggal" to tanggal,
-                                                "gambar" to it.toString(),
-                                                "video" to "",
-                                                "link" to tv_link_edit_kegiatan.text.toString()
-                                            )
-                                            db.collection("Materi").document(currentDateAndTime)
-                                                .set(kegiatan)
-                                        }.addOnCompleteListener {
-                                            val intent: Intent = Intent(
-                                                this@EditKegiatanActivity,
-                                                KegiatanActivity::class.java
-                                            ).putExtra("jenis", "MATERI")
-                                            startActivity(intent)
-                                            Toast.makeText(
-                                                this,
-                                                "Simpan Berhasil",
-                                                Toast.LENGTH_SHORT
-                                            )
-                                                .show()
-                                        }
+                    if (tv_link_edit_kegiatan.text.toString().isValidUrl() || tv_link_edit_kegiatan.text.toString().isNullOrEmpty()) {
+                        if (image_uri != null) {
+                            val builder = StringBuilder()
+                            builder.append(currentDateAndTime + "." + getFileExtension(image_uri!!))
+                            if (getFileExtension(image_uri!!) == "jpg" || getFileExtension(image_uri!!) == "png" || getFileExtension(
+                                    image_uri!!
+                                ) == "jpeg"
+                            ) {
+                                storage.child("Kegiatan").child(currentDateAndTime)
+                                    .child(builder.toString())
+                                    .putFile(image_uri!!)
+                                    .addOnSuccessListener {
+                                        storage.child("Kegiatan").child(currentDateAndTime)
+                                            .child(builder.toString()).downloadUrl.addOnSuccessListener {
+                                                val kegiatan = hashMapOf(
+                                                    "id" to currentDateAndTime,
+                                                    "jenis" to "Kegiatan",
+                                                    "judul" to tv_judul_edit_kegiatan.text.toString(),
+                                                    "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
+                                                    "tanggal" to tanggal,
+                                                    "gambar" to it.toString(),
+                                                    "video" to "",
+                                                    "link" to tv_link_edit_kegiatan.text.toString()
+                                                )
 
-                                }
+                                                listKegiatan=Kegiatan(currentDateAndTime,"Kegiatan",tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                                    tanggal, it.toString(),"",tv_link_edit_kegiatan.text.toString())
 
-                        } else if (getFileExtension(image_uri!!) == "mp4") {
-                            storage.child("Materi").child(currentDateAndTime)
-                                .child(builder.toString())
-                                .putFile(image_uri!!)
-                                .addOnSuccessListener {
-                                    storage.child("Materi").child(currentDateAndTime)
-                                        .child(builder.toString()).downloadUrl.addOnSuccessListener {
-                                            val kegiatan = hashMapOf(
-                                                "id" to currentDateAndTime,
-                                                "jenis" to "Materi",
-                                                "judul" to tv_judul_edit_kegiatan.text.toString(),
-                                                "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
-                                                "tanggal" to tanggal,
-                                                "gambar" to "",
-                                                "video" to it.toString(),
-                                                "link" to tv_link_edit_kegiatan.text.toString()
-                                            )
-                                            db.collection("Materi").document(currentDateAndTime)
-                                                .set(kegiatan)
-                                        }.addOnCompleteListener {
-                                            val intent: Intent = Intent(
-                                                this@EditKegiatanActivity,
-                                                KegiatanActivity::class.java
-                                            ).putExtra("jenis", "MATERI")
-                                            startActivity(intent)
-                                            Toast.makeText(
-                                                this,
-                                                "Simpan Berhasil",
-                                                Toast.LENGTH_SHORT
-                                            )
-                                                .show()
-                                        }
+                                                db.collection("Kegiatan").document(currentDateAndTime).set(kegiatan)
+                                            }.addOnCompleteListener {
 
+                                                val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
+                                                startActivity(intent)
+                                                finish()
+                                                Toast.makeText(
+                                                    this,
+                                                    "Simpan Berhasil",
+                                                    Toast.LENGTH_SHORT
+                                                )
+                                                    .show()
+                                            }
+
+                                    }
+
+                            } else if (getFileExtension(image_uri!!) == "mp4") {
+                                storage.child("Kegiatan").child(currentDateAndTime)
+                                    .child(builder.toString())
+                                    .putFile(image_uri!!)
+                                    .addOnSuccessListener {
+                                        storage.child("Kegiatan").child(currentDateAndTime)
+                                            .child(builder.toString()).downloadUrl.addOnSuccessListener {
+                                                val kegiatan = hashMapOf(
+                                                    "id" to currentDateAndTime,
+                                                    "jenis" to "Kegiatan",
+                                                    "judul" to tv_judul_edit_kegiatan.text.toString(),
+                                                    "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
+                                                    "tanggal" to tanggal,
+                                                    "gambar" to "",
+                                                    "video" to it.toString(),
+                                                    "link" to tv_link_edit_kegiatan.text.toString()
+                                                )
+
+                                                listKegiatan=Kegiatan(currentDateAndTime,"Kegiatan",tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                                    tanggal, "",it.toString(),tv_link_edit_kegiatan.text.toString())
+
+                                                db.collection("Kegiatan").document(currentDateAndTime)
+                                                    .set(kegiatan)
+                                            }.addOnCompleteListener {
+                                                val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
+                                                startActivity(intent)
+                                                finish()
+                                                Toast.makeText(
+                                                    this,
+                                                    "Simpan Berhasil",
+                                                    Toast.LENGTH_SHORT
+                                                )
+                                                    .show()
+                                            }
+
+                                    }
+                            }
+                        }
+                        else {
+                            val kegiatan = hashMapOf(
+                                "id" to currentDateAndTime,
+                                "jenis" to "Kegiatan",
+                                "judul" to tv_judul_edit_kegiatan.text.toString(),
+                                "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
+                                "tanggal" to tanggal,
+                                "gambar" to "",
+                                "video" to "",
+                                "link" to tv_link_edit_kegiatan.text.toString()
+                            )
+                            listKegiatan=Kegiatan(currentDateAndTime,"Kegiatan",tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                tanggal, "","",tv_link_edit_kegiatan.text.toString())
+
+                            db.collection("Kegiatan").document(currentDateAndTime).set(kegiatan)
+                                .addOnCompleteListener {
+                                    val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
+                                    startActivity(intent)
+                                    finish()
+                                    Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT)
+                                        .show()
                                 }
                         }
                     }else {
+                        tv_link_edit_kegiatan.error = "Pastikan tautan sudah benar"
+                        btn_simpan_edit_kegiatan.isEnabled = true
+                        btn_simpan_edit_kegiatan.text = "Simpan"
+
+                    }
+
+                }
+            }
+        }else if (intent.getStringExtra("jenis") == "TAMBAH_PARENTING") {
+
+
+            img_back_edit_kegiatan.setOnClickListener {
+                val intent: Intent = Intent(
+                    this@EditKegiatanActivity,
+                    KegiatanActivity::class.java
+                ).putExtra("jenis", "Parenting")
+
+                startActivity(intent)
+                finish()
+            }
+            // simpan
+            //link
+            btn_simpan_edit_kegiatan.setOnClickListener {
+                btn_simpan_edit_kegiatan.isEnabled = false
+                btn_simpan_edit_kegiatan.text = "Loading"
+
+                if (tv_judul_edit_kegiatan.text.toString()
+                        .isEmpty() || tv_deskripsi_edit_kegiatan.text.toString().isEmpty()
+                ) {
+                    Toast.makeText(
+                        this,
+                        "Semua Kolom Harus Diisi!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    btn_simpan_edit_kegiatan.isEnabled = true
+                    btn_simpan_edit_kegiatan.text = "Simpan"
+
+
+                } else {
+                    if (tv_link_edit_kegiatan.text.toString().isValidUrl() || tv_link_edit_kegiatan.text.toString().isNullOrEmpty()) {
+                        if (image_uri != null) {
+                            val builder = StringBuilder()
+                            builder.append(currentDateAndTime + "." + getFileExtension(image_uri!!))
+                            if (getFileExtension(image_uri!!) == "jpg" || getFileExtension(image_uri!!) == "png" || getFileExtension(
+                                    image_uri!!
+                                ) == "jpeg"
+                            ) {
+                                storage.child("Parenting").child(currentDateAndTime)
+                                    .child(builder.toString())
+                                    .putFile(image_uri!!)
+                                    .addOnSuccessListener {
+                                        storage.child("Parenting").child(currentDateAndTime)
+                                            .child(builder.toString()).downloadUrl.addOnSuccessListener {
+                                                val kegiatan = hashMapOf(
+                                                    "id" to currentDateAndTime,
+                                                    "jenis" to "Parenting",
+                                                    "judul" to tv_judul_edit_kegiatan.text.toString(),
+                                                    "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
+                                                    "tanggal" to tanggal,
+                                                    "gambar" to it.toString(),
+                                                    "video" to "",
+                                                    "link" to tv_link_edit_kegiatan.text.toString()
+                                                )
+                                                listKegiatan=Kegiatan(currentDateAndTime,"Parenting",tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                                    tanggal, it.toString(),"",tv_link_edit_kegiatan.text.toString())
+
+                                                db.collection("Parenting").document(currentDateAndTime)
+                                                    .set(kegiatan)
+                                            }.addOnCompleteListener {
+                                                val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
+                                                startActivity(intent)
+                                                finish()
+                                                Toast.makeText(
+                                                    this,
+                                                    "Simpan Berhasil",
+                                                    Toast.LENGTH_SHORT
+                                                )
+                                                    .show()
+                                            }
+
+                                    }
+
+                            } else if (getFileExtension(image_uri!!) == "mp4") {
+                                storage.child("Parenting").child(currentDateAndTime)
+                                    .child(builder.toString())
+                                    .putFile(image_uri!!)
+                                    .addOnSuccessListener {
+                                        storage.child("Parenting").child(currentDateAndTime)
+                                            .child(builder.toString()).downloadUrl.addOnSuccessListener {
+                                                val kegiatan = hashMapOf(
+                                                    "id" to currentDateAndTime,
+                                                    "jenis" to "Parenting",
+                                                    "judul" to tv_judul_edit_kegiatan.text.toString(),
+                                                    "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
+                                                    "tanggal" to tanggal,
+                                                    "gambar" to "",
+                                                    "video" to it.toString(),
+                                                    "link" to tv_link_edit_kegiatan.text.toString()
+                                                )
+                                                listKegiatan=Kegiatan(currentDateAndTime,"Parenting",tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                                    tanggal, "",it.toString(),tv_link_edit_kegiatan.text.toString())
+
+                                                db.collection("Parenting").document(currentDateAndTime)
+                                                    .set(kegiatan)
+                                            }.addOnCompleteListener {
+                                                val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
+                                                startActivity(intent)
+                                                finish()
+                                                Toast.makeText(
+                                                    this,
+                                                    "Simpan Berhasil",
+                                                    Toast.LENGTH_SHORT
+                                                )
+                                                    .show()
+                                            }
+
+                                    }
+                            }
+                        } else {
+                            val kegiatan = hashMapOf(
+                                "id" to currentDateAndTime,
+                                "jenis" to "Parenting",
+                                "judul" to tv_judul_edit_kegiatan.text.toString(),
+                                "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
+                                "tanggal" to tanggal,
+                                "gambar" to "",
+                                "video" to "",
+                                "link" to tv_link_edit_kegiatan.text.toString()
+                            )
+                            listKegiatan=Kegiatan(currentDateAndTime,"Parenting",tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                tanggal, "","",tv_link_edit_kegiatan.text.toString())
+
+                            db.collection("Parenting").document(currentDateAndTime).set(kegiatan)
+                                .addOnCompleteListener {
+                                    val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
+                                    startActivity(intent)
+                                    finish()
+                                    Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+                        }
+                    }else{
+                        tv_link_edit_kegiatan.error = "Pastikan tautan sudah benar"
+                        btn_simpan_edit_kegiatan.isEnabled = true
+                        btn_simpan_edit_kegiatan.text = "Simpan"
+                    }
+
+                    }
+
+            }
+        }else if (intent.getStringExtra("jenis") == "TAMBAH_MATERI") {
+            img_back_edit_kegiatan.setOnClickListener {
+                val intent: Intent = Intent(
+                    this@EditKegiatanActivity,
+                    KegiatanActivity::class.java
+                ).putExtra("jenis", "Materi")
+
+                startActivity(intent)
+                finish()
+            }
+            // simpan
+            //link
+            btn_simpan_edit_kegiatan.setOnClickListener {
+                btn_simpan_edit_kegiatan.isEnabled = false
+                btn_simpan_edit_kegiatan.text = "Loading"
+
+                if (tv_judul_edit_kegiatan.text.toString().isEmpty() || tv_deskripsi_edit_kegiatan.text.toString().isEmpty()) {
+                    Toast.makeText(
+                        this,
+                        "Semua Kolom Harus Diisi!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    btn_simpan_edit_kegiatan.isEnabled = true
+                    btn_simpan_edit_kegiatan.text = "Simpan"
+
+
+                } else {
+                    if (tv_link_edit_kegiatan.text.toString()
+                            .isValidUrl() || tv_link_edit_kegiatan.text.toString().isNullOrEmpty()
+                    ) {
+                        if (image_uri != null) {
+                            val builder = StringBuilder()
+                            builder.append(currentDateAndTime + "." + getFileExtension(image_uri!!))
+                            if (getFileExtension(image_uri!!) == "jpg" || getFileExtension(image_uri!!) == "png" || getFileExtension(
+                                    image_uri!!
+                                ) == "jpeg"
+                            ) {
+                                storage.child("Materi").child(currentDateAndTime)
+                                    .child(builder.toString())
+                                    .putFile(image_uri!!)
+                                    .addOnSuccessListener {
+                                        storage.child("Materi").child(currentDateAndTime)
+                                            .child(builder.toString()).downloadUrl.addOnSuccessListener {
+                                                val kegiatan = hashMapOf(
+                                                    "id" to currentDateAndTime,
+                                                    "jenis" to "Materi",
+                                                    "judul" to tv_judul_edit_kegiatan.text.toString(),
+                                                    "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
+                                                    "tanggal" to tanggal,
+                                                    "gambar" to it.toString(),
+                                                    "video" to "",
+                                                    "link" to tv_link_edit_kegiatan.text.toString()
+                                                )
+                                                listKegiatan=Kegiatan(currentDateAndTime,"Materi",tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                                    tanggal, it.toString(),"",tv_link_edit_kegiatan.text.toString())
+
+                                                db.collection("Materi").document(currentDateAndTime)
+                                                    .set(kegiatan)
+                                            }.addOnCompleteListener {
+                                                val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
+                                                startActivity(intent)
+                                                finish()
+                                                Toast.makeText(
+                                                    this,
+                                                    "Simpan Berhasil",
+                                                    Toast.LENGTH_SHORT
+                                                )
+                                                    .show()
+                                            }
+
+                                    }
+
+                            } else if (getFileExtension(image_uri!!) == "mp4") {
+                                storage.child("Materi").child(currentDateAndTime)
+                                    .child(builder.toString())
+                                    .putFile(image_uri!!)
+                                    .addOnSuccessListener {
+                                        storage.child("Materi").child(currentDateAndTime)
+                                            .child(builder.toString()).downloadUrl.addOnSuccessListener {
+                                                val kegiatan = hashMapOf(
+                                                    "id" to currentDateAndTime,
+                                                    "jenis" to "Materi",
+                                                    "judul" to tv_judul_edit_kegiatan.text.toString(),
+                                                    "isi" to tv_deskripsi_edit_kegiatan.text.toString(),
+                                                    "tanggal" to tanggal,
+                                                    "gambar" to "",
+                                                    "video" to it.toString(),
+                                                    "link" to tv_link_edit_kegiatan.text.toString()
+                                                )
+                                                listKegiatan=Kegiatan(currentDateAndTime,"Materi",tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                                    tanggal, "",it.toString(),tv_link_edit_kegiatan.text.toString())
+
+                                                db.collection("Materi").document(currentDateAndTime)
+                                                    .set(kegiatan)
+                                            }.addOnCompleteListener {
+                                                val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
+                                                startActivity(intent)
+                                                finish()
+                                                Toast.makeText(
+                                                    this,
+                                                    "Simpan Berhasil",
+                                                    Toast.LENGTH_SHORT
+                                                )
+                                                    .show()
+                                            }
+
+                                    }
+                            }
+                        }else {
                             val kegiatan = hashMapOf(
                                 "id" to currentDateAndTime,
                                 "jenis" to "Materi",
@@ -851,17 +922,25 @@ class EditKegiatanActivity : AppCompatActivity() {
                                 "video" to "",
                                 "link" to tv_link_edit_kegiatan.text.toString()
                             )
+                            listKegiatan=Kegiatan(currentDateAndTime,"Materi",tv_judul_edit_kegiatan.text.toString(),tv_deskripsi_edit_kegiatan.text.toString(),
+                                tanggal, "","",tv_link_edit_kegiatan.text.toString())
+
                             db.collection("Materi").document(currentDateAndTime).set(kegiatan)
                                 .addOnCompleteListener {
-                                    val intent: Intent = Intent(
-                                        this@EditKegiatanActivity,
-                                        KegiatanActivity::class.java
-                                    ).putExtra("jenis", "MATERI")
+                                    val intent: Intent = Intent(this@EditKegiatanActivity, DetailKegiatanActivity::class.java).putExtra("data", listKegiatan)
                                     startActivity(intent)
+                                    finish()
                                     Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT)
                                         .show()
                                 }
                         }
+                    } else{
+                        tv_link_edit_kegiatan.error = "Pastikan tautan sudah benar"
+                        btn_simpan_edit_kegiatan.isEnabled = true
+                        btn_simpan_edit_kegiatan.text = "Simpan"
+
+                }
+
                     }
             }
         }
@@ -879,11 +958,7 @@ class EditKegiatanActivity : AppCompatActivity() {
             btn_tutup_edit_kegiatan.visibility = View.GONE
         }
 
-        //kembali
-        img_back_edit_kegiatan.setOnClickListener {
-            val intent: Intent = Intent(this@EditKegiatanActivity, KegiatanActivity::class.java)
-            startActivity(intent)
-        }
+
 
         //galeri
         img_gambar_edit_kegiatan.setOnClickListener {

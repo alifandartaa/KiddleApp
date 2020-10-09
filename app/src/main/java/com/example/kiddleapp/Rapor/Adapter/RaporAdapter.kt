@@ -1,6 +1,7 @@
 package com.example.kiddleapp.Rapor.Adapter
 
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -62,6 +63,7 @@ class RaporAdapter(private var data: List<Murid>, private val listener: (Murid) 
             val intent: Intent =
                 Intent(v.context, EditRaporActivity::class.java).putExtra("data", data[position])
             v.context.startActivity(intent)
+            (v.context as Activity).finish()
         })
     }
 

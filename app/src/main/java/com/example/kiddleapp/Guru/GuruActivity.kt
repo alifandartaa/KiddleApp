@@ -14,6 +14,8 @@ import com.example.kiddleapp.Profil.ProfilActivity
 import com.example.kiddleapp.R
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_guru.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class GuruActivity : AppCompatActivity() {
 
@@ -57,6 +59,7 @@ class GuruActivity : AppCompatActivity() {
             guru.addAll(item)
             adapter.notifyDataSetChanged()
             adapter.addItemToList(list)
+            Collections.reverse(list);
             rv_guru.layoutManager = LinearLayoutManager(this)
             rv_guru.adapter = adapter
         }

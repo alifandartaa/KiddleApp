@@ -66,9 +66,10 @@
         android:layout_height="20dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:contentDescription="@string/icon_more"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/icon_more"
         app:srcCompat="@drawable/ic_menu" />
 
 

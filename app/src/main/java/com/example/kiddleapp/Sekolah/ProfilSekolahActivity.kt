@@ -1,9 +1,11 @@
 package com.example.kiddleapp.Sekolah
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -11,6 +13,7 @@ import com.example.kiddleapp.Beranda.BerandaFragment
 import com.example.kiddleapp.Kegiatan.Model.Kegiatan
 import com.example.kiddleapp.MainActivity
 import com.example.kiddleapp.Pengumuman.Model.Pengumuman
+import com.example.kiddleapp.Profil.EditProfilActivity
 import com.example.kiddleapp.R
 import com.example.kiddleapp.Sekolah.Model.Sekolah
 import com.example.kiddleapp.Tugas.EditTugasActivity
@@ -19,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_detail_tugas.*
 import kotlinx.android.synthetic.main.activity_edit__sekolah.*
+import kotlinx.android.synthetic.main.activity_guru.*
 import kotlinx.android.synthetic.main.activity_profil_sekolah.*
 
 class ProfilSekolahActivity : AppCompatActivity() {
@@ -32,6 +36,9 @@ class ProfilSekolahActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profil_sekolah)
+
+        val sharedPreferences = getSharedPreferences("KIDDLE", Context.MODE_PRIVATE)
+
 
         val sekolah = db.collection("Profil Sekolah").document("LBbnMxieBzdWuxvOMGbw")
         sekolah.get()
@@ -71,21 +78,27 @@ class ProfilSekolahActivity : AppCompatActivity() {
             }
 
         //buat nampilin menu
-        menu_profil_sekolah.setOnClickListener {
-            val popup: PopupMenu = PopupMenu(this, it)
-            popup.setOnMenuItemClickListener {
-                if (it.itemId == R.id.menu_edit) {
-                    val intent: Intent =
-                        Intent(this@ProfilSekolahActivity, EditSekolahActivity::class.java)
-                 intent.putExtra("data", data)
-                    startActivity(intent)
-                   // startActivity(intent)
-                    return@setOnMenuItemClickListener true
+        //Agar tombol menu hanya bisa dilihat admin
+        if(sharedPreferences.getString("kelas","") == "admin"){
+            menu_profil_sekolah.visibility= View.VISIBLE
+            menu_profil_sekolah.setOnClickListener {
+                val popup: PopupMenu = PopupMenu(this, it)
+                popup.setOnMenuItemClickListener {
+                    if (it.itemId == R.id.menu_edit) {
+                        val intent: Intent =
+                            Intent(this@ProfilSekolahActivity, EditSekolahActivity::class.java)
+                        intent.putExtra("data", data)
+                        startActivity(intent)
+                        finish()
+                        // startActivity(intent)
+                        return@setOnMenuItemClickListener true
+                    }
+                    return@setOnMenuItemClickListener false
                 }
-                return@setOnMenuItemClickListener false
+                popup.inflate(R.menu.menu_edit_only)
+                popup.show()
             }
-            popup.inflate(R.menu.menu_edit_only)
-            popup.show()
+
         }
 
         //intent buat manggil telepon
@@ -94,9 +107,9 @@ class ProfilSekolahActivity : AppCompatActivity() {
             intent.data = Uri.parse("tel:" + tv_kontak_sekolah.text)
             startActivity(intent)
         }
+
         img_back_profil_sekolah.setOnClickListener {
-            val intent: Intent = Intent(this@ProfilSekolahActivity, MainActivity::class.java)
-            startActivity(intent)
+            super.onBackPressed()
         }
     }
 }

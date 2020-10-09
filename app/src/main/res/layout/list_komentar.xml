@@ -52,7 +52,7 @@
         android:layout_marginEnd="28dp"
         android:fontFamily="@font/roboto_light"
         android:shadowColor="@color/colorBlack"
-        android:text="20.20 wib"
+        android:text="jabatan"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -60,6 +60,7 @@ class EditSekolahActivity : AppCompatActivity() {
         img_back_edit_sekolah.setOnClickListener {
             val intent: Intent = Intent(this@EditSekolahActivity, ProfilSekolahActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         //ganti pake firebase untuk menyimpan perubahan
@@ -67,7 +68,10 @@ class EditSekolahActivity : AppCompatActivity() {
             btn_simpan_sekolah.isEnabled = false
             btn_simpan_sekolah.text = "Loading"
 
-            if(edit_nama_sekolah.text.toString().isEmpty() || edit_alamat_sekolah.text.toString().isEmpty() ||edit_kontak_sekolah.text.toString().isEmpty() ||edit_deskripsi_sekolah.text.toString().isEmpty() ||edit_visi_sekolah.text.toString().isEmpty() || edit_misi_sekolah.text.toString().isEmpty()||edit_prestasi_sekolah.text.toString().isEmpty()|| edit_fasilitas_sekolah.text.toString().isEmpty()) {
+            if(edit_nama_sekolah.text.toString().isEmpty() || edit_alamat_sekolah.text.toString().isEmpty()
+                ||edit_kontak_sekolah.text.toString().isEmpty() ||edit_deskripsi_sekolah.text.toString().isEmpty()
+                ||edit_visi_sekolah.text.toString().isEmpty() || edit_misi_sekolah.text.toString().isEmpty()
+                ||edit_prestasi_sekolah.text.toString().isEmpty()|| edit_fasilitas_sekolah.text.toString().isEmpty()) {
                     Toast.makeText(
                         this,
                         "Semua Kolom Harus Diisi!",
@@ -102,6 +106,7 @@ class EditSekolahActivity : AppCompatActivity() {
                             val intent: Intent =
                                 Intent(this@EditSekolahActivity, ProfilSekolahActivity::class.java)
                             startActivity(intent)
+                                finish()
                             Toast.makeText(
                                 this,
                                 "Simpan Berhasil",
@@ -125,9 +130,9 @@ class EditSekolahActivity : AppCompatActivity() {
                                 "prestasi" to edit_prestasi_sekolah.text.toString()
                             )
                         )
-                    val intent: Intent =
-                        Intent(this@EditSekolahActivity, ProfilSekolahActivity::class.java)
+                    val intent: Intent = Intent(this@EditSekolahActivity, ProfilSekolahActivity::class.java)
                     startActivity(intent)
+                    finish()
                     Toast.makeText(
                         this,
                         "Simpan Berhasil",

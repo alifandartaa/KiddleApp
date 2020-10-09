@@ -6,8 +6,8 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class HasilTugas(
     val id_hasil_tugas:String?,
-    val avatar: String?,
-    val nama: String?,
+  val id_tugas: String?,
+//    val nama: String?,
     val tanggal: String?,
     val file:String?
 ) : Parcelable

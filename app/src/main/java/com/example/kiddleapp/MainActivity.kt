@@ -53,13 +53,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         //menambahkan listener
         bottom_navigation.setOnNavigationItemSelectedListener(navListener)
 
         if (intent.getStringExtra("jenis") == "murid") {
             val fragment = MuridFragment()
             addFragment(fragment)
+            bottom_navigation.selectedItemId =R.id.menu_murid
 
         }else{
             //fragment home otomatis terbuka pertama kali

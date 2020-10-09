@@ -1,5 +1,6 @@
 package com.example.kiddleapp.Kegiatan.Adapter
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -111,6 +112,7 @@ class Adapter_Kegiatan(private var data: List<Kegiatan>, private val listener: (
         holder.itemView.setOnClickListener(View.OnClickListener { v ->
             val intent: Intent = Intent(v.context, DetailKegiatanActivity::class.java).putExtra("data", data[position])
             v.context.startActivity(intent)
+            (v.context as Activity).finish()
         })
 //        //biar tobolnya bisa diklik seklian parsng data
 //            holder.btn.setOnClickListener { v ->

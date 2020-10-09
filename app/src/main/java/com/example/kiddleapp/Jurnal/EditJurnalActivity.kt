@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.icu.text.SimpleDateFormat
@@ -21,6 +22,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.kiddleapp.Jurnal.Model.Jurnal
+import com.example.kiddleapp.Murid.Model.Murid
 import com.example.kiddleapp.R
 import com.example.kiddleapp.Tugas.Model.Tugas
 import com.example.kiddleapp.Tugas.TugasActivity
@@ -28,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_edit_jurnal.*
 import kotlinx.android.synthetic.main.activity_edit_tugas.*
+import kotlinx.android.synthetic.main.activity_jurnal.*
 import java.util.*
 
 
@@ -39,6 +42,7 @@ class EditJurnalActivity : AppCompatActivity() {
     var image_uri: Uri? = null
     private val db = FirebaseFirestore.getInstance()
     var storage = FirebaseStorage.getInstance().reference
+    lateinit var listJurnal: Jurnal
 
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("SimpleDateFormat")
@@ -46,6 +50,7 @@ class EditJurnalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_jurnal)
         val data = intent.getParcelableExtra<Jurnal>("data")
+        val sharedPreferences = getSharedPreferences("KIDDLE", Context.MODE_PRIVATE)
 
         val simpleDateFormat = SimpleDateFormat("yyyyMMddHHmmss")
         val currentDateAndTime: String = simpleDateFormat.format(Date())
@@ -55,6 +60,12 @@ class EditJurnalActivity : AppCompatActivity() {
 
 
         if(intent.getStringExtra("jenis") == "EDIT_JURNAL") {
+            //kembali
+            img_back_edit_jurnal.setOnClickListener {
+                val intent: Intent =  Intent(this@EditJurnalActivity,DetailJurnalActivity::class.java ).putExtra("data", data)
+                startActivity(intent)
+                finish()
+            }
             //mengambil data dari halaman sebelumnya
 
             tv_kelas_edit_jurnal.setText(data.kelas)
@@ -88,7 +99,8 @@ class EditJurnalActivity : AppCompatActivity() {
                     btn_simpan_edit_jurnal.isEnabled = false
                     btn_simpan_edit_jurnal.text = "Loading"
 
-                    if(tv_kelas_edit_jurnal.text.toString().isEmpty() || tv_aspek_edit_jurnal.text.toString().isEmpty() ||tv_judul_edit_jurnal.text.toString().isEmpty() ||tv_deskripsi_edit_jurnal.text.toString().isEmpty()) {
+                    if(tv_kelas_edit_jurnal.text.toString().isEmpty() || tv_aspek_edit_jurnal.text.toString().isEmpty()
+                        ||tv_judul_edit_jurnal.text.toString().isEmpty() ||tv_deskripsi_edit_jurnal.text.toString().isEmpty()) {
                         Toast.makeText(
                             this,
                             "Semua Kolom Harus Diisi!",
@@ -106,7 +118,7 @@ class EditJurnalActivity : AppCompatActivity() {
                                         storage.child("Jurnal").child(data.id_jurnal!!).child(builder.toString()).downloadUrl.addOnSuccessListener {
                                             db.collection("Jurnal").document(data.id_jurnal!!)
                                                 .update(mapOf(
-                                                    "id_jurnal" to  currentDateAndTime,
+                                                    "id_jurnal" to  data.id_jurnal,
                                                     "jenis" to  tv_aspek_edit_jurnal.text.toString(),
                                                     "kelas" to tv_kelas_edit_jurnal.text.toString(),
                                                     "judul" to  tv_judul_edit_jurnal.text.toString(),
@@ -115,20 +127,18 @@ class EditJurnalActivity : AppCompatActivity() {
                                                     "gambar" to   it.toString(),
                                                     "video" to   ""
                                                 )
-                                                )}.addOnCompleteListener {
-                                            val intent: Intent =  Intent(this@EditJurnalActivity,JurnalActivity::class.java  )
+                                                )
+                                        listJurnal = Jurnal(data.id_jurnal,tv_aspek_edit_jurnal.text.toString(),tv_kelas_edit_jurnal.text.toString(),tv_judul_edit_jurnal.text.toString(),
+                                            tv_deskripsi_edit_jurnal.text.toString(),  tanggal, it.toString(),"")
+
+                                        }.addOnCompleteListener {
+                                            val intent: Intent =  Intent(this@EditJurnalActivity,DetailJurnalActivity::class.java ).putExtra("data", listJurnal)
                                             startActivity(intent)
-                                            Toast.makeText(
-                                                this,
-                                                "Simpan Berhasil",
-                                                Toast.LENGTH_SHORT
-                                            )
-                                                .show()
+                                            finish()
+                                            Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT).show()
                                         }
                                     }
                                 } else if (getFileExtension(image_uri!!) == "mp4" ) {
-                                    //storage = FirebaseStorage.getInstance().reference.child("Tugas").child(sharedPreferences.getString("id_tugas", "").toString()).child(builder.toString())
-
                                     storage.child("Jurnal").child(data.id_jurnal!!)
                                         .child(builder.toString()).putFile(image_uri!!)
                                         .addOnSuccessListener {
@@ -137,7 +147,7 @@ class EditJurnalActivity : AppCompatActivity() {
                                                 db.collection("Jurnal").document(data.id_jurnal!!)
                                                     .update(
                                                         mapOf(
-                                                            "id_jurnal" to currentDateAndTime,
+                                                            "id_jurnal" to data.id_jurnal,
                                                             "jenis" to tv_aspek_edit_jurnal.text.toString(),
                                                             "kelas" to tv_kelas_edit_jurnal.text.toString(),
                                                             "judul" to tv_judul_edit_jurnal.text.toString(),
@@ -147,18 +157,14 @@ class EditJurnalActivity : AppCompatActivity() {
                                                             "video" to it.toString()
                                                         )
                                                     )
-                                            }.addOnCompleteListener {
-                                                val intent: Intent = Intent(
-                                                    this@EditJurnalActivity,
-                                                    JurnalActivity::class.java
-                                                )
-                                                startActivity(intent)
-                                                Toast.makeText(
-                                                    this,
-                                                    "Simpan Berhasil",
-                                                    Toast.LENGTH_SHORT
-                                                )
-                                                    .show()
+                                                    listJurnal = Jurnal(data.id_jurnal,tv_aspek_edit_jurnal.text.toString(),tv_kelas_edit_jurnal.text.toString(),tv_judul_edit_jurnal.text.toString(),
+                                                        tv_deskripsi_edit_jurnal.text.toString(),  tanggal, "",it.toString())
+
+                                                }.addOnCompleteListener {
+                                                    val intent: Intent =  Intent(this@EditJurnalActivity,DetailJurnalActivity::class.java ).putExtra("data", listJurnal)
+                                                    startActivity(intent)
+                                                    finish()
+                                                Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT).show()
                                             }
                                         }
                                 }else{
@@ -173,13 +179,12 @@ class EditJurnalActivity : AppCompatActivity() {
                                             "gambar" to   data.gambar,
                                             "video" to   data.video
                                         )
-                                        )
-
-                                    val intent: Intent = Intent(
-                                        this@EditJurnalActivity,
-                                        JurnalActivity::class.java
                                     )
+                                    listJurnal = Jurnal(data.id_jurnal,tv_aspek_edit_jurnal.text.toString(),tv_kelas_edit_jurnal.text.toString(),tv_judul_edit_jurnal.text.toString(),
+                                        tv_deskripsi_edit_jurnal.text.toString(),  tanggal, data.gambar,data.video)
+                                    val intent: Intent =  Intent(this@EditJurnalActivity,DetailJurnalActivity::class.java ).putExtra("data", listJurnal)
                                     startActivity(intent)
+                                    finish()
                                 }
 
                             }else if (image_uri == null){
@@ -195,33 +200,31 @@ class EditJurnalActivity : AppCompatActivity() {
                                         "video" to   ""
                                     )
                                     ).addOnCompleteListener {
-
-                                        val intent: Intent =  Intent(this@EditJurnalActivity,JurnalActivity::class.java  )
+                                        listJurnal = Jurnal(data.id_jurnal,tv_aspek_edit_jurnal.text.toString(),tv_kelas_edit_jurnal.text.toString(),tv_judul_edit_jurnal.text.toString(),
+                                            tv_deskripsi_edit_jurnal.text.toString(),  tanggal, "","")
+                                        val intent: Intent =  Intent(this@EditJurnalActivity,DetailJurnalActivity::class.java ).putExtra("data", listJurnal)
                                         startActivity(intent)
-                                        Toast.makeText(
-                                            this,
-                                            "Simpan Berhasil",
-                                            Toast.LENGTH_SHORT
-                                        )
-                                            .show()
+                                        finish()
+                                        Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT).show()
                                     }
                             }
-
-
                 }
-
-
-
-
             }
         }else if (intent.getStringExtra("jenis") == "TAMBAH_JURNAL") {
+            //kembali
+            img_back_edit_jurnal.setOnClickListener {
+                val intent: Intent =  Intent(this@EditJurnalActivity,JurnalActivity::class.java )
+                startActivity(intent)
+                finish()
+            }
             // simpan
             //link
             btn_simpan_edit_jurnal.setOnClickListener {
                 btn_simpan_edit_jurnal.isEnabled = false
                 btn_simpan_edit_jurnal.text = "Loading"
 
-                if(tv_kelas_edit_jurnal.text.toString().isEmpty() || tv_aspek_edit_jurnal.text.toString().isEmpty() ||tv_judul_edit_jurnal.text.toString().isEmpty() ||tv_deskripsi_edit_jurnal.text.toString().isEmpty()) {
+                if(tv_kelas_edit_jurnal.text.toString().isEmpty() || tv_aspek_edit_jurnal.text.toString().isEmpty()
+                    ||tv_judul_edit_jurnal.text.toString().isEmpty() ||tv_deskripsi_edit_jurnal.text.toString().isEmpty()) {
                     Toast.makeText(
                         this,
                         "Semua Kolom Harus Diisi!",
@@ -249,10 +252,14 @@ class EditJurnalActivity : AppCompatActivity() {
                                                 "gambar" to   it.toString(),
                                                 "video" to   ""
                                             )
+                                            listJurnal = Jurnal(currentDateAndTime,tv_aspek_edit_jurnal.text.toString(),tv_kelas_edit_jurnal.text.toString(),tv_judul_edit_jurnal.text.toString(),
+                                                tv_deskripsi_edit_jurnal.text.toString(),  tanggal, it.toString(),"")
+
+
                                             db.collection("Jurnal").document(currentDateAndTime).set(jurnal)}.addOnCompleteListener {
-                                            val intent: Intent =  Intent(this@EditJurnalActivity,
-                                                JurnalActivity::class.java  )
+                                            val intent: Intent =  Intent(this@EditJurnalActivity,DetailJurnalActivity::class.java ).putExtra("data", listJurnal)
                                             startActivity(intent)
+                                            finish()
                                             Toast.makeText(  this, "Simpan Berhasil", Toast.LENGTH_SHORT).show()
                                         }
 
@@ -272,10 +279,13 @@ class EditJurnalActivity : AppCompatActivity() {
                                                 "gambar" to "",
                                                 "video" to it.toString()
                                             )
+                                            listJurnal = Jurnal(currentDateAndTime,tv_aspek_edit_jurnal.text.toString(),tv_kelas_edit_jurnal.text.toString(),tv_judul_edit_jurnal.text.toString(),
+                                                tv_deskripsi_edit_jurnal.text.toString(),  tanggal, "",it.toString())
                                             db.collection("Jurnal").document(currentDateAndTime).set(jurnal)}.addOnCompleteListener {
-                                            val intent: Intent =  Intent(this@EditJurnalActivity,
-                                                JurnalActivity::class.java  )
+
+                                            val intent: Intent =  Intent(this@EditJurnalActivity,DetailJurnalActivity::class.java ).putExtra("data", listJurnal)
                                             startActivity(intent)
+                                            finish()
                                             Toast.makeText(  this, "Simpan Berhasil", Toast.LENGTH_SHORT).show()
                                         }
 
@@ -294,11 +304,12 @@ class EditJurnalActivity : AppCompatActivity() {
                             )
                             db.collection("Jurnal").document(currentDateAndTime).set(jurnal)
                                 .addOnCompleteListener {
-                                    val intent: Intent = Intent(
-                                        this@EditJurnalActivity,
-                                        JurnalActivity::class.java
-                                    )
+
+                                    listJurnal = Jurnal(currentDateAndTime,tv_aspek_edit_jurnal.text.toString(),tv_kelas_edit_jurnal.text.toString(),tv_judul_edit_jurnal.text.toString(),
+                                        tv_deskripsi_edit_jurnal.text.toString(),  tanggal, "","")
+                                    val intent: Intent =  Intent(this@EditJurnalActivity,DetailJurnalActivity::class.java ).putExtra("data", listJurnal)
                                     startActivity(intent)
+                                    finish()
                                     Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT)
                                         .show()
                                 }
@@ -307,9 +318,6 @@ class EditJurnalActivity : AppCompatActivity() {
                 }
             }
         }
-
-
-
 
 
         //tutup gambar
@@ -325,24 +333,20 @@ class EditJurnalActivity : AppCompatActivity() {
 
         }
 
-        //kembali
-        img_back_edit_jurnal.setOnClickListener {
-            val intent: Intent = Intent(this@EditJurnalActivity, JurnalActivity::class.java)
-            startActivity(intent)
+
+        if(sharedPreferences.getString("kelas","") == "admin"){
+            //untuk kelas
+            val items = listOf("Bintang Kecil", "Bintang Besar", "Bulan Kecil", "Bulan Besar")
+            val adapter = ArrayAdapter(
+                this,
+                R.layout.dropdown_text, items
+            )
+            (dropdown_kelas_edit_jurnal.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+
+        }else{
+            dropdown_kelas_edit_jurnal.isEnabled=true
+            tv_kelas_edit_jurnal.setText(sharedPreferences.getString("kelas",""))
         }
-
-
-        // simpan
-
-
-        //untuk kelas
-        val items = listOf("Bintang Kecil", "Bintang Besar", "Bulan Kecil", "Bulan Besar")
-        val adapter = ArrayAdapter(
-            this,
-            R.layout.dropdown_text, items
-        )
-        (dropdown_kelas_edit_jurnal.editText as? AutoCompleteTextView)?.setAdapter(adapter)
-
 
         //untuk aspek
         val items2 = listOf("Keterampilan", "Motorik", "Kognitif", "Agama", "Berbahasa")
@@ -351,6 +355,7 @@ class EditJurnalActivity : AppCompatActivity() {
             R.layout.dropdown_text, items2
         )
         (dropdown_edit_jurnal_aspek.editText as? AutoCompleteTextView)?.setAdapter(adapter2)
+
 
         //galeri
         img_gambar_edit_jurnal.setOnClickListener {

@@ -1,6 +1,7 @@
 package com.example.kiddleapp.Komentar
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kiddleapp.R
 import com.example.kiddleapp.Tugas.Model.HasilTugas
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class KomentarAdapter(private var data: List<Komentar>, private val listener: (Komentar) -> Unit) :
@@ -17,6 +19,7 @@ class KomentarAdapter(private var data: List<Komentar>, private val listener: (K
 
     lateinit var contextAdapter: Context
     private var listKomentar = ArrayList<Komentar>()
+//    private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     //assign value dari model ke xml
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -33,11 +36,20 @@ class KomentarAdapter(private var data: List<Komentar>, private val listener: (K
             context: Context,
             position: Int
         ) {
-            Glide.with(context).load(data.avatar).centerCrop().into(img_avatar)
-            tv_nama.text = data.nama
-            tv_jabatan.text = data.jabatan
-            tv_isi.text = data.isi
+            Log.d("masuk", data.id_guru)
+            Log.d("masuk", data.id_guru)
+            FirebaseFirestore.getInstance().collection("Guru").whereEqualTo("nomor",data.id_guru).addSnapshotListener { result, e ->
+                if (e != null) {
+                    return@addSnapshotListener
+                }
+                for (document in result!!) {
+                    Glide.with(context).load(document.getString("avatar")).centerCrop().into(img_avatar)
+                    tv_nama.text = document.getString("nama")
+                    tv_jabatan.text = document.getString("jabatan")
 
+                }
+            }
+            tv_isi.text = data.isi
             itemView.setOnClickListener {
                 listener(data)
             }

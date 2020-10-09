@@ -24,6 +24,8 @@ import kotlinx.android.synthetic.main.activity_jurnal.*
 import kotlinx.android.synthetic.main.activity_jurnal.auto_kelas_jurnal
 import kotlinx.android.synthetic.main.fragment_murid.*
 import kotlinx.android.synthetic.main.fragment_murid.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MuridFragment : Fragment() {
 
@@ -88,6 +90,7 @@ class MuridFragment : Fragment() {
             adapter.addItemToList(list)
             Log.d("Tugas Activity", "showRecyclerList: before adapter notify")
             adapter.notifyDataSetChanged()
+            Collections.reverse(list);
             Log.d("Tugas Activity", "showRecyclerList: before rv_tugas set adapter layout")
             root!!.rv_murid?.layoutManager = LinearLayoutManager(context)
             root!!.rv_murid.adapter = adapter

@@ -19,6 +19,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.kiddleapp.Jurnal.JurnalActivity
+import com.example.kiddleapp.Jurnal.Model.Jurnal
 import com.example.kiddleapp.Pengumuman.Model.Pengumuman
 import com.example.kiddleapp.R
 import com.google.firebase.firestore.FirebaseFirestore
@@ -37,6 +38,7 @@ class EditPengumumanActivity : AppCompatActivity() {
     var image_uri: Uri? = null
     private val db = FirebaseFirestore.getInstance()
     var storage = FirebaseStorage.getInstance().reference
+    lateinit var listPengumuman: Pengumuman
 
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -44,7 +46,9 @@ class EditPengumumanActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_pengumuman)
+
         val data = intent.getParcelableExtra<Pengumuman>("data")
+
         val simpleDateFormat = SimpleDateFormat("yyyyMMddHHmmss")
         val currentDateAndTime: String = simpleDateFormat.format(Date())
 
@@ -53,6 +57,12 @@ class EditPengumumanActivity : AppCompatActivity() {
 
 
         if(intent.getStringExtra("jenis") == "EDIT_PENGUMUMAN") {
+            //kembali
+            img_back_edit_pengumuman.setOnClickListener {
+                val intent: Intent = Intent(this@EditPengumumanActivity, DetailPengumumanActivity::class.java).putExtra("data",data)
+                startActivity(intent)
+                finish()
+            }
             //mengambil data dari halaman sebelumnya
 
             tv_deskripsi_edit_pengumuman.setText(data.isi)
@@ -105,16 +115,21 @@ class EditPengumumanActivity : AppCompatActivity() {
                                 storage.child("Pengumuman").child(data.id!!).child(builder.toString()).downloadUrl.addOnSuccessListener {
                                     db.collection("Pengumuman").document(data.id!!)
                                         .update(mapOf(
-                                            "id" to  currentDateAndTime,
+                                            "id" to  data.id,
                                             "judul" to  tv_judul_edit_pengumuman.text.toString(),
                                             "isi" to  tv_deskripsi_edit_pengumuman.text.toString(),
                                             "tanggal" to  tanggal,
                                             "gambar" to   it.toString(),
                                             "video" to   ""
                                         )
-                                        )}.addOnCompleteListener {
-                                    val intent: Intent =  Intent(this@EditPengumumanActivity,PengumumanActivity::class.java  )
+                                        )
+                                    listPengumuman = Pengumuman(data.id,tv_judul_edit_pengumuman.text.toString(),tv_deskripsi_edit_pengumuman.text.toString(),tanggal,it.toString(),"")
+
+                                    }.addOnCompleteListener {
+                                    val intent: Intent =  Intent(this@EditPengumumanActivity,DetailPengumumanActivity::class.java  ).putExtra("data",listPengumuman)
                                     startActivity(intent)
+                                    finish()
+
                                     Toast.makeText(
                                         this,
                                         "Simpan Berhasil",
@@ -142,9 +157,13 @@ class EditPengumumanActivity : AppCompatActivity() {
                                                         "video" to   it.toString()
                                                     )
                                                 )
+                                            listPengumuman = Pengumuman(data.id,tv_judul_edit_pengumuman.text.toString(),tv_deskripsi_edit_pengumuman.text.toString(),tanggal,"",it.toString())
+
                                         }.addOnCompleteListener {
-                                            val intent: Intent =  Intent(this@EditPengumumanActivity,PengumumanActivity::class.java  )
+                                            val intent: Intent =  Intent(this@EditPengumumanActivity,DetailPengumumanActivity::class.java  ).putExtra("data",listPengumuman)
                                             startActivity(intent)
+                                            finish()
+
                                             Toast.makeText(
                                                 this,
                                                 "Simpan Berhasil",
@@ -164,8 +183,11 @@ class EditPengumumanActivity : AppCompatActivity() {
                                     "video" to   data.video
                                 )
                                 )
-                            val intent: Intent =  Intent(this@EditPengumumanActivity,PengumumanActivity::class.java  )
+                            listPengumuman = Pengumuman(data.id,tv_judul_edit_pengumuman.text.toString(),tv_deskripsi_edit_pengumuman.text.toString(),tanggal, data.gambar,data.video)
+
+                            val intent: Intent =  Intent(this@EditPengumumanActivity,DetailPengumumanActivity::class.java  ).putExtra("data",listPengumuman)
                             startActivity(intent)
+                            finish()
                             Toast.makeText(
                                 this,
                                 "Simpan Berhasil",
@@ -184,8 +206,10 @@ class EditPengumumanActivity : AppCompatActivity() {
                                 "video" to   ""
                             )
                             ).addOnCompleteListener {
-                                val intent: Intent =  Intent(this@EditPengumumanActivity,PengumumanActivity::class.java  )
+                                listPengumuman = Pengumuman(data.id,tv_judul_edit_pengumuman.text.toString(),tv_deskripsi_edit_pengumuman.text.toString(),tanggal, "","")
+                                val intent: Intent =  Intent(this@EditPengumumanActivity,DetailPengumumanActivity::class.java  ).putExtra("data",listPengumuman)
                                 startActivity(intent)
+                                finish()
                                 Toast.makeText(
                                     this,
                                     "Simpan Berhasil",
@@ -198,6 +222,13 @@ class EditPengumumanActivity : AppCompatActivity() {
             }
 
         }else if (intent.getStringExtra("jenis") == "TAMBAH_PENGUMUMAN") {
+            //kembali
+            img_back_edit_pengumuman.setOnClickListener {
+                val intent: Intent = Intent(this@EditPengumumanActivity, PengumumanActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
             // simpan
             //link
             btn_simpan_edit_pengumuman.setOnClickListener {
@@ -236,11 +267,14 @@ class EditPengumumanActivity : AppCompatActivity() {
                                             "gambar" to   it.toString() ,
                                             "video" to  ""
                                         )
+                                            listPengumuman = Pengumuman(currentDateAndTime,tv_judul_edit_pengumuman.text.toString(),tv_deskripsi_edit_pengumuman.text.toString(),tanggal, it.toString(),"")
+
                                         db.collection("Pengumuman").document(currentDateAndTime)
                                             .set(pengumuman)
                                     }.addOnCompleteListener {
-                                            val intent: Intent =  Intent(this@EditPengumumanActivity,PengumumanActivity::class.java  )
+                                            val intent: Intent =  Intent(this@EditPengumumanActivity,DetailPengumumanActivity::class.java  ).putExtra("data",listPengumuman)
                                             startActivity(intent)
+                                            finish()
                                         Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT)
                                             .show()
                                     }
@@ -261,11 +295,14 @@ class EditPengumumanActivity : AppCompatActivity() {
                                                 "gambar" to   "" ,
                                                 "video" to  it.toString()
                                             )
-                                        db.collection("Pengumuman").document(currentDateAndTime)
+                                            listPengumuman = Pengumuman(currentDateAndTime,tv_judul_edit_pengumuman.text.toString(),tv_deskripsi_edit_pengumuman.text.toString(),tanggal,"",it.toString())
+
+                                            db.collection("Pengumuman").document(currentDateAndTime)
                                             .set(pengumuman)
                                     }.addOnCompleteListener {
-                                            val intent: Intent =  Intent(this@EditPengumumanActivity,PengumumanActivity::class.java  )
+                                            val intent: Intent =  Intent(this@EditPengumumanActivity,DetailPengumumanActivity::class.java  ).putExtra("data",listPengumuman)
                                             startActivity(intent)
+                                            finish()
                                         Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT)
                                             .show()
                                     }
@@ -281,10 +318,13 @@ class EditPengumumanActivity : AppCompatActivity() {
                             "gambar" to   "" ,
                             "video" to  ""
                         )
+                        listPengumuman = Pengumuman(currentDateAndTime,tv_judul_edit_pengumuman.text.toString(),tv_deskripsi_edit_pengumuman.text.toString(),tanggal,"","")
+
                         db.collection("Pengumuman").document(currentDateAndTime).set(pengumuman)
                             .addOnCompleteListener {
-                                val intent: Intent =  Intent(this@EditPengumumanActivity,PengumumanActivity::class.java  )
+                                val intent: Intent =  Intent(this@EditPengumumanActivity,DetailPengumumanActivity::class.java  ).putExtra("data",listPengumuman)
                                 startActivity(intent)
+                                finish()
                                 Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT)
                                     .show()
                             }
@@ -306,11 +346,7 @@ class EditPengumumanActivity : AppCompatActivity() {
             btn_tutup_edit_pengumuman.visibility = View.GONE
         }
 
-        //kembali
-        img_back_edit_pengumuman.setOnClickListener {
-            val intent: Intent = Intent(this@EditPengumumanActivity, PengumumanActivity::class.java)
-            startActivity(intent)
-        }
+
 
 
 

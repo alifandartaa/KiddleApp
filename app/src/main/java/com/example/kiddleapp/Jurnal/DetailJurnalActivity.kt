@@ -59,6 +59,7 @@ class DetailJurnalActivity : AppCompatActivity() {
         img_back_detail_jurnal.setOnClickListener {
             val intent: Intent =  Intent(this@DetailJurnalActivity,JurnalActivity::class.java  )
             startActivity(intent)
+
         }
 
         // menu
@@ -72,6 +73,7 @@ class DetailJurnalActivity : AppCompatActivity() {
                     ).putExtra("data", data)
                     intent.putExtra("jenis","EDIT_JURNAL")
                     startActivity(intent)
+                    finish()
                     return@setOnMenuItemClickListener true
                 }
                else if(it.itemId == R.id.menu_hapus2) {
@@ -99,6 +101,7 @@ class DetailJurnalActivity : AppCompatActivity() {
                             val intent: Intent =
                                 Intent(this@DetailJurnalActivity, JurnalActivity::class.java)
                             startActivity(intent)
+                            finish()
                             Toast.makeText(
                                 context,
                                 "Jurnal Berhasil di Hapus",

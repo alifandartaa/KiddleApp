@@ -1,5 +1,6 @@
 package com.example.kiddleapp.Kegiatan
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.kiddleapp.Jurnal.JurnalActivity
 import com.example.kiddleapp.Kegiatan.Model.Kegiatan
+import com.example.kiddleapp.MainActivity
 import com.example.kiddleapp.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.FirebaseFirestore
@@ -30,6 +32,7 @@ class DetailKegiatanActivity : AppCompatActivity() {
 
         //mengambil data dari halaman sebelumnya
         val data = intent.getParcelableExtra<Kegiatan>("data")
+        val sharedPreferences = getSharedPreferences("KIDDLE", Context.MODE_PRIVATE)
 
         tv_judul_detail_kegiatan.text = data.judul
         tv_tanggal_detail_kegiatan.text = data.tanggal
@@ -61,158 +64,164 @@ class DetailKegiatanActivity : AppCompatActivity() {
 
         //intent untuk kembali ke halaman sebelumnya
         img_back_detail_kegiatan.setOnClickListener {
-            onBackPressed()
+            val intent: Intent = Intent(this@DetailKegiatanActivity, KegiatanActivity::class.java).putExtra("jenis",data.jenis)
+            startActivity(intent)
         }
 
-        // menu
-        menu_detail_kegiatan.setOnClickListener {
-            val popup: PopupMenu = PopupMenu(this, it)
-            popup.setOnMenuItemClickListener {
-                if(it.itemId == R.id.menu_edit2) {
-                    val intent: Intent = Intent(
-                        this@DetailKegiatanActivity,
-                        EditKegiatanActivity::class.java
-                    ).putExtra("data", data)
-                    intent.putExtra("jenis","EDIT_KEGIATAN")
-                    startActivity(intent)
-                    return@setOnMenuItemClickListener true
-                }
-               else if(it.itemId == R.id.menu_hapus2) {
-                    MaterialAlertDialogBuilder(this).apply {
-                        if(data.jenis == "Kegiatan"){
-                            setTitle("Hapus Kegiatan")
-                            setMessage(
-                                "Apa anda yakin ingin menghapus kegiatan ini?"
-                            )
-                            setPositiveButton("Ya") { _, _ ->
 
-                                db.collection("Kegiatan").document(data.id!!).delete()
-                                    .addOnSuccessListener {
-                                        storage.child("Kegiatan/" + data.id!! + "/" + data.id!! + ".jpg")
-                                            .delete().addOnSuccessListener {
+        if(sharedPreferences.getString("kelas","") == "admin") {
+            menu_detail_kegiatan.visibility=View.VISIBLE
+            // menu
+            menu_detail_kegiatan.setOnClickListener {
+                val popup: PopupMenu = PopupMenu(this, it)
+                popup.setOnMenuItemClickListener {
+                    if (it.itemId == R.id.menu_edit2) {
+                        val intent: Intent = Intent(
+                            this@DetailKegiatanActivity,
+                            EditKegiatanActivity::class.java
+                        ).putExtra("data", data)
+                        intent.putExtra("jenis", "EDIT_KEGIATAN")
+                        startActivity(intent)
+                        finish()
+                        return@setOnMenuItemClickListener true
+                    } else if (it.itemId == R.id.menu_hapus2) {
+                        MaterialAlertDialogBuilder(this).apply {
+                            if (data.jenis == "Kegiatan") {
+                                setTitle("Hapus Kegiatan")
+                                setMessage(
+                                    "Apa anda yakin ingin menghapus kegiatan ini?"
+                                )
+                                setPositiveButton("Ya") { _, _ ->
 
-                                            }
-                                        storage.child("Kegiatan/" + data.id!! + "/" + data.id!! + ".jpeg")
-                                            .delete().addOnSuccessListener {
+                                    db.collection("Kegiatan").document(data.id!!).delete()
+                                        .addOnSuccessListener {
+                                            storage.child("Kegiatan/" + data.id!! + "/" + data.id!! + ".jpg")
+                                                .delete().addOnSuccessListener {
 
-                                            }
-                                        storage.child("Kegiatan/" + data.id!! + "/" + data.id!! + ".png")
-                                            .delete().addOnSuccessListener {
+                                                }
+                                            storage.child("Kegiatan/" + data.id!! + "/" + data.id!! + ".jpeg")
+                                                .delete().addOnSuccessListener {
 
-                                            }
-                                        storage.child("Kegiatan/" + data.id!! + "/" + data.id!! + ".mp4")
-                                            .delete().addOnSuccessListener {
+                                                }
+                                            storage.child("Kegiatan/" + data.id!! + "/" + data.id!! + ".png")
+                                                .delete().addOnSuccessListener {
 
-                                            }
+                                                }
+                                            storage.child("Kegiatan/" + data.id!! + "/" + data.id!! + ".mp4")
+                                                .delete().addOnSuccessListener {
 
-                                        val intent: Intent = Intent(
-                                            this@DetailKegiatanActivity,
-                                            KegiatanActivity::class.java
-                                        ).putExtra("jenis", "KEGIATAN")
+                                                }
 
-                                        startActivity(intent)
-                                        Toast.makeText(
-                                            context,
-                                            "Kegiatan Berhasil di Hapus",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
+                                            val intent: Intent = Intent(
+                                                this@DetailKegiatanActivity,
+                                                KegiatanActivity::class.java
+                                            ).putExtra("jenis", data.jenis)
+                                            startActivity(intent)
+                                            finish()
+                                            Toast.makeText(
+                                                context,
+                                                "Kegiatan Berhasil di Hapus",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
 
-                                setNegativeButton("Tidak") { _, _ -> }
-                            }.show()
+                                    setNegativeButton("Tidak") { _, _ -> }
+                                }.show()
+                            } else if (data.jenis == "Parenting") {
+                                setTitle("Hapus Parenting")
+                                setMessage(
+                                    "Apa anda yakin ingin menghapus parenting ini?"
+                                )
+                                setPositiveButton("Ya") { _, _ ->
+
+                                    db.collection("Parenting").document(data.id!!).delete()
+                                        .addOnSuccessListener {
+                                            storage.child("Parenting/" + data.id!! + "/" + data.id!! + ".jpg")
+                                                .delete().addOnSuccessListener {
+
+                                                }
+                                            storage.child("Parenting/" + data.id!! + "/" + data.id!! + ".jpeg")
+                                                .delete().addOnSuccessListener {
+
+                                                }
+                                            storage.child("Parenting/" + data.id!! + "/" + data.id!! + ".png")
+                                                .delete().addOnSuccessListener {
+
+                                                }
+                                            storage.child("Parenting/" + data.id!! + "/" + data.id!! + ".mp4")
+                                                .delete().addOnSuccessListener {
+
+                                                }
+
+                                            val intent: Intent = Intent(
+                                                this@DetailKegiatanActivity,
+                                                KegiatanActivity::class.java
+                                            ).putExtra("jenis", data.jenis)
+
+                                            startActivity(intent)
+                                            finish()
+                                            Toast.makeText(
+                                                context,
+                                                "Parenting Berhasil di Hapus",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+
+                                    setNegativeButton("Tidak") { _, _ -> }
+                                }.show()
+                            } else if (data.jenis == "Materi") {
+                                setTitle("Hapus Materi")
+                                setMessage(
+                                    "Apa anda yakin ingin menghapus Materi ini?"
+                                )
+                                setPositiveButton("Ya") { _, _ ->
+
+                                    db.collection("Materi").document(data.id!!).delete()
+                                        .addOnSuccessListener {
+                                            storage.child("Materi/" + data.id!! + "/" + data.id!! + ".jpg")
+                                                .delete().addOnSuccessListener {
+
+                                                }
+                                            storage.child("Materi/" + data.id!! + "/" + data.id!! + ".jpeg")
+                                                .delete().addOnSuccessListener {
+
+                                                }
+                                            storage.child("Materi/" + data.id!! + "/" + data.id!! + ".png")
+                                                .delete().addOnSuccessListener {
+
+                                                }
+                                            storage.child("Materi/" + data.id!! + "/" + data.id!! + ".mp4")
+                                                .delete().addOnSuccessListener {
+
+                                                }
+
+                                            val intent: Intent = Intent(
+                                                this@DetailKegiatanActivity,
+                                                KegiatanActivity::class.java
+                                            ).putExtra("jenis", data.jenis)
+
+                                            startActivity(intent)
+                                            finish()
+                                            Toast.makeText(
+                                                context,
+                                                "Materi Berhasil di Hapus",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+
+                                    setNegativeButton("Tidak") { _, _ -> }
+                                }.show()
+                            }
+
                         }
-                        else if(data.jenis == "Parenting"){
-                            setTitle("Hapus Parenting")
-                            setMessage(
-                                "Apa anda yakin ingin menghapus parenting ini?"
-                            )
-                            setPositiveButton("Ya") { _, _ ->
-
-                                db.collection("Parenting").document(data.id!!).delete()
-                                    .addOnSuccessListener {
-                                        storage.child("Parenting/" + data.id!! + "/" + data.id!! + ".jpg")
-                                            .delete().addOnSuccessListener {
-
-                                            }
-                                        storage.child("Parenting/" + data.id!! + "/" + data.id!! + ".jpeg")
-                                            .delete().addOnSuccessListener {
-
-                                            }
-                                        storage.child("Parenting/" + data.id!! + "/" + data.id!! + ".png")
-                                            .delete().addOnSuccessListener {
-
-                                            }
-                                        storage.child("Parenting/" + data.id!! + "/" + data.id!! + ".mp4")
-                                            .delete().addOnSuccessListener {
-
-                                            }
-
-                                        val intent: Intent = Intent(
-                                            this@DetailKegiatanActivity,
-                                            KegiatanActivity::class.java
-                                        ).putExtra("jenis", "PARENTING")
-
-                                        startActivity(intent)
-                                        Toast.makeText(
-                                            context,
-                                            "Parenting Berhasil di Hapus",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-
-                                setNegativeButton("Tidak") { _, _ -> }
-                            }.show()
-                        }
-                        else if(data.jenis == "Materi"){
-                            setTitle("Hapus Materi")
-                            setMessage(
-                                "Apa anda yakin ingin menghapus Materi ini?"
-                            )
-                            setPositiveButton("Ya") { _, _ ->
-
-                                db.collection("Materi").document(data.id!!).delete()
-                                    .addOnSuccessListener {
-                                        storage.child("Materi/" + data.id!! + "/" + data.id!! + ".jpg")
-                                            .delete().addOnSuccessListener {
-
-                                            }
-                                        storage.child("Materi/" + data.id!! + "/" + data.id!! + ".jpeg")
-                                            .delete().addOnSuccessListener {
-
-                                            }
-                                        storage.child("Materi/" + data.id!! + "/" + data.id!! + ".png")
-                                            .delete().addOnSuccessListener {
-
-                                            }
-                                        storage.child("Materi/" + data.id!! + "/" + data.id!! + ".mp4")
-                                            .delete().addOnSuccessListener {
-
-                                            }
-
-                                        val intent: Intent = Intent(
-                                            this@DetailKegiatanActivity,
-                                            KegiatanActivity::class.java
-                                        ).putExtra("jenis", "MATERI")
-
-                                        startActivity(intent)
-                                        Toast.makeText(
-                                            context,
-                                            "Materi Berhasil di Hapus",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-
-                                setNegativeButton("Tidak") { _, _ -> }
-                            }.show()
-                        }
-
                     }
+                    return@setOnMenuItemClickListener false
                 }
-                return@setOnMenuItemClickListener false
+                popup.inflate(R.menu.menu_hapus_edit)
+                popup.show()
             }
-            popup.inflate(R.menu.menu_hapus_edit)
-            popup.show()
         }
+
 
         tv_link_detail_kegiatan.setOnClickListener {
             startActivity(

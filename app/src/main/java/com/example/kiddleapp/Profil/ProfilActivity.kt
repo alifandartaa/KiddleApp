@@ -57,7 +57,8 @@ lateinit var  guru : Guru
             }
 
             img_back_profil.setOnClickListener {
-                onBackPressed()
+                val intent: Intent = Intent(this@ProfilActivity, MainActivity::class.java)
+                startActivity(intent)
             }
 
             //buat nampilin menu

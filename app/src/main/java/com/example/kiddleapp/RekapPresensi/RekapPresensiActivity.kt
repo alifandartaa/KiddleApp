@@ -29,7 +29,7 @@ class RekapPresensiActivity : AppCompatActivity() {
 
         //bisa diganti dengan data dari firebase
         val temp =
-            RekapPresensi(
+                RekapPresensi(
                 "Juli 2020",
                 "Hadir: 20",
                 "Sakit: 2",

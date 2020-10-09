@@ -1,7 +1,10 @@
 package com.example.kiddleapp.Pengumuman
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kiddleapp.Beranda.BerandaFragment
@@ -12,6 +15,8 @@ import com.example.kiddleapp.R
 import com.example.kiddleapp.Tugas.TugasActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_pengumuman.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class PengumumanActivity : AppCompatActivity() {
 
@@ -22,18 +27,22 @@ class PengumumanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pengumuman)
 
+        val sharedPreferences = getSharedPreferences("KIDDLE", Context.MODE_PRIVATE)
+
         //intent untuk kembali ke halaman sebelumnya
         img_back_pengumuman.setOnClickListener {
             val intent: Intent = Intent(this@PengumumanActivity, MainActivity::class.java)
             startActivity(intent)
         }
+        if(sharedPreferences.getString("kelas","") == "admin"){
+            btn_tambah_pengumuman.visibility= View.VISIBLE
+            btn_tambah_pengumuman.setOnClickListener {
+                val intent: Intent = Intent(this@PengumumanActivity, EditPengumumanActivity::class.java)
+                    .putExtra("jenis", "TAMBAH_PENGUMUMAN")
+                startActivity(intent)
+                finish()
+            }
 
-        btn_tambah_pengumuman.setOnClickListener {
-            val intent: Intent = Intent(
-                this@PengumumanActivity,
-                EditPengumumanActivity::class.java
-            ).putExtra("jenis", "TAMBAH_PENGUMUMAN")
-            startActivity(intent)
         }
 
         showRecylerList(pengumuman)
@@ -49,6 +58,7 @@ class PengumumanActivity : AppCompatActivity() {
             pengumuman.addAll(item)
             adapter.notifyDataSetChanged()
             adapter.addItemToList(list)
+            Collections.reverse(list);
             rv_pengumuman.layoutManager = LinearLayoutManager(this)
             rv_pengumuman.adapter = adapter
         }
@@ -59,18 +69,29 @@ class PengumumanActivity : AppCompatActivity() {
     private fun getPagePengumumanList(callback: (item:ArrayList<Pengumuman>) -> Unit) {
         val listPengumuman: ArrayList<Pengumuman> = arrayListOf()
         db.collection("Pengumuman").addSnapshotListener { value, error ->
-            if(error != null) return@addSnapshotListener
-            for(document in value!!) {
-                listPengumuman.add(Pengumuman(
-                    document.id,
-                    document.getString("judul"),
-                    document.getString("isi"),
-                    document.getString("tanggal"),
-                    document.getString("gambar"),
-                    document.getString("video")
-                ))
+            if (error != null) return@addSnapshotListener
+            if (value!!.isEmpty) {
+                Toast.makeText(
+                    this,
+                    "Pengumuman Tidak Tersedia",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            } else {
+                for (document in value!!) {
+                    listPengumuman.add(
+                        Pengumuman(
+                            document.id,
+                            document.getString("judul"),
+                            document.getString("isi"),
+                            document.getString("tanggal"),
+                            document.getString("gambar"),
+                            document.getString("video")
+                        )
+                    )
+                }
+                callback.invoke(listPengumuman)
             }
-            callback.invoke(listPengumuman)
         }
     }
 }

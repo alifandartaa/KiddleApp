@@ -57,12 +57,12 @@ class BerandaFragment : Fragment() {
 
             if(position == 1){
                 startActivity(
-                    Intent(activity, KegiatanActivity::class.java).putExtra("jenis", "MATERI")
+                    Intent(activity, KegiatanActivity::class.java).putExtra("jenis", "Materi")
                 )
             }
             else if(position==0){
                 startActivity(
-                    Intent(activity, KegiatanActivity::class.java).putExtra("jenis", "PARENTING")
+                    Intent(activity, KegiatanActivity::class.java).putExtra("jenis", "Parenting")
                 )
             }
 
