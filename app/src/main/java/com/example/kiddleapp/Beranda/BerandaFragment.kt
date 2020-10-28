@@ -81,7 +81,7 @@ class BerandaFragment : Fragment() {
         db.document("Guru/${sharedPreferences.getString("id_guru", "")}").get().addOnSuccessListener {
 
            view.nama_guru.text = it.getString("nama")
-            Glide.with(this).load(it.getString("avatar")).centerCrop().into(view.img_avatar)
+           Glide.with(this).load(it.getString("avatar")).centerCrop().into(view.img_avatar)
 //                avatar = it.getString("avatar").toString()
 //                sharedPreferences.edit().putString("avatar", avatar).apply()
         }

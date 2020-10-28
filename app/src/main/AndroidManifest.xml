@@ -6,9 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
-
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -17,20 +15,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RekapPresensi.RekapPresensiActivity"></activity>
-        <activity android:name=".Spp.UbahSppActivity" />
-        <activity android:name=".Spp.DetailSppActivity" />
+        <activity android:name=".Spp.BuktiPembayaranActivity"></activity>
+        <activity android:name=".Spp.EditPembayaranActivity" />
+        <activity android:name=".Spp.DetailPembayaranActivity" />
+        <activity android:name=".RekapPresensi.RekapPresensiActivity" />
         <activity android:name=".Presensi.DetailPresensiActivity" />
         <activity android:name=".Presensi.PresensiActivity" />
-        <activity android:name=".Spp.KonfirmSppActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Onboarding.OnBoardingActivity" />
-        <activity android:name=".Spp.TestActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Murid.EditMuridActivity" />
@@ -56,7 +54,6 @@
         <activity android:name=".Pengumuman.DetailPengumumanActivity" />
         <activity android:name=".Pengumuman.EditPengumumanActivity" />
         <activity android:name=".Notifikasi.NotifikasiActivity" />
-
 
         <meta-data
             android:name="preloaded_fonts"
