@@ -8,5 +8,7 @@ data class PembayaranMurid(
     val id_murid:String?,
     val bulan:String?,
     val bukti:String?,
-    val status:String?
+    val status:String?,
+    val tanggal:String?,
+    val harga:String?
 ):Parcelable

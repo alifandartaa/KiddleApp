@@ -1,6 +1,7 @@
 package com.example.kiddleapp.Spp.Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kiddleapp.R
+import com.example.kiddleapp.Spp.BuktiPembayaranActivity
+import com.example.kiddleapp.Spp.DetailPembayaranActivity
 import com.example.kiddleapp.Spp.Model.PembayaranMurid
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.ArrayList
@@ -50,6 +53,10 @@ class DetailPembayaranAdapter(private var data: List<PembayaranMurid>, private v
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(data[position], listener, contextAdapter, position)
+        holder.itemView.setOnClickListener(View.OnClickListener {
+            val intent: Intent = Intent(it.context, BuktiPembayaranActivity::class.java).putExtra("data", data[position])
+            it.context.startActivity(intent)
+        })
     }
 
     override fun getItemCount(): Int {

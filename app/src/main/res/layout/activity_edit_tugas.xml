@@ -155,6 +155,27 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <ImageView
+                android:id="@+id/btn_tanggal_edit_tugas"
+                android:layout_width="22dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toEndOf="@+id/input_tanggal_edit_tugas"
+                app:layout_constraintTop_toBottomOf="@+id/textView56"
+                app:srcCompat="@drawable/ic_kalender" />
+
+            <TextView
+                android:id="@+id/textView64"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/helper_tanggal"
+                android:textColor="@color/colorBlack"
+                android:textSize="9sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_tanggal_edit_tugas" />
+
             <TextView
                 android:id="@+id/textView55"
                 android:layout_width="wrap_content"
@@ -368,15 +389,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/img_link_edit_tugas"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <ImageView
-                android:id="@+id/btn_tanggal_edit_tugas"
-                android:layout_width="22dp"
-                android:layout_height="17dp"
-                android:layout_marginTop="12dp"
-                app:layout_constraintStart_toEndOf="@+id/input_tanggal_edit_tugas"
-                app:layout_constraintTop_toBottomOf="@+id/textView56"
-                app:srcCompat="@drawable/ic_kalender" />
-
             <TextView
                 android:id="@+id/textView63"
                 android:layout_width="wrap_content"
@@ -389,17 +401,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/input_jam_edit_tugas" />
 
-            <TextView
-                android:id="@+id/textView64"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:fontFamily="@font/roboto"
-                android:text="@string/helper_tanggal"
-                android:textColor="@color/colorBlack"
-                android:textSize="9sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_tanggal_edit_tugas" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

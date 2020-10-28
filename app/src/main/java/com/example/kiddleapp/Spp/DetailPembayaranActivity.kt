@@ -19,7 +19,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_detail_pembayaran.*
-import kotlinx.android.synthetic.main.activity_konfirm_spp.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -51,6 +50,7 @@ class DetailPembayaranActivity : AppCompatActivity() {
                     val intent = Intent(this@DetailPembayaranActivity, EditPembayaranActivity::class.java).putExtra("data", data)
                     intent.putExtra("jenis", "EDIT")
                     startActivity(intent)
+                    finish()
                     return@setOnMenuItemClickListener true
                 } else if(it.itemId == R.id.menu_hapus){
                     MaterialAlertDialogBuilder(this).apply {
@@ -129,7 +129,9 @@ class DetailPembayaranActivity : AppCompatActivity() {
                                 document.getString("id_murid"),
                                 document.getString("bulan"),
                                 document.getString("bukti"),
-                                document.getString("status")
+                                document.getString("status"),
+                                document.getString("tanggal"),
+                                document.getString("harga")
                             )
                         )
                     }
@@ -150,7 +152,9 @@ class DetailPembayaranActivity : AppCompatActivity() {
                                 document.getString("id_murid"),
                                 document.getString("bulan"),
                                 document.getString("bukti"),
-                                document.getString("status")
+                                document.getString("status"),
+                                document.getString("tanggal"),
+                                document.getString("harga")
                             )
                         )
                     }
