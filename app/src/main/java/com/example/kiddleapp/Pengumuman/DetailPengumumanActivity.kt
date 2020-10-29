@@ -153,7 +153,8 @@ class DetailPengumumanActivity : AppCompatActivity() {
                 currentDateAndTime
                 db.collection("Komentar").document(data.id!!).collection("Isi Komentar").document(currentDateAndTime).set(
                     mapOf("id_guru" to sharedPreferences.getString("id_guru", ""),
-                        "isi" to tv_komentar.text.toString()
+                        "isi" to tv_komentar.text.toString(),
+                        "koleksi" to "Guru"
                     )
                 ) .addOnCompleteListener {
                     komentar.clear()
@@ -192,7 +193,8 @@ class DetailPengumumanActivity : AppCompatActivity() {
                 listKomentar.add(
                     Komentar(
                         document.getString("id_guru"),
-                        document.getString("isi")
+                        document.getString("isi"),
+                        document.getString("koleksi")
                     )
                 )
             }

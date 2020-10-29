@@ -19,7 +19,6 @@ class KomentarAdapter(private var data: List<Komentar>, private val listener: (K
 
     lateinit var contextAdapter: Context
     private var listKomentar = ArrayList<Komentar>()
-//    private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     //assign value dari model ke xml
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -28,24 +27,20 @@ class KomentarAdapter(private var data: List<Komentar>, private val listener: (K
         private val tv_jabatan: TextView = view.findViewById(R.id.tv_jabatan_komentar)
         private val tv_isi: TextView = view.findViewById(R.id.tv_isi_komentar)
 
-        // kalau mau ditambah kelas apa atau deksripsi lain jangan lupa ubah layout dan model
 
-        fun bindItem(
-            data: Komentar,
-            listener: (Komentar) -> Unit,
-            context: Context,
-            position: Int
-        ) {
-            Log.d("masuk", data.id_guru)
-            Log.d("masuk", data.id_guru)
-            FirebaseFirestore.getInstance().collection("Guru").whereEqualTo("nomor",data.id_guru).addSnapshotListener { result, e ->
+        fun bindItem(data: Komentar, listener: (Komentar) -> Unit, context: Context, position: Int) {
+            FirebaseFirestore.getInstance().collection("${data.koleksi}").whereEqualTo("nomor",data.id_guru).addSnapshotListener { result, e ->
                 if (e != null) {
                     return@addSnapshotListener
                 }
                 for (document in result!!) {
                     Glide.with(context).load(document.getString("avatar")).centerCrop().into(img_avatar)
                     tv_nama.text = document.getString("nama")
-                    tv_jabatan.text = document.getString("jabatan")
+                    if(data.koleksi == "Guru"){
+                        tv_jabatan.text = document.getString("jabatan")
+                    } else{
+                        tv_jabatan.text = "Murid ${document.getString("kelas")}"
+                    }
 
                 }
             }
@@ -57,15 +52,11 @@ class KomentarAdapter(private var data: List<Komentar>, private val listener: (K
         }
     }
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         contextAdapter = parent.context
         val inflatedView: View = layoutInflater.inflate(R.layout.list_komentar, parent, false)
-        return ViewHolder(
-            inflatedView
-        )
+        return ViewHolder(inflatedView)
     }
 
     override fun getItemCount(): Int {
@@ -80,8 +71,5 @@ class KomentarAdapter(private var data: List<Komentar>, private val listener: (K
         listKomentar.clear()
         listKomentar.addAll(list)
     }
-
-
-
 }
 
