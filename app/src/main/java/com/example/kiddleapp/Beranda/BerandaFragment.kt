@@ -79,9 +79,8 @@ class BerandaFragment : Fragment() {
         carouselView.setImageClickListener(clickListener)
         sharedPreferences = activity?.getSharedPreferences("KIDDLE", Context.MODE_PRIVATE)!!
         db.document("Guru/${sharedPreferences.getString("id_guru", "")}").get().addOnSuccessListener {
-
            view.nama_guru.text = it.getString("nama")
-            Glide.with(this).load(it.getString("avatar")).centerCrop().into(view.img_avatar)
+           Glide.with(this).load(it.getString("avatar")).centerCrop().into(view.img_avatar)
         }
 
 
