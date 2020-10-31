@@ -6,9 +6,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Komentar(
     val id_guru:String?,
-//    val avatar: String?,
-//    val nama: String?,
-//    val jabatan: String?,
     val isi: String?
 
 ) : Parcelable

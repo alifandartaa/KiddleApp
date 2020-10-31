@@ -120,7 +120,7 @@ class DetailTugasActivity : AppCompatActivity() {
                                     finish()
                                     Toast.makeText(
                                         context,
-                                        "Jurnal Berhasil di Hapus",
+                                        "Tugas Berhasil di Hapus",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }

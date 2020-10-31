@@ -56,7 +56,6 @@ class RaporAdapter(private var data: List<Murid>, private val listener: (Murid) 
         return data.size
     }
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(data[position], listener, contextAdapter, position)
         holder.itemView.setOnClickListener(View.OnClickListener { v ->

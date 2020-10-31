@@ -130,7 +130,7 @@ class HasilTugasAdapter(
                             if (localFile.canRead()) {
                                 pd.dismiss()
                             }
-                            Toast.makeText(context, "Download Completed", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Unduh Selesai", Toast.LENGTH_SHORT).show()
 
                         }
 
@@ -140,14 +140,12 @@ class HasilTugasAdapter(
                                 "firebase ",
                                 ";local tem file not created  created $exception"
                             )
-                            Toast.makeText(context, "Download Incompleted", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "Unduh Gagal", Toast.LENGTH_LONG).show()
                         }
                     })
                 }
                 setNegativeButton("Tidak") { _, _ -> }
             }.show()
-         //   val intent: Intent = Intent(v.context, DetailTugasActivity::class.java).putExtra("data", data[position])
-         //   v.context.startActivity(intent)
         })
     }
 
@@ -156,6 +154,5 @@ class HasilTugasAdapter(
         listHasil.clear()
         listHasil.addAll(list)
     }
-
 
 }

@@ -191,7 +191,7 @@ class KegiatanActivity : AppCompatActivity() {
                 if (result!!.isEmpty) {
                 Toast.makeText(
                     this,
-                    "Materi Tidak Tersedia",
+                    "Materi Anak Tidak Tersedia",
                     Toast.LENGTH_SHORT
                 )
                     .show()

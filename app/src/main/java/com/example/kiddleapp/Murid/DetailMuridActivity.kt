@@ -8,13 +8,11 @@ import android.view.View
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.example.kiddleapp.MainActivity
 import com.example.kiddleapp.Murid.Model.Murid
 import com.example.kiddleapp.R
-import com.example.kiddleapp.RekapPresensi.RekapPresensiActivity
+import com.example.kiddleapp.Presensi.RekapPresensiActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -132,7 +130,7 @@ class DetailMuridActivity : AppCompatActivity() {
 
         //intent ke halaman rekap presensi
         btn_rekap_presensi.setOnClickListener {
-            val intent: Intent = Intent(this@DetailMuridActivity, RekapPresensiActivity::class.java)
+            val intent: Intent = Intent(this@DetailMuridActivity, RekapPresensiActivity::class.java).putExtra("data", data)
             startActivity(intent)
             finish()
         }
@@ -140,10 +138,7 @@ class DetailMuridActivity : AppCompatActivity() {
         //intent ke halaman rapor
         btn_lihat_rapor.setOnClickListener {
             val intent: Intent =
-                Intent(this@DetailMuridActivity, RekapRaporActivity::class.java).putExtra(
-                    "data",
-                    data
-                )
+                Intent(this@DetailMuridActivity, RekapRaporActivity::class.java).putExtra("data", data)
             startActivity(intent)
             finish()
         }

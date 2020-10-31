@@ -81,7 +81,5 @@ class KomentarAdapter(private var data: List<Komentar>, private val listener: (K
         listKomentar.addAll(list)
     }
 
-
-
 }
 

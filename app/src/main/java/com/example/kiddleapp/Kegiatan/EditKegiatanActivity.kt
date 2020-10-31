@@ -1081,10 +1081,5 @@ class EditKegiatanActivity : AppCompatActivity() {
                 }
             }
         }
-
-
-        //link
-
-
     }
 }

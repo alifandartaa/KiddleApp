@@ -11,13 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kiddleapp.MainActivity
 import com.example.kiddleapp.R
-import com.example.kiddleapp.Tugas.Adapter.HasilTugasAdapter
 import com.example.kiddleapp.Tugas.Adapter.TugasAdapter
 import com.example.kiddleapp.Tugas.Model.Tugas
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_jurnal.*
 import kotlinx.android.synthetic.main.activity_tugas.*
-import java.security.AccessController.getContext
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -67,13 +64,10 @@ class TugasActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
     }
 
     private fun showRecyclerList(list: ArrayList<Tugas>): TugasAdapter {
         val adapter = TugasAdapter(list) {
-            //Log.d("Tugas Activity", "Result: $it")
-
         }
 
         getPageTugasList { item: ArrayList<Tugas> ->
@@ -118,13 +112,9 @@ class TugasActivity : AppCompatActivity() {
                                 document.getString("jam"),
                                 document.getString("gambar"),
                                 document.getString("video"),
-                                document.getString("link")
-                            )
-                        )
-
+                                document.getString("link")))
                     }
                 }
-
                 callback.invoke(listTugas)
             }
 

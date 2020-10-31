@@ -84,8 +84,8 @@ class EditProfilActivity : AppCompatActivity() {
                 btn_simpan_profil.isEnabled = false
                 btn_simpan_profil.text = "Loading"
 
-                if(edit_nama_edit_profil.text.toString().isNullOrBlank()|| edit_password_profil.text.toString().isNullOrEmpty()) {
-                    Toast.makeText(this, "Pastikan Nama dan Kata Sandi terisi!", Toast.LENGTH_SHORT).show()
+                if(edit_nama_edit_profil.text.toString().isNullOrBlank()|| edit_password_profil.text.toString().isNullOrEmpty() || edit_password_profil.text.toString().isNullOrEmpty()) {
+                    Toast.makeText(this, "Semua Kolom Harus Diisi!", Toast.LENGTH_SHORT).show()
                     btn_simpan_profil.isEnabled = true
                     btn_simpan_profil.text = "Simpan"
 
