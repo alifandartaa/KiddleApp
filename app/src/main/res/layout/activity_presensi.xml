@@ -78,6 +78,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_kelas_presensi">
 
             <AutoCompleteTextView
+                android:id="@+id/auto_dropdown_kelas_presensi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
@@ -112,6 +113,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_tanggal_presensi" />
 
         <LinearLayout
+            android:id="@+id/p"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
@@ -124,17 +126,18 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_libur_presensi"
-                android:backgroundTint="@color/colorAccent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/libur" />
+                android:backgroundTint="@color/colorAccent"
+                android:text="@string/libur"
+                android:visibility="visible" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_selanjutnya_presensi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:text="@string/selanjutnya" />
 

@@ -41,6 +41,7 @@
             android:src="@drawable/ic_back_white" />
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_judul_presensi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
@@ -63,14 +64,15 @@
 
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_simpan_presensi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="16dp"
+        android:text="@string/simpan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/simpan" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

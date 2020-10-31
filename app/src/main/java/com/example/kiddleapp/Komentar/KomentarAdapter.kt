@@ -71,5 +71,6 @@ class KomentarAdapter(private var data: List<Komentar>, private val listener: (K
         listKomentar.clear()
         listKomentar.addAll(list)
     }
+
 }
 

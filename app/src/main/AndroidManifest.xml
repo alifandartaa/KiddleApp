@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Presensi.RekapPresensiActivity"></activity>
         <activity android:name=".Spp.BuktiPembayaranActivity"></activity>
         <activity android:name=".Spp.EditPembayaranActivity" />
         <activity android:name=".Spp.DetailPembayaranActivity" />

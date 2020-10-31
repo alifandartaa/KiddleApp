@@ -41,8 +41,7 @@ class ProfilSekolahActivity : AppCompatActivity() {
 
 
         val sekolah = db.collection("Profil Sekolah").document("LBbnMxieBzdWuxvOMGbw")
-        sekolah.get()
-            .addOnSuccessListener { document ->
+        sekolah.get().addOnSuccessListener { document ->
                 if (document != null) {
                     data = Sekolah(
                         document.id,

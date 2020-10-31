@@ -40,6 +40,7 @@
         app:el_parallax="0.5">
 
         <RadioGroup
+            android:id="@+id/Rb_presensi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
