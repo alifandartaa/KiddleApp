@@ -7,7 +7,7 @@ import com.example.kiddleapp.Beranda.BerandaFragment
 import com.example.kiddleapp.Murid.MuridFragment
 import com.example.kiddleapp.Pengaturan.PengaturanFragment
 import com.example.kiddleapp.Sekolah.SekolahFragment
-import com.example.kiddleapp.Spp.SppFragment
+import com.example.kiddleapp.Spp.PembayaranFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.menu_pembayaran -> {
-                val fragment = SppFragment()
+                val fragment = PembayaranFragment()
                 addFragment(fragment)
                 return@OnNavigationItemSelectedListener true
             }
@@ -61,7 +61,12 @@ class MainActivity : AppCompatActivity() {
             addFragment(fragment)
             bottom_navigation.selectedItemId =R.id.menu_murid
 
-        }else{
+        } else if(intent.getStringExtra("jenis") == "pembayaran"){
+            val fragment = PembayaranFragment()
+            addFragment(fragment)
+            bottom_navigation.selectedItemId =R.id.menu_pembayaran
+
+        } else{
             //fragment home otomatis terbuka pertama kali
             val fragment = BerandaFragment()
             addFragment(fragment)
