@@ -2,7 +2,6 @@ package com.example.kiddleapp.Presensi
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -12,8 +11,6 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import com.example.kiddleapp.Jurnal.JurnalActivity
 import com.example.kiddleapp.MainActivity
 import com.example.kiddleapp.Presensi.Model.PresensiMurid
 import com.example.kiddleapp.R
@@ -38,9 +35,6 @@ class PresensiActivity : AppCompatActivity() {
         val cal = Calendar.getInstance()
 
 
-
-
-
         btn_selanjutnya_presensi.setOnClickListener {
             btn_selanjutnya_presensi.isEnabled = false
             if(sdf==null ||  auto_dropdown_kelas_presensi.text.toString().isNullOrEmpty() ){
@@ -61,6 +55,8 @@ class PresensiActivity : AppCompatActivity() {
 
         }
 
+
+
         btn_libur_presensi.setOnClickListener {
             if (sdf == null || auto_dropdown_kelas_presensi.text.toString().isNullOrEmpty()) {
                 Toast.makeText(
@@ -75,7 +71,10 @@ class PresensiActivity : AppCompatActivity() {
                             return@addSnapshotListener
                         }
                         if (result!!.isEmpty) {
-                            db.collection("Murid").whereEqualTo("kelas",auto_dropdown_kelas_presensi.text.toString())
+                            db.collection("Murid").whereEqualTo(
+                                "kelas",
+                                auto_dropdown_kelas_presensi.text.toString()
+                            )
                                 .addSnapshotListener { result, e ->
                                     if (e != null) {
                                         return@addSnapshotListener
@@ -153,17 +152,26 @@ class PresensiActivity : AppCompatActivity() {
                                             "id_murid" to murid[i].id_murid,
                                             "kehadiran" to murid[i].kehadiran
                                         )
-                                        db.collection("Presensi").document(auto_dropdown_kelas_presensi.text.toString())
+                                        db.collection("Presensi").document(
+                                            auto_dropdown_kelas_presensi.text.toString()
+                                        )
                                             .collection(sdf!!)
                                             .document(murid[i].id_murid!!).set(presensi)
 
                                     } else {
-                                        db.collection("Presensi").document(auto_dropdown_kelas_presensi.text.toString())
+                                        db.collection("Presensi").document(
+                                            auto_dropdown_kelas_presensi.text.toString()
+                                        )
                                             .collection(sdf!!)
                                             .document(murid[i].id_murid!!)
                                             .update("kehadiran", murid[i].kehadiran)
                                     }
-                                    startActivity(Intent(this@PresensiActivity, MainActivity::class.java))
+                                    startActivity(
+                                        Intent(
+                                            this@PresensiActivity,
+                                            MainActivity::class.java
+                                        )
+                                    )
                                     finish()
 
                                 }
@@ -182,11 +190,14 @@ class PresensiActivity : AppCompatActivity() {
         }
 
         //Tanggal
-
         dp_tanggal_presensi.init(
             cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
             cal.get(Calendar.DAY_OF_MONTH)
         ) { view, year, monthOfYear, dayOfMonth ->
+            cal.set(Calendar.YEAR, year);
+            cal.set(Calendar.MONTH, monthOfYear);
+            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
             val month = monthOfYear + 1
             sdf = "$dayOfMonth-$month-$year"
             tanggal = "$dayOfMonth"
@@ -214,10 +225,9 @@ class PresensiActivity : AppCompatActivity() {
                 bulan = "November " + "$year"
             }else if("$month" == "112") {
                 bulan = "Desember " + "$year"
-
             }
-
         }
+        dp_tanggal_presensi.setMaxDate(System.currentTimeMillis());
 
         val sharedPreferences = getSharedPreferences("KIDDLE", Context.MODE_PRIVATE)
         if(sharedPreferences.getString("kelas", "") == "admin") {

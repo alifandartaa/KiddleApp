@@ -14,6 +14,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.webkit.MimeTypeMap
@@ -80,10 +81,6 @@ class EditTugasActivity : AppCompatActivity() {
             dropdown_kelas_edit_tugas.isEnabled=true
             tv_kelas_edit_tugas.setText(sharedPreferences.getString("kelas",""))
         }
-
-
-
-
         if (intent.getStringExtra("jenis") == "EDIT_TUGAS") {
             //kembali
             img_back_edit_tugas.setOnClickListener {
@@ -104,6 +101,7 @@ class EditTugasActivity : AppCompatActivity() {
             }
 
             if (data.gambar != "") {
+                Log.d("masuk gambar", data.gambar)
                 image_uri = Uri.parse(data.gambar)
                 frame_edit_tugas.visibility = View.VISIBLE
                 img_edit_tugas.visibility = View.VISIBLE
@@ -149,18 +147,18 @@ class EditTugasActivity : AppCompatActivity() {
                                 //storage = FirebaseStorage.getInstance().reference.child("Tugas").child(sharedPreferences.getString("id_tugas", "").toString()).child(builder.toString())
                                 storage.child("Tugas").child(data.id_tugas!!).child(builder.toString()).putFile(image_uri!!).addOnSuccessListener {
                                     storage.child("Tugas").child(data.id_tugas!!).child(builder.toString()).downloadUrl.addOnSuccessListener {
-                                            db.collection("Tugas").document(data.id_tugas!!)
-                                                .update(mapOf(
-                                                    "isi" to tv_deskripsi_edit_tugas.text.toString() ,
-                                                    "judul" to tv_aspek_edit_tugas.text.toString(),
-                                                    "jam" to tv_jam_edit_tugas.text.toString() ,
-                                                    "tanggal" to tv_tanggal_edit_tugas.text.toString(),
-                                                    "link" to tv_link_edit_tugas.text.toString(),
-                                                    "kelas" to tv_kelas_edit_tugas.text.toString(),
-                                                    "gambar" to  it.toString() ,
-                                                    "video" to ""
-                                                )
-                                               )
+                                        db.collection("Tugas").document(data.id_tugas!!)
+                                            .update(mapOf(
+                                                "isi" to tv_deskripsi_edit_tugas.text.toString() ,
+                                                "judul" to tv_aspek_edit_tugas.text.toString(),
+                                                "jam" to tv_jam_edit_tugas.text.toString() ,
+                                                "tanggal" to tv_tanggal_edit_tugas.text.toString(),
+                                                "link" to tv_link_edit_tugas.text.toString(),
+                                                "kelas" to tv_kelas_edit_tugas.text.toString(),
+                                                "gambar" to  it.toString() ,
+                                                "video" to ""
+                                            )
+                                            )
                                         listTugas = Tugas(data.id_tugas,  tv_kelas_edit_tugas.text.toString(),tv_aspek_edit_tugas.text.toString(),   tv_deskripsi_edit_tugas.text.toString() ,
                                             tv_tanggal_edit_tugas.text.toString(),tv_jam_edit_tugas.text.toString() ,it.toString() ,"",tv_link_edit_tugas.text.toString())
 
@@ -168,15 +166,15 @@ class EditTugasActivity : AppCompatActivity() {
                                         val intent: Intent =  Intent(this@EditTugasActivity, DetailTugasActivity::class.java).putExtra("data",listTugas)
                                         startActivity(intent)
                                         finish()
-                                            Toast.makeText(
-                                                this,
-                                                "Simpan Berhasil",
-                                                Toast.LENGTH_SHORT
-                                            )
-                                                .show()
-                                        }
+                                        Toast.makeText(
+                                            this,
+                                            "Simpan Berhasil",
+                                            Toast.LENGTH_SHORT
+                                        )
+                                            .show()
+                                    }
                                 }
-                                    } else if (getFileExtension(image_uri!!) == "mp4" ) {
+                            } else if (getFileExtension(image_uri!!) == "mp4" ) {
                                 //storage = FirebaseStorage.getInstance().reference.child("Tugas").child(sharedPreferences.getString("id_tugas", "").toString()).child(builder.toString())
 
                                 storage.child("Tugas").child(data.id_tugas!!).child(builder.toString()).putFile(image_uri!!) .addOnSuccessListener {
@@ -250,15 +248,15 @@ class EditTugasActivity : AppCompatActivity() {
                                     startActivity(intent)
                                     finish()
                                     Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT).show()
-                        }
+                                }
                         }
 
-                            }else {
+                    }else {
                         tv_link_edit_tugas.error = "Pastikan tautan sudah benar"
                         btn_simpan_edit_tugas.isEnabled = true
                         btn_simpan_edit_tugas.text = "Simpan"
                     }
-                            }
+                }
             }
 
 
@@ -295,17 +293,17 @@ class EditTugasActivity : AppCompatActivity() {
                                     .putFile(image_uri!!)
                                     .addOnSuccessListener {
                                         storage.child("Tugas").child(currentDateAndTime).child(builder.toString()).downloadUrl.addOnSuccessListener {
-                                                val tugas = hashMapOf(
-                                                    "id_tugas" to  currentDateAndTime,
-                                                    "kelas" to tv_kelas_edit_tugas.text.toString(),
-                                                    "judul" to tv_aspek_edit_tugas.text.toString(),
-                                                    "isi" to  tv_deskripsi_edit_tugas.text.toString(),
-                                                    "tanggal" to  tv_tanggal_edit_tugas.text.toString(),
-                                                    "jam" to  tv_jam_edit_tugas.text.toString(),
-                                                    "gambar" to   it.toString(),
-                                                    "video" to  "",
-                                                    "link" to  tv_link_edit_tugas.text.toString()
-                                                )
+                                            val tugas = hashMapOf(
+                                                "id_tugas" to  currentDateAndTime,
+                                                "kelas" to tv_kelas_edit_tugas.text.toString(),
+                                                "judul" to tv_aspek_edit_tugas.text.toString(),
+                                                "isi" to  tv_deskripsi_edit_tugas.text.toString(),
+                                                "tanggal" to  tv_tanggal_edit_tugas.text.toString(),
+                                                "jam" to  tv_jam_edit_tugas.text.toString(),
+                                                "gambar" to   it.toString(),
+                                                "video" to  "",
+                                                "link" to  tv_link_edit_tugas.text.toString()
+                                            )
                                             listTugas = Tugas(currentDateAndTime,  tv_kelas_edit_tugas.text.toString(),tv_aspek_edit_tugas.text.toString(),   tv_deskripsi_edit_tugas.text.toString() ,
                                                 tv_tanggal_edit_tugas.text.toString(),tv_jam_edit_tugas.text.toString() ,it.toString() ,"",tv_link_edit_tugas.text.toString())
 
@@ -314,7 +312,7 @@ class EditTugasActivity : AppCompatActivity() {
                                             startActivity(intent)
                                             finish()
                                             Toast.makeText(this, "Simpan Berhasil", Toast.LENGTH_SHORT).show()
-                                            }
+                                        }
 
                                     }
                             } else if (getFileExtension(image_uri!!) == "mp4") {
@@ -383,13 +381,14 @@ class EditTugasActivity : AppCompatActivity() {
         //tutup gambar
         // hapus video belum bisa
         btn_tutup_edit_tugas.setOnClickListener {
+            image_uri=null
             frame_edit_tugas.visibility = View.GONE
             img_edit_tugas.setImageResource(0)
             img_edit_tugas.visibility = View.GONE
             vv_edit_tugas.setVideoURI(Uri.parse(""))
             vv_edit_tugas.visibility = View.GONE
             btn_tutup_edit_tugas.visibility = View.GONE
-            image_uri=null
+
         }
 
         //tanggal
@@ -408,12 +407,14 @@ class EditTugasActivity : AppCompatActivity() {
             }
 
         btn_tanggal_edit_tugas.setOnClickListener {
-            DatePickerDialog(
+            val datePickerDialog = DatePickerDialog(
                 this@EditTugasActivity, dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)
-            ).show()
+            )
+            datePickerDialog.getDatePicker().setMinDate(cal.getTimeInMillis())
+            datePickerDialog.show()
         }
 
         //jam
@@ -502,7 +503,8 @@ class EditTugasActivity : AppCompatActivity() {
                 frame_edit_tugas.visibility = View.VISIBLE
                 img_edit_tugas.visibility = View.VISIBLE
                 vv_edit_tugas.visibility = View.GONE
-                img_edit_tugas.setImageURI(image_uri)
+               // img_edit_tugas.setImageURI(image_uri)
+                Glide.with(this).load(image_uri).centerCrop().into(img_edit_tugas)
 
             } else if (data?.data.toString().contains("video")) {
                 frame_edit_tugas.visibility = View.VISIBLE
